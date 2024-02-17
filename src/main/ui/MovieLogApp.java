@@ -73,8 +73,7 @@ public class MovieLogApp {
         if (command.equals("a")) {
             checkIfInMyMoviesForAdd(movieInitializer());
         } else if (command.equals("s")) {
-//            searchMovies();
-            System.out.println("searching movies");
+            checkIfInMyMoviesForSearch(movieInitializer());
         } else if (command.equals("v")) {
             viewMyMovies();
         } else {
@@ -132,7 +131,7 @@ public class MovieLogApp {
     // gives option to add to database
     private void tryAddMovie(Movie m) {
         if (database.isMovieInAllList(m)) {
-            database.provideDetailsUnwatched(m);
+            System.out.println(database.provideDetailsUnwatched(database.isMovieInAllListReturnMovie(m)));
             System.out.println("\t");
             askAddFromDatabase(m);
         } else {
@@ -200,6 +199,14 @@ public class MovieLogApp {
         askAddFromDatabase(movie);
     }
 
+    //EFFECTS: searches for movie in myMovies
+    private void checkIfInMyMoviesForSearch(Movie movie) {
+        if (myMovies.isMovieInMyMovieList(movie)) {
+            System.out.println(myMovies.provideDetailsWatched(myMovies.isMovieInMyListReturnMovie(movie)));
+        } else {
+            tryAddMovie(movie);
+        }
+    }
 
 }
 

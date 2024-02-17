@@ -11,7 +11,7 @@ public class MyMovieList extends AllMoviesList {
 
     //EFFECTS: creates a movie list that is empty
     public MyMovieList(String username) {
-        myMovieList = new ArrayList<Movie>();
+        myMovieList = new ArrayList<>();
         this.username = username;
     }
 
@@ -41,12 +41,12 @@ public class MyMovieList extends AllMoviesList {
 
     //EFFECTS: prints the list of movies in My Movie List
     public String viewMoviesNotEmpty() {
-        String printedList = "";
+        StringBuilder printedList = new StringBuilder();
         for (Movie m : myMovieList) {
-            printedList += "\n" + m.getMovieName()
-                        + "  (" + m.getMovieYear() + ")  " + m.getUserRating() + "/100";
+            printedList.append("\n").append(m.getMovieName()).append(
+                    "  (").append(m.getMovieYear()).append(")  ").append(m.getUserRating()).append("/100");
         }
-        return printedList;
+        return printedList.toString();
     }
 
     //REQUIRES: the movie name and year be different
@@ -54,6 +54,21 @@ public class MyMovieList extends AllMoviesList {
     //EFFECTS: adds a movie on the personal movie list
     public void addMovie(Movie movie) {
         myMovieList.add(movie);
+    }
+
+    //EFFECTS: prints out details of unrated movie
+    public String provideDetailsWatched(Movie watchedMovie) {
+        return watchedMovie.movieDetailsWatched();
+        //TODO:tests
+    }
+
+    public Movie isMovieInMyListReturnMovie(Movie movie) {
+        for (Movie m : myMovieList) {
+            if ((movie.getMovieName().equals(m.getMovieName())) && (movie.getMovieYear() == m.getMovieYear())) {
+                return m;
+            }
+        }
+        return null;
     }
 
 }

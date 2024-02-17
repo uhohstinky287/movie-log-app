@@ -28,9 +28,18 @@ public class AllMoviesList {
         return false;
     }
 
+    public Movie isMovieInAllListReturnMovie(Movie movie) {
+        for (Movie m : allMovies) {
+            if ((movie.getMovieName().equals(m.getMovieName())) && (movie.getMovieYear() == m.getMovieYear())) {
+                return m;
+            }
+        }
+        return null;
+    }
+
     //EFFECTS: prints out details of unrated movie
-    public void provideDetailsUnwatched(Movie unwatchedMovie) {
-        unwatchedMovie.movieDetailsUnWatched();
+    public String provideDetailsUnwatched(Movie unwatchedMovie) {
+        return unwatchedMovie.movieDetailsUnWatched();
     }
 
     //REQUIRES:

@@ -9,14 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MyMovieListTest {
     private MyMovieList myMovies;
-    private AllMoviesList allMovies;
     private Movie batman;
     private Movie barbie;
 
     @BeforeEach
     public void setUp() {
         myMovies = new MyMovieList("jugs");
-        allMovies = new AllMoviesList();
         batman = new Movie("The Batman", 2022);
         barbie = new Movie("Barbie", 2023);
     }
