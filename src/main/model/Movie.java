@@ -11,7 +11,6 @@ public class Movie {
 
     //EFFECTS: creates a movie with a name, year of release, not watched, 0 rating and
     // no description and undetermined director
-
     public Movie(String movieName, int movieYear) {
         this.movieName = movieName;
         this.movieYear = movieYear;

@@ -11,12 +11,17 @@ public class MyMovieListTest {
     private MyMovieList myMovies;
     private Movie batman;
     private Movie barbie;
+    private Movie batmanRated;
 
     @BeforeEach
     public void setUp() {
         myMovies = new MyMovieList("jugs");
         batman = new Movie("The Batman", 2022);
         barbie = new Movie("Barbie", 2023);
+        batmanRated = new Movie("The Batman", 2022);
+        batmanRated.setUserRating(97);
+        batmanRated.setMovieDescription("Emo Batman");
+        batmanRated.setDirector("Matt Reeves");
     }
 
     @Test
@@ -26,8 +31,9 @@ public class MyMovieListTest {
 
     @Test
     public void testGetTotalMoviesSeen() {
-        assertEquals(0, myMovies.getTotalMovies());
+        assertEquals(0, myMovies.getTotalMoviesSeen());
         myMovies.addMovie(batman);
+        assertEquals(1, myMovies.getTotalMoviesSeen());
     }
 
     @Test
@@ -66,6 +72,23 @@ public class MyMovieListTest {
         assertEquals(1, myMovies.getTotalMoviesSeen());
         myMovies.addMovie(batman);
         assertEquals(2, myMovies.getTotalMoviesSeen());
+    }
+
+    @Test
+    public void testProvideDetailsWatched() {
+        myMovies.addMovie(batmanRated);
+        assertEquals("The Batman   (2022)" + System.lineSeparator()
+                + "Directed by: Matt Reeves" + System.lineSeparator()
+                + "Your Rating: 97/100" + System.lineSeparator()
+                + "Movie Description: " + System.lineSeparator()
+                + "Emo Batman", myMovies.provideDetailsWatched(batmanRated));
+    }
+
+    @Test
+    public void testIsMovieInMyListReturnMovie() {
+        assertNull(myMovies.isMovieInMyListReturnMovie(batmanRated));
+        myMovies.addMovie(batmanRated);
+        assertEquals(batmanRated, myMovies.isMovieInMyListReturnMovie(batman));
     }
 
 

@@ -61,6 +61,7 @@ public class MovieLogApp {
 
     // EFFECTS: displays the dashboard of options to the user
     private void displayDashBoard() {
+        System.out.println("\n" + username + "'s Movie Log");
         System.out.println("\nWould you like to do?");
         System.out.println("\ta -> Add a movie");
         System.out.println("\ts -> Search for a movie");
@@ -88,7 +89,7 @@ public class MovieLogApp {
         System.out.println("\nWhat is your username?");
         input = new Scanner(System.in);
         this.username = input.nextLine();
-        System.out.println("\nWelcome " + username);
+        System.out.println("\nWelcome " + username + " to:");
         runApp();
     }
 
@@ -96,10 +97,12 @@ public class MovieLogApp {
     private void viewMyMovies() {
         if (myMovies.getTotalMoviesSeen() == 0) {
             System.out.println("You have not rated any movies yet");
+            returnToMenuOption();
         } else {
             System.out.println(username + "'s Movies:");
             System.out.println("\t");
             System.out.println(myMovies.viewMoviesNotEmpty());
+            returnToMenuOption();
         }
     }
 
@@ -130,8 +133,9 @@ public class MovieLogApp {
     // provides details and the options to add to myMovies. If allMovies doesn't contain the movie,
     // gives option to add to database
     private void tryAddMovie(Movie m) {
-        if (database.isMovieInAllList(m)) {
-            System.out.println(database.provideDetailsUnwatched(database.isMovieInAllListReturnMovie(m)));
+        if (database.isMovieInDatabase(m)) {
+            System.out.println("\n");
+            System.out.println(database.provideDetailsUnwatched(database.isMovieInDatabaseReturnMovie(m)));
             System.out.println("\t");
             askAddFromDatabase(m);
         } else {
@@ -146,13 +150,17 @@ public class MovieLogApp {
         String selection = "";
         while (!(selection.equals("y") || selection.equals("n"))) {
             System.out.println("Have you seen this movie?");
-            System.out.println("\ty -> Yes");
-            System.out.println("\tn -> No");
+            System.out.println("\ty -> Yes and rate");
+            System.out.println("\tn -> No and return to menu");
             selection = input.next();
             selection = selection.toLowerCase();
         }
         if (selection.equals("y")) {
             addFromDataBase(movie);
+        } else {
+            System.out.println("Returning to menu");
+            System.out.println("\n");
+            System.out.println("\n");
         }
     }
 
@@ -167,6 +175,8 @@ public class MovieLogApp {
         movieRatingInput = new Scanner(System.in);
         myMovie.setUserRating(movieRatingInput.nextInt());
         myMovies.addMovie(myMovie);
+        System.out.println("\n" + movieTitle + " has been added to your list");
+        returnToMenuOption();
     }
 
 
@@ -174,22 +184,28 @@ public class MovieLogApp {
     //EFFECTS: if the user types "y" it adds the movie to the database else it returns to DashBoard
     private void askAddToDataBase(Movie movie) {
         String selection = "";
-        while (!(selection.equals("y") || selection.equals("n"))) {
+        while (!(selection.equals("y") || selection.equals("r"))) {
+            System.out.println("\nThis movie is not in our database");
+            System.out.println("");
             System.out.println("Would you like to add this movie to the movie database?");
             System.out.println("\ty -> Yes");
-            System.out.println("\tn -> No");
+            System.out.println("\tr -> Return to menu");
             selection = input.next();
             selection = selection.toLowerCase();
         }
         if (selection.equals("y")) {
             addToDataBase(movie);
+        } else {
+            System.out.println("Returning to menu");
+            System.out.println("\n");
+            System.out.println("\n");
         }
     }
 
     //MODIFIES: allMovies, movie's director, movies description
     //EFFECTS: asks user for movie's director, description, then adds to all movies. Then goes to askAddFromDatabase
     private void addToDataBase(Movie movie) {
-        System.out.println("Who directed this movie?");
+        System.out.println("\nWho directed this movie?");
         movieDirectorInput = new Scanner(System.in);
         movie.setDirector(movieDirectorInput.nextLine());
         System.out.println("Write a one sentence objective description of this movie.");
@@ -202,11 +218,31 @@ public class MovieLogApp {
     //EFFECTS: searches for movie in myMovies
     private void checkIfInMyMoviesForSearch(Movie movie) {
         if (myMovies.isMovieInMyMovieList(movie)) {
+            System.out.println("\n");
             System.out.println(myMovies.provideDetailsWatched(myMovies.isMovieInMyListReturnMovie(movie)));
+            returnToMenuOption();
         } else {
             tryAddMovie(movie);
         }
     }
+
+    private void returnToMenuOption() {
+        String selection = "";
+        while (!(selection.equals("r"))) {
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Press r to return to menu");
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
+        if (selection.equals("r")) {
+            System.out.println("Returning to menu");
+            System.out.println("\n");
+            System.out.println("\n");
+            System.out.println("\n");
+        }
+    }
+
 
 }
 

@@ -4,7 +4,7 @@ package model;
 import java.util.ArrayList;
 
 // Represents a list of movies watched by a user
-public class MyMovieList extends AllMoviesList {
+public class MyMovieList {
 
     private ArrayList<Movie> myMovieList;
     private String username;
@@ -29,6 +29,7 @@ public class MyMovieList extends AllMoviesList {
     }
 
 
+
     //EFFECTS: return true if the movie in myMovieList
     public boolean isMovieInMyMovieList(Movie movie) {
         for (Movie m : myMovieList) {
@@ -39,6 +40,8 @@ public class MyMovieList extends AllMoviesList {
         return false;
     }
 
+
+    //REQUIRES: the list is not empty
     //EFFECTS: prints the list of movies in My Movie List
     public String viewMoviesNotEmpty() {
         StringBuilder printedList = new StringBuilder();
@@ -56,12 +59,14 @@ public class MyMovieList extends AllMoviesList {
         myMovieList.add(movie);
     }
 
-    //EFFECTS: prints out details of unrated movie
+
+    //REQUIRES: the movie be on my list
+    //EFFECTS: prints out details of rated movie
     public String provideDetailsWatched(Movie watchedMovie) {
         return watchedMovie.movieDetailsWatched();
-        //TODO:tests
     }
 
+    //EFFECTS: checks if the movie is in my Movies, then returns the movie from my list
     public Movie isMovieInMyListReturnMovie(Movie movie) {
         for (Movie m : myMovieList) {
             if ((movie.getMovieName().equals(m.getMovieName())) && (movie.getMovieYear() == m.getMovieYear())) {

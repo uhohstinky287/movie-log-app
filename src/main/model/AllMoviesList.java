@@ -13,13 +13,8 @@ public class AllMoviesList {
     }
 
 
-    public int getTotalMovies() {
-        return allMovies.size();
-    }
-
-
-    //EFFECTS: checks if movie is in a list
-    public boolean isMovieInAllList(Movie movie) {
+    //EFFECTS: checks if movie is in a list and returns true if it is, if not the false
+    public boolean isMovieInDatabase(Movie movie) {
         for (Movie m : allMovies) {
             if ((movie.getMovieName().equals(m.getMovieName())) && (movie.getMovieYear() == m.getMovieYear())) {
                 return true;
@@ -28,7 +23,9 @@ public class AllMoviesList {
         return false;
     }
 
-    public Movie isMovieInAllListReturnMovie(Movie movie) {
+
+    //EFFECTS: checks if the movie is in database, then returns the database movie
+    public Movie isMovieInDatabaseReturnMovie(Movie movie) {
         for (Movie m : allMovies) {
             if ((movie.getMovieName().equals(m.getMovieName())) && (movie.getMovieYear() == m.getMovieYear())) {
                 return m;
@@ -37,12 +34,13 @@ public class AllMoviesList {
         return null;
     }
 
+    //REQUIRES: movie is in database
     //EFFECTS: prints out details of unrated movie
     public String provideDetailsUnwatched(Movie unwatchedMovie) {
         return unwatchedMovie.movieDetailsUnWatched();
     }
 
-    //REQUIRES:
+    //REQUIRES: movie not already in database
     //MODIFIES: allMovies
     //EFFECTS: if the movie hasn't already been added, add to allMovies
     public void addMovieToDatabase(Movie m) {
@@ -53,5 +51,9 @@ public class AllMoviesList {
     //Just for testing
     public Movie getMovieFromOrderAll(int i) {
         return allMovies.get(i - 1);
+    }
+
+    public int getTotalMovies() {
+        return allMovies.size();
     }
 }
