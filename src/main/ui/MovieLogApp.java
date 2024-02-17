@@ -112,10 +112,11 @@ public class MovieLogApp {
         System.out.println("What is the title of the movie?");
         movieNameInput = new Scanner(System.in);
         this.movieTitle = movieNameInput.nextLine();
+        movieTitle = movieTitle.toUpperCase();
         System.out.println("What year was it released?");
         movieYearInput = new Scanner(System.in);
         this.movieYear = movieYearInput.nextInt();
-        Movie movie = new Movie(movieNameInput.nextLine(), movieYearInput.nextInt());
+        Movie movie = new Movie(movieTitle, movieYear);
         return movie;
     }
 
@@ -124,6 +125,17 @@ public class MovieLogApp {
     private void checkIfInMyMoviesForAdd(Movie movie) {
         if (myMovies.isMovieInMyMovieList(movie)) {
             System.out.println("You have already added this movie to your list");
+        } else {
+            tryAddMovie(movie);
+        }
+    }
+
+    //EFFECTS: searches for movie in myMovies
+    private void checkIfInMyMoviesForSearch(Movie movie) {
+        if (myMovies.isMovieInMyMovieList(movie)) {
+            System.out.println("\n");
+            System.out.println(myMovies.provideDetailsWatched(myMovies.isMovieInMyListReturnMovie(movie)));
+            returnToMenuOption();
         } else {
             tryAddMovie(movie);
         }
@@ -215,16 +227,6 @@ public class MovieLogApp {
         askAddFromDatabase(movie);
     }
 
-    //EFFECTS: searches for movie in myMovies
-    private void checkIfInMyMoviesForSearch(Movie movie) {
-        if (myMovies.isMovieInMyMovieList(movie)) {
-            System.out.println("\n");
-            System.out.println(myMovies.provideDetailsWatched(myMovies.isMovieInMyListReturnMovie(movie)));
-            returnToMenuOption();
-        } else {
-            tryAddMovie(movie);
-        }
-    }
 
     //EFFECTS: gives a screen to return user to the dashboard
     private void returnToMenuOption() {
