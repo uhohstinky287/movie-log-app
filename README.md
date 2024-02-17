@@ -11,4 +11,7 @@ a user searched up types a movie into the search bar and when it pops up, it sho
 its description and average rating. The user can also choose to see its written reviews. He can
 then rate that movie and write a review where that movie then gets added to his own list of movies he's seen.
 
-
+- A user can read the description of a movie that he types in
+- A user can add a movie to the database if it wasn't already there
+- A user can rate the movie
+- A user can see the movies that he has rated so far
