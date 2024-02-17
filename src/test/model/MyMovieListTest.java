@@ -12,12 +12,16 @@ public class MyMovieListTest {
     private Movie batman;
     private Movie barbie;
     private Movie batmanRated;
+    private Movie oppenheimer;
+    private Movie barbieOld;
 
     @BeforeEach
     public void setUp() {
         myMovies = new MyMovieList("jugs");
         batman = new Movie("The Batman", 2022);
         barbie = new Movie("Barbie", 2023);
+        oppenheimer = new Movie("Oppenheimer", 2023);
+        barbieOld = new Movie("Barbie", 2001);
         batmanRated = new Movie("The Batman", 2022);
         batmanRated.setUserRating(97);
         batmanRated.setMovieDescription("Emo Batman");
@@ -57,6 +61,8 @@ public class MyMovieListTest {
         myMovies.addMovie(barbie);
         assertTrue(myMovies.isMovieInMyMovieList(batman));
         assertTrue(myMovies.isMovieInMyMovieList(barbie));
+        assertFalse(myMovies.isMovieInMyMovieList(barbieOld));
+        assertFalse(myMovies.isMovieInMyMovieList(oppenheimer));
     }
 
     @Test
@@ -90,6 +96,11 @@ public class MyMovieListTest {
         assertNull(myMovies.isMovieInMyListReturnMovie(batmanRated));
         myMovies.addMovie(batmanRated);
         assertEquals(batmanRated, myMovies.isMovieInMyListReturnMovie(batman));
+        assertNull(myMovies.isMovieInMyListReturnMovie(barbie));
+        myMovies.addMovie(barbie);
+        assertEquals(barbie, myMovies.isMovieInMyListReturnMovie(barbie));
+        assertNull(myMovies.isMovieInMyListReturnMovie(barbieOld));
+        assertNull(myMovies.isMovieInMyListReturnMovie(oppenheimer));
     }
 
 

@@ -13,6 +13,8 @@ public class AllMoviesListTest {
     private Movie batman;
     private Movie barbie;
     private Movie theBatmanFromDatabase;
+    private Movie oppenheimer;
+    private Movie barbieOld;
 
 
     @BeforeEach
@@ -20,6 +22,8 @@ public class AllMoviesListTest {
         allMovies = new AllMoviesList();
         batman = new Movie("The Batman", 2022);
         barbie = new Movie("Barbie", 2023);
+        oppenheimer = new Movie("Oppenheimer", 2023);
+        barbieOld = new Movie("Barbie", 2001);
         theBatmanFromDatabase = new Movie("The Batman", 2022);
         theBatmanFromDatabase.setDirector("Matt Reeves");
         theBatmanFromDatabase.setMovieDescription("Emo Batman");
@@ -37,6 +41,8 @@ public class AllMoviesListTest {
         allMovies.addMovieToDatabase(barbie);
         assertTrue(allMovies.isMovieInDatabase(batman));
         assertTrue(allMovies.isMovieInDatabase(barbie));
+        assertFalse(allMovies.isMovieInDatabase(barbieOld));
+        assertFalse(allMovies.isMovieInDatabase(oppenheimer));
     }
 
     @Test
@@ -46,7 +52,8 @@ public class AllMoviesListTest {
         assertEquals(theBatmanFromDatabase, allMovies.isMovieInDatabaseReturnMovie(batman));
         allMovies.addMovieToDatabase(barbie);
         assertEquals(barbie, allMovies.isMovieInDatabaseReturnMovie(barbie));
-
+        assertNull(allMovies.isMovieInDatabaseReturnMovie(oppenheimer));
+        assertNull(allMovies.isMovieInDatabaseReturnMovie(barbieOld));
     }
 
     @Test
