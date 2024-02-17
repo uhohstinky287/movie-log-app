@@ -44,6 +44,9 @@ public class AllMoviesListTest {
         assertNull(allMovies.isMovieInDatabaseReturnMovie(batman));
         allMovies.addMovieToDatabase(theBatmanFromDatabase);
         assertEquals(theBatmanFromDatabase, allMovies.isMovieInDatabaseReturnMovie(batman));
+        allMovies.addMovieToDatabase(barbie);
+        assertEquals(barbie, allMovies.isMovieInDatabaseReturnMovie(barbie));
+
     }
 
     @Test
