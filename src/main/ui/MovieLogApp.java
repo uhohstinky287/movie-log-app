@@ -69,7 +69,7 @@ public class MovieLogApp {
         System.out.println("\te -> Exit");
     }
 
-
+    // processes dashboard commands
     private void processCommand(String command) {
         if (command.equals("a")) {
             checkIfInMyMoviesForAdd(movieInitializer());
@@ -226,6 +226,7 @@ public class MovieLogApp {
         }
     }
 
+    //EFFECTS: gives a screen to return user to the dashboard
     private void returnToMenuOption() {
         String selection = "";
         while (!(selection.equals("r"))) {

@@ -16,7 +16,7 @@ public class MovieTest {
         batman = new Movie("The Batman", 2022);
     }
 
-    // test the constructor
+    // tests the constructor
     @Test
     public void testMovie() {
         assertEquals("The Batman", batman.getMovieName());

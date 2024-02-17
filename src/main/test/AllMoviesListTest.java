@@ -12,7 +12,7 @@ public class AllMoviesListTest {
     private AllMoviesList allMovies;
     private Movie batman;
     private Movie barbie;
-    private Movie batmanFromDatabase;
+    private Movie theBatmanFromDatabase;
 
 
     @BeforeEach
@@ -20,9 +20,9 @@ public class AllMoviesListTest {
         allMovies = new AllMoviesList();
         batman = new Movie("The Batman", 2022);
         barbie = new Movie("Barbie", 2023);
-        batmanFromDatabase = new Movie("The Batman", 2022);
-        batmanFromDatabase.setDirector("Matt Reeves");
-        batmanFromDatabase.setMovieDescription("Emo Batman");
+        theBatmanFromDatabase = new Movie("The Batman", 2022);
+        theBatmanFromDatabase.setDirector("Matt Reeves");
+        theBatmanFromDatabase.setMovieDescription("Emo Batman");
     }
 
     @Test
@@ -33,7 +33,7 @@ public class AllMoviesListTest {
     @Test
     public void testIsMovieInDatabase() {
         assertFalse(allMovies.isMovieInDatabase(batman));
-        allMovies.addMovieToDatabase(batmanFromDatabase);
+        allMovies.addMovieToDatabase(theBatmanFromDatabase);
         allMovies.addMovieToDatabase(barbie);
         assertTrue(allMovies.isMovieInDatabase(batman));
         assertTrue(allMovies.isMovieInDatabase(barbie));
@@ -42,17 +42,17 @@ public class AllMoviesListTest {
     @Test
     public void testIsMovieInDatabaseReturnMovie() {
         assertNull(allMovies.isMovieInDatabaseReturnMovie(batman));
-        allMovies.addMovieToDatabase(batmanFromDatabase);
-        assertEquals(batmanFromDatabase, allMovies.isMovieInDatabaseReturnMovie(batman));
+        allMovies.addMovieToDatabase(theBatmanFromDatabase);
+        assertEquals(theBatmanFromDatabase, allMovies.isMovieInDatabaseReturnMovie(batman));
     }
 
     @Test
     public void testProvideDetailsUnwatched() {
-        allMovies.addMovieToDatabase(batmanFromDatabase);
+        allMovies.addMovieToDatabase(theBatmanFromDatabase);
         assertEquals("The Batman   (2022)" + System.lineSeparator()
                 + "Directed by: Matt Reeves" + System.lineSeparator()
                 + "Movie Description: " + System.lineSeparator()
-                + "Emo Batman", allMovies.provideDetailsUnwatched(batmanFromDatabase));
+                + "Emo Batman", allMovies.provideDetailsUnwatched(theBatmanFromDatabase));
     }
 
     @Test

@@ -24,6 +24,7 @@ public class MyMovieListTest {
         batmanRated.setDirector("Matt Reeves");
     }
 
+    //tests the constructor
     @Test
     public void testMyMovieList() {
         assertEquals(0, myMovies.getTotalMoviesSeen());

@@ -13,7 +13,7 @@ public class AllMoviesList {
     }
 
 
-    //EFFECTS: checks if movie is in a list and returns true if it is, if not the false
+    //EFFECTS: checks if movie is in a list and returns true if it is, if not then return false
     public boolean isMovieInDatabase(Movie movie) {
         for (Movie m : allMovies) {
             if ((movie.getMovieName().equals(m.getMovieName())) && (movie.getMovieYear() == m.getMovieYear())) {

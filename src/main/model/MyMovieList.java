@@ -52,7 +52,7 @@ public class MyMovieList {
         return printedList.toString();
     }
 
-    //REQUIRES: the movie name and year be different
+    //REQUIRES: the movie name and year are different
     //MODIFIES: myMovieList
     //EFFECTS: adds a movie on the personal movie list
     public void addMovie(Movie movie) {

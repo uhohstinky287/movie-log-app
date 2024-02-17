@@ -58,7 +58,7 @@ public class Movie {
         this.director = director;
     }
 
-    //EFFECTS: prints out movie details
+    //EFFECTS: prints out the movie details of a watched movie
     public String movieDetailsWatched() {
         return getMovieName() + "   " + "(" + getMovieYear() + ")" + System.lineSeparator()
                 + "Directed by: " + getDirector() + System.lineSeparator()
@@ -68,7 +68,7 @@ public class Movie {
     }
 
 
-
+    //EFFECTS: prints out the details of an unwatched movie
     public String movieDetailsUnWatched() {
         return getMovieName() + "   " + "(" + getMovieYear() + ")" + System.lineSeparator()
                     + "Directed by: " + getDirector() + System.lineSeparator()
