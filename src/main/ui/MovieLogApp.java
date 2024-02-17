@@ -30,7 +30,7 @@ public class MovieLogApp {
 
     private void runApp() {
         boolean keepGoing = true;
-        String command = null;
+        String command;
 
         init(username);
 
@@ -115,7 +115,7 @@ public class MovieLogApp {
         System.out.println("What year was it released?");
         movieYearInput = new Scanner(System.in);
         this.movieYear = movieYearInput.nextInt();
-        Movie movie = new Movie(movieTitle, movieYear);
+        Movie movie = new Movie(movieNameInput.nextLine(), movieYearInput.nextInt());
         return movie;
     }
 
@@ -235,12 +235,11 @@ public class MovieLogApp {
             selection = input.next();
             selection = selection.toLowerCase();
         }
-        if (selection.equals("r")) {
-            System.out.println("Returning to menu");
-            System.out.println("\n");
-            System.out.println("\n");
-            System.out.println("\n");
-        }
+        System.out.println("Returning to menu");
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.println("\n");
+
     }
 
 
