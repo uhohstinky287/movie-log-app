@@ -24,7 +24,8 @@ public class MovieLogApp {
 
     //EFFECTS: Runs the movie log application
     public MovieLogApp() {
-        usernameMenu();
+        database = new AllMoviesList();
+        loginMenu();
     }
 
 
@@ -47,6 +48,7 @@ public class MovieLogApp {
             }
         }
         System.out.println("See you later!");
+        System.exit(0);
     }
 
 
@@ -54,7 +56,6 @@ public class MovieLogApp {
     //EFFECTS: initializes lists
     private void init(String username) {
         myMovies = new MyMovieList(username);
-        database = new AllMoviesList();
         input = new Scanner(System.in);
     }
 
@@ -66,7 +67,8 @@ public class MovieLogApp {
         System.out.println("\ta -> Add a movie");
         System.out.println("\ts -> Search for a movie");
         System.out.println("\tv -> View your movies");
-        System.out.println("\te -> Exit");
+        System.out.println("\tl -> Logout of your account");
+        System.out.println("\te -> Exit App");
     }
 
     // processes dashboard commands
@@ -77,6 +79,9 @@ public class MovieLogApp {
             checkIfInMyMoviesForSearch(movieInitializer());
         } else if (command.equals("v")) {
             viewMyMovies();
+        } else if (command.equals("l")) {
+            System.out.println("You have been logged out");
+            loginMenu();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -85,8 +90,9 @@ public class MovieLogApp {
 
     //MODIFIES: this.username
     //EFFECTS: entry landing page where the user enters their username, then runs the program
-    private void usernameMenu() {
-        System.out.println("\nWhat is your username?");
+    private void loginMenu() {
+        System.out.println("\n\nLOGIN");
+        System.out.println("What is your username?");
         input = new Scanner(System.in);
         this.username = input.nextLine();
         System.out.println("\nWelcome " + username + " to:");
