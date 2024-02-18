@@ -56,7 +56,6 @@ public class UserDataStorage {
     }
 
 
-
     //testing methods
 
     //EFFECTS: returns the total number of users

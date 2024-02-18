@@ -20,8 +20,9 @@ public class MovieLogApp {
     private Scanner movieDirectorInput;
     private Scanner movieDescriptionInput;
     private Scanner movieRatingInput;
+    private Scanner otherUserInput;
+    private String otherUser;
     private int movieYear;
-
 
 
     //EFFECTS: Runs the movie log application
@@ -68,6 +69,7 @@ public class MovieLogApp {
         System.out.println("\nWould you like to do?");
         System.out.println("\ta -> Add a movie");
         System.out.println("\ts -> Search for a movie");
+        System.out.println("\tu -> Search for another user");
         System.out.println("\tv -> View your movies");
         System.out.println("\tl -> Logout of your account");
         System.out.println("\te -> Exit App");
@@ -79,12 +81,14 @@ public class MovieLogApp {
             checkIfInMyMoviesForAdd(movieInitializer());
         } else if (command.equals("s")) {
             checkIfInMyMoviesForSearch(movieInitializer());
+        } else if (command.equals("u")) {
+            searchUsers();
+            System.out.println("searching users...");
         } else if (command.equals("v")) {
             viewMyMovies();
         } else if (command.equals("l")) {
             System.out.println("You have been logged out");
             allUsers.overrideUserData(myMovies);
-//            askSaveMyMovies();
             loginMenu();
         } else {
             System.out.println("Selection not valid...");
@@ -118,6 +122,28 @@ public class MovieLogApp {
             System.out.println(username + "'s Movies:");
             System.out.println("\t");
             System.out.println(myMovies.viewMoviesNotEmpty());
+            returnToMenuOption();
+        }
+    }
+
+    //EFFECTS: searches all users and produces the users movie list
+    private void searchUsers() {
+        System.out.println("\nWhat is the other user's username?");
+        otherUserInput = new Scanner(System.in);
+        this.otherUser = otherUserInput.nextLine();
+        if (allUsers.isUserInDatabase(otherUser)) {
+            if (allUsers.isUserInDatabaseReturnUser(otherUser).getTotalMoviesSeen() == 0) {
+                System.out.println(allUsers.isUserInDatabaseReturnUser(otherUser).getUsername()
+                        + " has not rated any movies yet");
+                returnToMenuOption();
+            } else {
+                System.out.println(otherUser + "'s Movies:");
+                System.out.println("\t");
+                System.out.println(allUsers.isUserInDatabaseReturnUser(otherUser).viewMoviesNotEmpty());
+                returnToMenuOption();
+            }
+        } else {
+            System.out.println("This user does not exist");
             returnToMenuOption();
         }
     }
@@ -206,7 +232,6 @@ public class MovieLogApp {
         System.out.println("\n" + movieTitle + " has been added to your list");
         returnToMenuOption();
     }
-
 
 
     //EFFECTS: if the user types "y" it adds the movie to the database else it returns to DashBoard
