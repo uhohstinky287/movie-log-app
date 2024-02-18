@@ -3,6 +3,7 @@ package ui;
 import model.AllMoviesList;
 import model.Movie;
 import model.MyMovieList;
+import model.UserDataStorage;
 
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ public class MovieLogApp {
 
     private MyMovieList myMovies;
     private AllMoviesList database;
+    private UserDataStorage allUsers;
     private String username;
     private Scanner input;
     private Scanner movieNameInput;
@@ -25,6 +27,7 @@ public class MovieLogApp {
     //EFFECTS: Runs the movie log application
     public MovieLogApp() {
         database = new AllMoviesList();
+        allUsers = new UserDataStorage();
         loginMenu();
     }
 
@@ -95,6 +98,9 @@ public class MovieLogApp {
         System.out.println("What is your username?");
         input = new Scanner(System.in);
         this.username = input.nextLine();
+//        if (allUsers.isUserInDatabase(username)) {
+//            myMovies = //TODO
+//        }
         System.out.println("\nWelcome " + username + " to:");
         runApp();
     }
