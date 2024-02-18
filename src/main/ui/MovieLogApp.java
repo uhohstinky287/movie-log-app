@@ -58,7 +58,6 @@ public class MovieLogApp {
     //MODIFIES: this
     //EFFECTS: initializes lists
     private void init(String username) {
-        myMovies = new MyMovieList(username);
         input = new Scanner(System.in);
     }
 
@@ -84,6 +83,8 @@ public class MovieLogApp {
             viewMyMovies();
         } else if (command.equals("l")) {
             System.out.println("You have been logged out");
+            allUsers.overrideUserData(myMovies);
+//            askSaveMyMovies();
             loginMenu();
         } else {
             System.out.println("Selection not valid...");
@@ -98,10 +99,13 @@ public class MovieLogApp {
         System.out.println("What is your username?");
         input = new Scanner(System.in);
         this.username = input.nextLine();
-//        if (allUsers.isUserInDatabase(username)) {
-//            myMovies = //TODO
-//        }
-        System.out.println("\nWelcome " + username + " to:");
+        if (allUsers.isUserInDatabase(username)) {
+            myMovies = allUsers.isUserInDatabaseReturnUser(username);
+            System.out.println("Welcome back " + username + " to:");
+        } else {
+            myMovies = new MyMovieList(username);
+            System.out.println("\nWelcome " + username + " to:");
+        }
         runApp();
     }
 
@@ -256,6 +260,24 @@ public class MovieLogApp {
         System.out.println("\n");
 
     }
+
+    //EFFECTS: asks the user if they want to save their changes to their movie list
+//    private void askSaveMyMovies() {
+//        String selection = "";
+//        while (!(selection.equals("y") || selection.equals("n"))) {
+//            System.out.println("\nWould you like to save your changes?");
+//            System.out.println("\ty -> Yes");
+//            System.out.println("\tn -> No");
+//            selection = input.next();
+//            selection = selection.toLowerCase();
+//        }
+//        if (selection.equals("y")) {
+//            allUsers.overrideUserData(myMovies);
+//            System.out.println("\n Your changes have been saved");
+//        } else {
+//            System.out.println("Goodbye");
+//        }
+//    }
 
 
 }

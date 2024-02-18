@@ -11,6 +11,7 @@ public class UserDataStorageTest {
     private Movie barbie;
     private MyMovieList jugaad;
     private MyMovieList poop;
+    private MyMovieList fatty;
 
 
     @BeforeEach
@@ -26,6 +27,7 @@ public class UserDataStorageTest {
         barbie.setUserRating(80);
         jugaad = new MyMovieList("jugaad");
         poop = new MyMovieList("poop");
+        fatty = new MyMovieList("poop");
 
     }
 
@@ -59,9 +61,33 @@ public class UserDataStorageTest {
         assertEquals(1, allUsers.getTotalUsers());
         allUsers.addUserToDatabase(poop);
         assertEquals(2, allUsers.getTotalUsers());
-        assertEquals(jugaad, allUsers.getUserOrder(1));
-        assertEquals(poop, allUsers.getUserOrder(2));
+        assertEquals(jugaad, allUsers.getUserOrder(0));
+        assertEquals(poop, allUsers.getUserOrder(1));
     }
+
+    @Test
+    public void testGetUserPosition() {
+        allUsers.addUserToDatabase(jugaad);
+        assertEquals(0, allUsers.getUserPosition("jugaad"));
+        allUsers.addUserToDatabase(poop);
+        assertEquals(0, allUsers.getUserPosition("jugaad"));
+        assertEquals(1, allUsers.getUserPosition("poop"));
+    }
+
+    @Test
+    public void testOverrideData() {
+        allUsers.overrideUserData(jugaad);
+        assertEquals(0, allUsers.getUserPosition("jugaad"));
+        allUsers.overrideUserData(jugaad);
+        assertEquals(0, allUsers.getUserPosition("jugaad"));
+        allUsers.overrideUserData(poop);
+        assertEquals(0, allUsers.getUserPosition("jugaad"));
+        assertEquals(1, allUsers.getUserPosition("poop"));
+        assertEquals(poop, allUsers.getUserOrder(1));
+        allUsers.overrideUserData(fatty);
+        assertEquals(fatty, allUsers.getUserOrder(1));
+    }
+
 
     @Test
     public void testGetTotalUsers() {
@@ -74,10 +100,12 @@ public class UserDataStorageTest {
     @Test
     public void testGetUserOrder() {
         allUsers.addUserToDatabase(jugaad);
-        assertEquals(jugaad, allUsers.getUserOrder(1));
+        assertEquals(jugaad, allUsers.getUserOrder(0));
         allUsers.addUserToDatabase(poop);
-        assertEquals(jugaad, allUsers.getUserOrder(1));
-        assertEquals(poop, allUsers.getUserOrder(2));
+        assertEquals(jugaad, allUsers.getUserOrder(0));
+        assertEquals(poop, allUsers.getUserOrder(1));
     }
+
+
 
 }

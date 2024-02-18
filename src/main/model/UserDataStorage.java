@@ -37,17 +37,37 @@ public class UserDataStorage {
         allUsers.add(mml);
     }
 
+    //REQUIRES: the user be in allUsers
+    //EFFECTS: returns the position of the user in allUsers
+    public int getUserPosition(String username) {
+        return allUsers.indexOf(isUserInDatabaseReturnUser(username));
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: is user is in database, it overrides its data, if not, it adds the user to the database
+    public void overrideUserData(MyMovieList mml) {
+        if (isUserInDatabase(mml.getUsername())) {
+            allUsers.set(getUserPosition(mml.getUsername()), mml);
+        } else {
+            addUserToDatabase(mml);
+        }
+
+    }
+
 
 
     //testing methods
 
+    //EFFECTS: returns the total number of users
     public int getTotalUsers() {
         return allUsers.size();
     }
 
     //REQUIRES: i > 1
+    //EFFECTS: returns the movie at a certain position
     public MyMovieList getUserOrder(int i) {
-        return allUsers.get(i - 1);
+        return allUsers.get(i);
     }
 }
 
