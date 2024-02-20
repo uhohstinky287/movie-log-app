@@ -23,6 +23,7 @@ public class MovieLogApp {
     private Scanner otherUserInput;
     private String otherUser;
     private int movieYear;
+    private int movieRating;
 
 
     //EFFECTS: Runs the movie log application
@@ -167,6 +168,7 @@ public class MovieLogApp {
     private void checkIfInMyMoviesForAdd(Movie movie) {
         if (myMovies.isMovieInMyMovieList(movie)) {
             System.out.println("You have already added this movie to your list");
+            returnToMenuOption();
         } else {
             tryAddMovie(movie);
         }
@@ -176,7 +178,7 @@ public class MovieLogApp {
     private void checkIfInMyMoviesForSearch(Movie movie) {
         if (myMovies.isMovieInMyMovieList(movie)) {
             System.out.println("\n");
-            System.out.println(myMovies.provideDetailsWatched(myMovies.isMovieInMyListReturnMovie(movie)));
+            System.out.println(watchedMovieDetails(movie));
             returnToMenuOption();
         } else {
             tryAddMovie(movie);
@@ -227,8 +229,12 @@ public class MovieLogApp {
         myMovie.setMovieDescription(movie.getMovieDescription());
         System.out.println("What would you rate this movie from 1-100"); // REQUIRES: the int be between 1-100
         movieRatingInput = new Scanner(System.in);
-        myMovie.setUserRating(movieRatingInput.nextInt());
+        movieRating = movieRatingInput.nextInt();
+        myMovie.setUserRating(movieRating);
+        myMovie.addToTotalRatings(movieRating);
+        database.addToAverageRating(myMovie, movieRating);
         myMovies.addMovie(myMovie);
+
         System.out.println("\n" + movieTitle + " has been added to your list");
         returnToMenuOption();
     }
@@ -286,24 +292,17 @@ public class MovieLogApp {
 
     }
 
-    //EFFECTS: asks the user if they want to save their changes to their movie list
-//    private void askSaveMyMovies() {
-//        String selection = "";
-//        while (!(selection.equals("y") || selection.equals("n"))) {
-//            System.out.println("\nWould you like to save your changes?");
-//            System.out.println("\ty -> Yes");
-//            System.out.println("\tn -> No");
-//            selection = input.next();
-//            selection = selection.toLowerCase();
-//        }
-//        if (selection.equals("y")) {
-//            allUsers.overrideUserData(myMovies);
-//            System.out.println("\n Your changes have been saved");
-//        } else {
-//            System.out.println("Goodbye");
-//        }
-//    }
-
+    private String watchedMovieDetails(Movie movie) {
+        return myMovies.isMovieInMyListReturnMovie(movie).getMovieName() + "   " + "("
+                + myMovies.isMovieInMyListReturnMovie(movie).getMovieYear() + ")" + System.lineSeparator()
+            + "Directed by: " + myMovies.isMovieInMyListReturnMovie(movie).getDirector() + System.lineSeparator()
+            + "Your Rating: " + myMovies.isMovieInMyListReturnMovie(movie).getUserRating() + "/100"
+                + "  ...  Average rating of all users: "
+            + database.getAverageRatingFromDatabase(movie.getMovieName(), movie.getMovieYear())
+                + "/100" + System.lineSeparator()
+            + "Movie Description: " + System.lineSeparator()
+            + myMovies.isMovieInMyListReturnMovie(movie).getMovieDescription();
+    }
 
 }
 

@@ -56,4 +56,18 @@ public class AllMoviesList {
     public int getTotalMovies() {
         return allMovies.size();
     }
+
+    public void addToAverageRating(Movie movie, Integer rating) {
+        isMovieInDatabaseReturnMovie(movie).addToTotalRatings(rating);
+    }
+
+    public double getAverageRatingFromDatabase(String movieTitleForSearch, Integer movieYearForSearch) {
+        for (Movie m: allMovies) {
+            if ((movieTitleForSearch.equals(m.getMovieName())) && (movieYearForSearch == m.getMovieYear())) {
+                return m.getAverageRating();
+            }
+        }
+        return 0.0;
+    }
 }
+

@@ -1,20 +1,24 @@
 package model;
 
 
-import model.Movie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieTest {
 
     private Movie batman;
+    private ArrayList<Integer> totalRatings;
 
     @BeforeEach
     public void setUp() {
         batman = new Movie("The Batman", 2022);
+        totalRatings = new ArrayList<>();
     }
+
 
     // tests the constructor
     @Test
@@ -62,11 +66,28 @@ public class MovieTest {
         batman.setMovieDescription("In his sophomore year, Batman faces the Riddler");
         assertEquals("The Batman   (2022)" + System.lineSeparator()
                 + "Directed by: Matt Reeves" + System.lineSeparator()
+                + "No ratings yet" + System.lineSeparator()
+                + "Movie Description: " + System.lineSeparator()
+                + "In his sophomore year, Batman faces the Riddler", batman.movieDetailsUnWatched());
+        batman.addToTotalRatings(98);
+        assertEquals("The Batman   (2022)" + System.lineSeparator()
+                + "Directed by: Matt Reeves" + System.lineSeparator()
+                + "Average rating of all users: 98.0/100" + System.lineSeparator()
                 + "Movie Description: " + System.lineSeparator()
                 + "In his sophomore year, Batman faces the Riddler", batman.movieDetailsUnWatched());
     }
 
-
+    @Test
+    public void testGetAverageRating() {
+        assertEquals(0, batman.getAverageRating());
+        batman.addToTotalRatings(100);
+        assertEquals(1, batman.getTotalRatings());
+        assertEquals(100, batman.getAverageRating());
+        batman.addToTotalRatings(99);
+        assertEquals(99.5, batman.getAverageRating());
+        batman.addToTotalRatings(100);
+        assertEquals(99.7, batman.getAverageRating());
+    }
 
 
 }
