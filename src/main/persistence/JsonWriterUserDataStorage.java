@@ -1,17 +1,18 @@
 package persistence;
 
 import model.MovieDatabase;
+import model.UserDataStorage;
 import org.json.JSONObject;
 
 import java.io.*;
 
-public class JsonWriter {
+public class JsonWriterUserDataStorage {
     private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
 
     // EFFECTS: constructs writer to write to destination file
-    public JsonWriter(String destination) {
+    public JsonWriterUserDataStorage(String destination) {
         this.destination = destination;
     }
 
@@ -23,9 +24,9 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
-    public void write(MovieDatabase md) {
-        JSONObject json = md.toJson();
+    // EFFECTS: writes JSON representation of userDataStorage to file
+    public void write(UserDataStorage uds) {
+        JSONObject json = uds.toJson();
         saveToFile(json.toString(TAB));
     }
 

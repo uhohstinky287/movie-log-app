@@ -2,17 +2,16 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
-public class UserDataStorage {
+public class UserDataStorage implements Writable {
     private ArrayList<MyMovieList> allUsers;
-    private String name;
 
 
     //EFFECTS: creates an empty database of user's Personal Movie Lists
-    public UserDataStorage(String name) {
-        this.name = name;
+    public UserDataStorage() {
         allUsers = new ArrayList<>();
     }
 
@@ -75,25 +74,20 @@ public class UserDataStorage {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("users", usersToJson());
+        return json;
+    }
 
-
-
-
-//    @Override
-//    public JSONObject toJson() {
-//        JSONObject json = new JSONObject();
-//        json.put("name", name);
-//        json.put("users", usersToJson());
-//        return json;
-//    }
-//
-//    private JSONArray usersToJson() {
-//        JSONArray jsonArray = new JSONArray();
-//        for (MyMovieList mml : allUsers) {
-//            jsonArray.put(mml.toJson());
-//        }
-//        return jsonArray;
-//    }
+    private JSONArray usersToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (MyMovieList mml : allUsers) {
+            jsonArray.put(mml.toJson());
+        }
+        return jsonArray;
+    }
 }
 
 

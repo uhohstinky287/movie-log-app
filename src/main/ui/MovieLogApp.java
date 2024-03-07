@@ -4,15 +4,18 @@ import model.MovieDatabase;
 import model.Movie;
 import model.MyMovieList;
 import model.UserDataStorage;
-import persistence.JsonReader;
-import persistence.JsonWriter;
+import persistence.JsonReaderMovieDatabase;
+import persistence.JsonReaderUserDataStorage;
+import persistence.JsonWriterMovieDatabase;
+import persistence.JsonWriterUserDataStorage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class MovieLogApp {
-    private static final String JSON_STORE = "./data/movieDatabase.json";
+    private static final String JSON_MOVIES = "./data/movieDatabase.json";
+    private static final String JSON_USERS = "./data/userDataStorage.json";
     private MyMovieList myMovies;
     private MovieDatabase database;
     private UserDataStorage allUsers;
@@ -28,17 +31,23 @@ public class MovieLogApp {
     private String otherUser;
     private int movieYear;
     private int movieRating;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private JsonWriterMovieDatabase jsonWriterMovieDatabase;
+    private JsonReaderMovieDatabase jsonReaderMovieDatabase;
+    private JsonWriterUserDataStorage jsonWriterUserDataStorage;
+    private JsonReaderUserDataStorage jsonReaderUserDataStorage;
 
 
     //EFFECTS: Runs the movie log application
     public MovieLogApp() throws FileNotFoundException {
         database = new MovieDatabase();
-        allUsers = new UserDataStorage("allUsers");
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+        allUsers = new UserDataStorage();
+        jsonWriterMovieDatabase = new JsonWriterMovieDatabase(JSON_MOVIES);
+        jsonReaderMovieDatabase = new JsonReaderMovieDatabase(JSON_MOVIES);
+        jsonWriterUserDataStorage = new JsonWriterUserDataStorage(JSON_USERS);
+        jsonReaderUserDataStorage = new JsonReaderUserDataStorage(JSON_USERS);
         loadDatabase();
+        loadUsers();
+        startingMenu();
         loginMenu();
     }
 
@@ -52,6 +61,7 @@ public class MovieLogApp {
             command = input.next();
             command = command.toLowerCase();
             if (command.equals("e")) {
+                allUsers.overrideUserData(myMovies);
                 displaySaveOption();
                 keepGoing = false;
             } else {
@@ -94,6 +104,7 @@ public class MovieLogApp {
         } else if (command.equals("v")) {
             viewMyMovies();
         } else if (command.equals("l")) {
+            displaySaveOption();
             System.out.println("You have been logged out");
             allUsers.overrideUserData(myMovies);
             loginMenu();
@@ -103,6 +114,20 @@ public class MovieLogApp {
     }
 
 
+    //EFFECTS: creates a starting menu
+    private void startingMenu() {
+        String selection = "";
+        input = new Scanner(System.in);
+        while (!(selection.equals("c") || selection.equals("l"))) {
+            System.out.println("\n\n");
+            System.out.println("MOVIE LOG APP");
+            System.out.println("\n\nl -> login and load my movies");
+            System.out.println("c -> create and account (new user)");
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
+    }
+
     //MODIFIES: this.username
     //EFFECTS: entry landing page where the user enters their username, then runs the program
     private void loginMenu() {
@@ -110,6 +135,7 @@ public class MovieLogApp {
         System.out.println("What is your username?");
         input = new Scanner(System.in);
         this.username = input.nextLine();
+        username = username.toLowerCase();
         if (allUsers.isUserInDatabase(username)) {
             myMovies = allUsers.isUserInDatabaseReturnUser(username);
             System.out.println("Welcome back " + username + " to:");
@@ -321,25 +347,46 @@ public class MovieLogApp {
             selection = selection.toLowerCase();
         }
         if (selection.equals("y")) {
-            try {
-                jsonWriter.open();
-                jsonWriter.write(database);
-                jsonWriter.close();
-                System.out.println("Saved " + " to " + JSON_STORE);
-            } catch (IOException e) {
-                System.out.println("Unable to write to file: " + JSON_STORE);
-            }
+            save();
         }
     }
+
+    private void save() {
+        try {
+            jsonWriterMovieDatabase.open();
+            jsonWriterMovieDatabase.write(database);
+            jsonWriterMovieDatabase.close();
+            System.out.println("Saved " + " to " + JSON_MOVIES);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_MOVIES);
+        }
+        try {
+            jsonWriterUserDataStorage.open();
+            jsonWriterUserDataStorage.write(allUsers);
+            jsonWriterUserDataStorage.close();
+            System.out.println("Saved " + " to " + JSON_USERS);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_USERS);
+        }
+    }
+
 
 
     // MODIFIES: this
     // EFFECTS: loads database from file
     private void loadDatabase() {
         try {
-            database = jsonReader.read();
+            database = jsonReaderMovieDatabase.read();
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            System.out.println("Unable to read from file: " + JSON_MOVIES);
+        }
+    }
+
+    private void loadUsers() {
+        try {
+            allUsers = jsonReaderUserDataStorage.read();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_USERS);
         }
     }
 }

@@ -16,7 +16,7 @@ public class UserDataStorageTest {
 
     @BeforeEach
     public void setUp() {
-        allUsers = new UserDataStorage("allUsers");
+        allUsers = new UserDataStorage();
         batman = new Movie("The Batman", 2022);
         batman.setMovieDescription("Batman vs Riddler");
         batman.setDirector("Matt Reeves");

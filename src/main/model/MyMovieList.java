@@ -1,12 +1,14 @@
 package model;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
 // Represents a list of movies watched by a user
-public class MyMovieList {
+public class MyMovieList implements Writable {
 
     private ArrayList<Movie> myMovieList;
     private String username;
@@ -28,6 +30,11 @@ public class MyMovieList {
 
     public String getUsername() {
         return username;
+    }
+
+    //setters:
+    public void setMyMovieList(ArrayList myMovieList) {
+        this.myMovieList = myMovieList;
     }
 
 
@@ -72,12 +79,20 @@ public class MyMovieList {
         return null;
     }
 
-//    @Override
-//    public JSONObject toJson() {
-//        JSONObject json = new JSONObject();
-//        json.put("username", username);
-//        json.put("movies", moviesToJson());
-//        return json;
-//    }
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("username", username);
+        json.put("myMovies", myMoviesToJson());
+        return json;
+    }
+
+    private JSONArray myMoviesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Movie m : myMovieList) {
+            jsonArray.put(m.toJson());
+        }
+        return jsonArray;
+    }
 
 }

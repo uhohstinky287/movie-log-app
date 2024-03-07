@@ -7,16 +7,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.json.*;
 
 // represents a reader that can read the AllMoviesList
-public class JsonReader {
+public class JsonReaderMovieDatabase {
     private String source;
 
-    public JsonReader(String source) {
+    public JsonReaderMovieDatabase(String source) {
         this.source = source;
     }
 
