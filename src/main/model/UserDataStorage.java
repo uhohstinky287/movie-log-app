@@ -1,13 +1,18 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class UserDataStorage {
     private ArrayList<MyMovieList> allUsers;
+    private String name;
 
 
     //EFFECTS: creates an empty database of user's Personal Movie Lists
-    public UserDataStorage() {
+    public UserDataStorage(String name) {
+        this.name = name;
         allUsers = new ArrayList<>();
     }
 
@@ -68,6 +73,27 @@ public class UserDataStorage {
     public MyMovieList getUserOrder(int i) {
         return allUsers.get(i);
     }
+
+
+
+
+
+
+//    @Override
+//    public JSONObject toJson() {
+//        JSONObject json = new JSONObject();
+//        json.put("name", name);
+//        json.put("users", usersToJson());
+//        return json;
+//    }
+//
+//    private JSONArray usersToJson() {
+//        JSONArray jsonArray = new JSONArray();
+//        for (MyMovieList mml : allUsers) {
+//            jsonArray.put(mml.toJson());
+//        }
+//        return jsonArray;
+//    }
 }
 
 

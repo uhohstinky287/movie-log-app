@@ -1,16 +1,20 @@
 package ui;
 
-import model.AllMoviesList;
+import model.MovieDatabase;
 import model.Movie;
 import model.MyMovieList;
 import model.UserDataStorage;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MovieLogApp {
-
+    private static final String JSON_STORE = "./data/movieDatabase.json";
     private MyMovieList myMovies;
-    private AllMoviesList database;
+    private MovieDatabase database;
     private UserDataStorage allUsers;
     private String username;
     private Scanner input;
@@ -24,12 +28,17 @@ public class MovieLogApp {
     private String otherUser;
     private int movieYear;
     private int movieRating;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
 
     //EFFECTS: Runs the movie log application
-    public MovieLogApp() {
-        database = new AllMoviesList();
-        allUsers = new UserDataStorage();
+    public MovieLogApp() throws FileNotFoundException {
+        database = new MovieDatabase();
+        allUsers = new UserDataStorage("allUsers");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        loadDatabase();
         loginMenu();
     }
 
@@ -37,16 +46,13 @@ public class MovieLogApp {
     private void runApp() {
         boolean keepGoing = true;
         String command;
-
         init(username);
-
-
         while (keepGoing) {
             displayDashBoard();
             command = input.next();
             command = command.toLowerCase();
-
             if (command.equals("e")) {
+                displaySaveOption();
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -234,7 +240,6 @@ public class MovieLogApp {
         myMovie.addToTotalRatings(movieRating);
         database.addToAverageRating(myMovie, movieRating);
         myMovies.addMovie(myMovie);
-
         System.out.println("\n" + movieTitle + " has been added to your list");
         returnToMenuOption();
     }
@@ -292,6 +297,7 @@ public class MovieLogApp {
 
     }
 
+    //EFFECTS: Provides the details of a movie that is in myMovies
     private String watchedMovieDetails(Movie movie) {
         return myMovies.isMovieInMyListReturnMovie(movie).getMovieName() + "   " + "("
                 + myMovies.isMovieInMyListReturnMovie(movie).getMovieYear() + ")" + System.lineSeparator()
@@ -301,8 +307,40 @@ public class MovieLogApp {
             + database.getAverageRatingFromDatabase(movie.getMovieName(), movie.getMovieYear())
                 + "/100" + System.lineSeparator()
             + "Movie Description: " + System.lineSeparator()
-            + myMovies.isMovieInMyListReturnMovie(movie).getMovieDescription();
+            + database.isMovieInDatabaseReturnMovie(movie).getMovieDescription();
     }
 
+
+    private void displaySaveOption() {
+        String selection = "";
+        while (!(selection.equals("y") || selection.equals("n"))) {
+            System.out.println("Do you want to save your changes?");
+            System.out.println("\ty -> Yes");
+            System.out.println("\tn -> No");
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
+        if (selection.equals("y")) {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(database);
+                jsonWriter.close();
+                System.out.println("Saved " + " to " + JSON_STORE);
+            } catch (IOException e) {
+                System.out.println("Unable to write to file: " + JSON_STORE);
+            }
+        }
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: loads database from file
+    private void loadDatabase() {
+        try {
+            database = jsonReader.read();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 }
 

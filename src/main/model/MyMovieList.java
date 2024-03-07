@@ -1,6 +1,8 @@
 package model;
 
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // Represents a list of movies watched by a user
@@ -60,12 +62,6 @@ public class MyMovieList {
     }
 
 
-    //REQUIRES: the movie be on my list
-    //EFFECTS: prints out details of rated movie
-    public String provideDetailsWatched(Movie watchedMovie) {
-        return watchedMovie.movieDetailsWatched();
-    }
-
     //EFFECTS: checks if the movie is in my Movies, then returns the movie from my list
     public Movie isMovieInMyListReturnMovie(Movie movie) {
         for (Movie m : myMovieList) {
@@ -75,5 +71,13 @@ public class MyMovieList {
         }
         return null;
     }
+
+//    @Override
+//    public JSONObject toJson() {
+//        JSONObject json = new JSONObject();
+//        json.put("username", username);
+//        json.put("movies", moviesToJson());
+//        return json;
+//    }
 
 }

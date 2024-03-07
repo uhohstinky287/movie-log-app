@@ -1,16 +1,21 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents a movie with a name, year released, description, director, watched/unwatched status, and user rating
-public class Movie {
+public class Movie implements Writable {
     private String movieName;
     private int movieYear;
     private int userRating;
     private String movieDescription;
     private String director;
     private ArrayList<Integer> totalRatings;
+    private ArrayList<Review> reviews;
 
     //EFFECTS: creates a movie with a name, year of release, not watched, 0 rating and
     // no description and undetermined director
@@ -21,6 +26,7 @@ public class Movie {
         this.movieDescription = "";
         this.director = "";
         totalRatings = new ArrayList<>();
+        reviews = new ArrayList<>();
     }
 
     //getters
@@ -62,15 +68,8 @@ public class Movie {
         this.director = director;
     }
 
-    //EFFECTS: prints out the movie details of a watched movie
-    public String movieDetailsWatched() {
-        return getMovieName() + "   " + "(" + getMovieYear() + ")" + System.lineSeparator()
-                + "Directed by: " + getDirector() + System.lineSeparator()
-                + "Your Rating: " + getUserRating() + "/100" + "  ...  Average rating of all users: "
-//                + String.valueOf(allMoviesList.getAverageRatingFromDatabase(getMovieName(), getMovieYear()))
-                + "/100" + System.lineSeparator()
-                + "Movie Description: " + System.lineSeparator()
-                + getMovieDescription();
+    public void setTotalRatings(ArrayList totalRatings) {
+        this.totalRatings = totalRatings;
     }
 
 
@@ -119,6 +118,29 @@ public class Movie {
         return calculateAverageRating();
     }
 
+    public void addReview(Review r) {
+        reviews.add(r);
+    }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", movieName);
+        json.put("year", movieYear);
+        json.put("rating", userRating);
+        json.put("description", movieDescription);
+        json.put("director", director);
+        json.put("allRatings", totalRatingsToJson());
+        return json;
+    }
+
+    //EFFECTS: returns totalRatings as a JSON array
+    private JSONArray totalRatingsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Integer i : totalRatings) {
+            jsonArray.put(i);
+        }
+        return jsonArray;
+    }
 }

@@ -1,14 +1,19 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents a list of all the movies ever entered
-public class AllMoviesList {
+public class MovieDatabase implements Writable {
     private ArrayList<Movie> allMovies;
 
     //EFFECTS: constructs an empty list of movies
-    public AllMoviesList() {
+    public MovieDatabase() {
+
         allMovies =  new ArrayList<>();
     }
 
@@ -57,6 +62,7 @@ public class AllMoviesList {
         return allMovies.size();
     }
 
+
     public void addToAverageRating(Movie movie, Integer rating) {
         isMovieInDatabaseReturnMovie(movie).addToTotalRatings(rating);
     }
@@ -68,6 +74,21 @@ public class AllMoviesList {
             }
         }
         return 0.0;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("movies", databaseToJson());
+        return json;
+    }
+
+    private JSONArray databaseToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Movie m : allMovies) {
+            jsonArray.put(m.toJson());
+        }
+        return jsonArray;
     }
 }
 

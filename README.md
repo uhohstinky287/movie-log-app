@@ -15,3 +15,5 @@ then rate that movie and write a review where that movie then gets added to his 
 - A user can add a movie to the database if it wasn't already there
 - A user can rate the movie
 - A user can see the movies that he has rated so far
+- A user has the options to save any changes made onto to file
+- A user has the option to load their movie list from file

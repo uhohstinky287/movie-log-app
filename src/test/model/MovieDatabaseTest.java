@@ -1,15 +1,14 @@
 package model;
 
-import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class AllMoviesListTest {
+public class MovieDatabaseTest {
 
-    private AllMoviesList allMovies;
+    private MovieDatabase allMovies;
     private Movie batman;
     private Movie barbie;
     private Movie theBatmanFromDatabase;
@@ -19,7 +18,7 @@ public class AllMoviesListTest {
 
     @BeforeEach
     public void setUp() {
-        allMovies = new AllMoviesList();
+        allMovies = new MovieDatabase();
         batman = new Movie("The Batman", 2022);
         barbie = new Movie("Barbie", 2023);
         oppenheimer = new Movie("Oppenheimer", 2023);
@@ -91,6 +90,11 @@ public class AllMoviesListTest {
         assertEquals(1, allMovies.getTotalMovies());
         allMovies.addMovieToDatabase(barbie);
         assertEquals(2, allMovies.getTotalMovies());
+    }
+
+    @Test
+    public void testAddToAverageRating() {
+
     }
 
 
