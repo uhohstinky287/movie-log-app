@@ -12,11 +12,13 @@ public class MyMovieList implements Writable {
 
     private ArrayList<Movie> myMovieList;
     private String username;
+    private String password;
 
     //EFFECTS: creates a movie list that is empty
     public MyMovieList(String username) {
         myMovieList = new ArrayList<>();
         this.username = username;
+        this.password = "";
     }
 
     //getters:
@@ -32,9 +34,17 @@ public class MyMovieList implements Writable {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     //setters:
     public void setMyMovieList(ArrayList myMovieList) {
         this.myMovieList = myMovieList;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 
@@ -83,6 +93,7 @@ public class MyMovieList implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("username", username);
+        json.put("password", password);
         json.put("myMovies", myMoviesToJson());
         return json;
     }

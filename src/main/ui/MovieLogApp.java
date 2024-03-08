@@ -20,6 +20,8 @@ public class MovieLogApp {
     private MovieDatabase database;
     private UserDataStorage allUsers;
     private String username;
+    private String password;
+    private String usernameChecker;
     private Scanner input;
     private Scanner movieNameInput;
     private Scanner movieYearInput;
@@ -48,7 +50,6 @@ public class MovieLogApp {
         loadDatabase();
         loadUsers();
         startingMenu();
-        loginMenu();
     }
 
 
@@ -104,10 +105,10 @@ public class MovieLogApp {
         } else if (command.equals("v")) {
             viewMyMovies();
         } else if (command.equals("l")) {
+            allUsers.overrideUserData(myMovies);
             displaySaveOption();
             System.out.println("You have been logged out");
-            allUsers.overrideUserData(myMovies);
-            loginMenu();
+            startingMenu();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -122,9 +123,16 @@ public class MovieLogApp {
             System.out.println("\n\n");
             System.out.println("MOVIE LOG APP");
             System.out.println("\n\nl -> login and load my movies");
-            System.out.println("c -> create and account (new user)");
+            System.out.println("c -> create a account (new user)");
             selection = input.next();
             selection = selection.toLowerCase();
+        }
+        if (selection.equals("l")) {
+            loginMenu();
+        } else {
+            System.out.println("Welcome!");
+            System.out.println("Lets get started");
+            createAccountMenu();
         }
     }
 
@@ -137,14 +145,58 @@ public class MovieLogApp {
         this.username = input.nextLine();
         username = username.toLowerCase();
         if (allUsers.isUserInDatabase(username)) {
-            myMovies = allUsers.isUserInDatabaseReturnUser(username);
-            System.out.println("Welcome back " + username + " to:");
+            returningUser();
         } else {
-            myMovies = new MyMovieList(username);
-            System.out.println("\nWelcome " + username + " to:");
+            System.out.println("Username not in database");
+            startingMenu();
         }
         runApp();
     }
+
+    //MODIFIES: this.password
+    //EFFECTS: provides the menu for a returning user
+    private void returningUser() {
+        System.out.println("Password:");
+        input = new Scanner(System.in);
+        this.password = input.nextLine();
+        if (allUsers.isUserInDatabaseReturnUser(username).getPassword().equals(password)) {
+            myMovies = allUsers.isUserInDatabaseReturnUser(username);
+            System.out.println("Welcome back " + username + " to:");
+        } else {
+            System.out.println("\n\n\nIncorrect password");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            startingMenu();
+        }
+    }
+
+
+    //MODIFIES: this.username, this.password, this.usernameChecker
+    //EFFECTS:creates a page for creating an account
+    private void createAccountMenu() {
+        System.out.println("\nPick a username:");
+        input = new Scanner(System.in);
+        this.usernameChecker = input.nextLine();
+        if (!allUsers.isUserInDatabase(usernameChecker)) {
+            this.username = usernameChecker;
+            System.out.println("Create a password:");
+            input = new Scanner(System.in);
+            this.password = input.nextLine();
+            myMovies = new MyMovieList(username);
+            myMovies.setPassword(password);
+            System.out.println("\nWelcome " + username + " to:");
+        } else {
+            System.out.println("This username is taken");
+            createAccountMenu();
+        }
+        runApp();
+    }
+
+
+
 
     //EFFECTS: if myMovies is empty, it prints an error and returns to Dashboard, if not then it prints myMovies
     private void viewMyMovies() {
@@ -337,6 +389,7 @@ public class MovieLogApp {
     }
 
 
+    //EFFECTS: creates a display that prompts the user to choose whether to save the data to JSOn
     private void displaySaveOption() {
         String selection = "";
         while (!(selection.equals("y") || selection.equals("n"))) {
@@ -351,6 +404,7 @@ public class MovieLogApp {
         }
     }
 
+    //EFFECTS: saves all data to JSON files
     private void save() {
         try {
             jsonWriterMovieDatabase.open();
@@ -382,6 +436,7 @@ public class MovieLogApp {
         }
     }
 
+    //EFFECTS: loads the list of all users from Json
     private void loadUsers() {
         try {
             allUsers = jsonReaderUserDataStorage.read();

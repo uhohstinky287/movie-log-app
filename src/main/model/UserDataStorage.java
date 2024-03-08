@@ -6,6 +6,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
+//TODO
 public class UserDataStorage implements Writable {
     private ArrayList<MyMovieList> allUsers;
 

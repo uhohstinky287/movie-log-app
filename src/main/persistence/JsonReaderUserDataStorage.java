@@ -51,7 +51,9 @@ public class JsonReaderUserDataStorage {
 
     private void addUser(UserDataStorage uds, JSONObject jsonObject) {
         String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
         MyMovieList mml = new MyMovieList(username);
+        mml.setPassword(password);
         addMovies(mml, jsonObject);
         uds.overrideUserData(mml);
     }
