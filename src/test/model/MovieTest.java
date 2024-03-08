@@ -1,6 +1,8 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +14,13 @@ public class MovieTest {
 
     private Movie batman;
     private ArrayList<Integer> totalRatings;
+    private JSONArray totalRatingsJson;
 
     @BeforeEach
     public void setUp() {
         batman = new Movie("The Batman", 2022);
         totalRatings = new ArrayList<>();
+        totalRatingsJson = new JSONArray();
     }
 
 
@@ -111,6 +115,31 @@ public class MovieTest {
         assertEquals(0, batman.getTotalRatings());
         batman.addToTotalRatings(100);
         assertEquals(1, batman.getTotalRatings());
+    }
+
+    @Test
+    public void testToJson() {
+        batman.setDirector("Matt Reeves");
+        batman.setMovieDescription("Emo Batman");
+        batman.setUserRating(100);
+        JSONObject batmanJson = new JSONObject();
+        batmanJson.put("name", "The Batman");
+        batmanJson.put("year", 2022);
+        batmanJson.put("rating", 100);
+        batmanJson.put("description", "Emo Batman");
+        batmanJson.put("director", "Matt Reeves");
+        JSONArray allRatingsJson = new JSONArray();
+        batmanJson.put("allRatings", allRatingsJson);
+
+        assertEquals(batmanJson.toString(), batman.toJson().toString() );
+    }
+
+    @Test
+    public void testTotalRatingsToJson() {
+        assertEquals(totalRatingsJson.toList(), batman.totalRatingsToJson().toList());
+        batman.addToTotalRatings(100);
+        totalRatingsJson.put(100);
+        assertEquals(totalRatingsJson.toList(), batman.totalRatingsToJson().toList());
     }
 
 

@@ -98,7 +98,7 @@ public class MyMovieList implements Writable {
         return json;
     }
 
-    private JSONArray myMoviesToJson() {
+    public JSONArray myMoviesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Movie m : myMovieList) {
             jsonArray.put(m.toJson());

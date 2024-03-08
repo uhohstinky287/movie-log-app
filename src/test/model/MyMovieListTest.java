@@ -2,6 +2,8 @@ package model;
 
 
 import model.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +16,7 @@ public class MyMovieListTest {
     private Movie batmanRated;
     private Movie oppenheimer;
     private Movie barbieOld;
+    private JSONArray myMoviesJSON;
 
     @BeforeEach
     public void setUp() {
@@ -26,6 +29,7 @@ public class MyMovieListTest {
         batmanRated.setUserRating(97);
         batmanRated.setMovieDescription("Emo Batman");
         batmanRated.setDirector("Matt Reeves");
+        myMoviesJSON = new JSONArray();
     }
 
     //tests the constructor
@@ -98,6 +102,26 @@ public class MyMovieListTest {
         assertEquals(barbie, myMovies.isMovieInMyListReturnMovie(barbie));
         assertNull(myMovies.isMovieInMyListReturnMovie(barbieOld));
         assertNull(myMovies.isMovieInMyListReturnMovie(oppenheimer));
+    }
+
+
+    @Test
+    public void testToJson() {
+        myMovies.addMovie(batmanRated);
+        myMovies.setPassword("fart");
+        JSONObject toJSonExpected = new JSONObject();
+        toJSonExpected.put("username", "jugs");
+        toJSonExpected.put("password", "fart");
+        toJSonExpected.put("myMovies", myMovies.myMoviesToJson());
+
+        assertEquals(toJSonExpected.toString(), myMovies.toJson().toString());
+    }
+
+    @Test
+    public void testMyMoviesToJson() {
+        assertEquals(myMoviesJSON.toList(), myMovies.myMoviesToJson().toList());
+        myMovies.addMovie(batman);
+        myMoviesJSON.put(batman.toJson());
     }
 
 

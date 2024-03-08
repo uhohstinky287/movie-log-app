@@ -134,7 +134,7 @@ public class Movie implements Writable {
     }
 
     //EFFECTS: returns totalRatings as a JSON array
-    private JSONArray totalRatingsToJson() {
+    public JSONArray totalRatingsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Integer i : totalRatings) {
             jsonArray.put(i);
