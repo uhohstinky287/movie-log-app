@@ -55,8 +55,8 @@ public class JsonWriterMovieDatabaseTest extends JsonTestMovieDatabase{
                 md = reader.read();
                 List<Movie> movies = md.getMovies();
                 assertEquals(2, movies.size());
-                checkMovie("THE BATMAN", 2022, movies.get(0));
-                checkMovie("BARBIE", 2023, movies.get(1));
+                checkMovie("THE BATMAN", 2022, movies.get(0), 0);
+                checkMovie("BARBIE", 2023, movies.get(1), 0);
 
             } catch (IOException e) {
                 fail("Exception should not have been thrown");

@@ -39,8 +39,8 @@ class JsonReaderMovieDatabaseTest extends JsonTestMovieDatabase {
             MovieDatabase md = reader.read();
             List<Movie> movies = md.getMovies();
             assertEquals(2, movies.size());
-            checkMovie("THE BATMAN", 2022, movies.get(0));
-            checkMovie("BARBIE", 2023, movies.get(1));
+            checkMovie("THE BATMAN", 2022, movies.get(0), 6);
+            checkMovie("BARBIE", 2023, movies.get(1), 6);
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
