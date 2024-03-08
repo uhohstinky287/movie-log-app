@@ -53,6 +53,12 @@ public class MyMovieListTest {
     }
 
     @Test
+    public void testGetPassword() {
+        myMovies.setPassword("jugaad");
+        assertEquals("jugaad", myMovies.getPassword());
+    }
+
+    @Test
     public void testIsMovieInMyMovieList() {
         assertFalse(myMovies.isMovieInMyMovieList(batman));
         myMovies.addMovie(batman);
@@ -81,15 +87,6 @@ public class MyMovieListTest {
         assertEquals(2, myMovies.getTotalMoviesSeen());
     }
 
-    @Test
-    public void testProvideDetailsWatched() {
-        myMovies.addMovie(batmanRated);
-        assertEquals("The Batman   (2022)" + System.lineSeparator()
-                + "Directed by: Matt Reeves" + System.lineSeparator()
-                + "Your Rating: 97/100" + System.lineSeparator()
-                + "Movie Description: " + System.lineSeparator()
-                + "Emo Batman", myMovies.provideDetailsWatched(batmanRated));
-    }
 
     @Test
     public void testIsMovieInMyListReturnMovie() {

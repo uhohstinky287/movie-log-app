@@ -5,8 +5,10 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-//TODO
+// Represents and list of users that have an account
 public class UserDataStorage implements Writable {
     private ArrayList<MyMovieList> allUsers;
 
@@ -61,7 +63,7 @@ public class UserDataStorage implements Writable {
     }
 
 
-    //testing methods
+    //testing methods (getters)
 
     //EFFECTS: returns the total number of users
     public int getTotalUsers() {
@@ -72,6 +74,10 @@ public class UserDataStorage implements Writable {
     //EFFECTS: returns the movie at a certain position
     public MyMovieList getUserOrder(int i) {
         return allUsers.get(i);
+    }
+
+    public List<MyMovieList> getUsers() {
+        return Collections.unmodifiableList(allUsers);
     }
 
 

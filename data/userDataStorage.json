@@ -1,6 +1,6 @@
 {"users": [
     {
-        "password": "",
+        "password": "password",
         "myMovies": [
             {
                 "year": 2022,
@@ -22,15 +22,33 @@
         "username": "jugaadlally"
     },
     {
-        "password": "",
-        "myMovies": [{
-            "year": 2022,
-            "director": "",
-            "name": "THE BATMAN",
-            "rating": 81,
-            "description": "",
-            "allRatings": []
-        }],
+        "password": "seerit",
+        "myMovies": [
+            {
+                "year": 2022,
+                "director": "",
+                "name": "THE BATMAN",
+                "rating": 81,
+                "description": "",
+                "allRatings": []
+            },
+            {
+                "year": 2023,
+                "director": "",
+                "name": "BARBIE",
+                "rating": 90,
+                "description": "",
+                "allRatings": []
+            },
+            {
+                "year": 2021,
+                "director": "",
+                "name": "DUNE",
+                "rating": 85,
+                "description": "",
+                "allRatings": [85]
+            }
+        ],
         "username": "seeritlally"
     },
     {
@@ -58,7 +76,7 @@
                 "name": "BARBIE",
                 "rating": 96,
                 "description": "",
-                "allRatings": [96]
+                "allRatings": []
             }
         ],
         "username": "saharah"

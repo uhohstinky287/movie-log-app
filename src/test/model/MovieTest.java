@@ -47,18 +47,6 @@ public class MovieTest {
         assertEquals("Matt Reeves", batman.getDirector());
     }
 
-    @Test
-    public void testMovieDetailsWatched() {
-        batman.setDirector("Matt Reeves");
-        batman.setUserRating(95);
-        batman.setMovieDescription("In his sophomore year, Batman faces the Riddler");
-        assertEquals("The Batman   (2022)" + System.lineSeparator()
-                + "Directed by: Matt Reeves" + System.lineSeparator()
-                + "Your Rating: 95/100" + System.lineSeparator()
-                + "Movie Description: " + System.lineSeparator()
-                + "In his sophomore year, Batman faces the Riddler", batman.movieDetailsWatched());
-    }
-
 
     @Test
     public void testMovieDetailsUnWatched() {
@@ -78,6 +66,35 @@ public class MovieTest {
     }
 
     @Test
+    public void testRatingDetails() {
+        assertEquals("No ratings yet", batman.ratingDetails());
+        batman.addToTotalRatings(100);
+        assertEquals("Average rating of all users: 100.0/100", batman.ratingDetails());
+        batman.addToTotalRatings(99);
+        assertEquals("Average rating of all users: 99.5/100", batman.ratingDetails());
+    }
+
+    @Test
+    public void testGetTotalRatings() {
+        assertEquals(0, batman.getTotalRatings());
+        batman.addToTotalRatings(100);
+        batman.addToTotalRatings(99);
+        assertEquals(2, batman.getTotalRatings());
+    }
+
+    @Test
+    public void testCalculateAverageRating() {
+            assertEquals(0, batman.calculateAverageRating());
+            batman.addToTotalRatings(100);
+            assertEquals(1, batman.getTotalRatings());
+            assertEquals(100, batman.calculateAverageRating());
+            batman.addToTotalRatings(99);
+            assertEquals(99.5, batman.calculateAverageRating());
+            batman.addToTotalRatings(100);
+            assertEquals(99.7, batman.calculateAverageRating());
+    }
+
+    @Test
     public void testGetAverageRating() {
         assertEquals(0, batman.getAverageRating());
         batman.addToTotalRatings(100);
@@ -87,6 +104,13 @@ public class MovieTest {
         assertEquals(99.5, batman.getAverageRating());
         batman.addToTotalRatings(100);
         assertEquals(99.7, batman.getAverageRating());
+    }
+
+    @Test
+    public void testAddToTotalRatings() {
+        assertEquals(0, batman.getTotalRatings());
+        batman.addToTotalRatings(100);
+        assertEquals(1, batman.getTotalRatings());
     }
 
 

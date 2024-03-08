@@ -75,7 +75,7 @@ public class UserDataStorageTest {
     }
 
     @Test
-    public void testOverrideData() {
+    public void testOverrideUserData() {
         allUsers.overrideUserData(jugaad);
         assertEquals(0, allUsers.getUserPosition("jugaad"));
         allUsers.overrideUserData(jugaad);

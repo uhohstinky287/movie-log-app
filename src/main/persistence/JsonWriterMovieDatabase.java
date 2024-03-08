@@ -23,7 +23,7 @@ public class JsonWriterMovieDatabase {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of movieDatabase to file
     public void write(MovieDatabase md) {
         JSONObject json = md.toJson();
         saveToFile(json.toString(TAB));

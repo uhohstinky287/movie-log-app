@@ -25,7 +25,8 @@
             77,
             90,
             87,
-            96
+            96,
+            90
         ]
     },
     {
@@ -42,7 +43,7 @@
         "name": "DUNE",
         "rating": 0,
         "description": "The first Dune movie",
-        "allRatings": []
+        "allRatings": [85]
     },
     {
         "year": 2013,

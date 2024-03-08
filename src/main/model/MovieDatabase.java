@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // Represents a list of all the movies ever entered
 public class MovieDatabase implements Writable {
@@ -53,7 +55,7 @@ public class MovieDatabase implements Writable {
     }
 
 
-    //Just for testing
+    // getters
     public Movie getMovieFromOrderAll(int i) {
         return allMovies.get(i - 1);
     }
@@ -62,11 +64,18 @@ public class MovieDatabase implements Writable {
         return allMovies.size();
     }
 
+    public List<Movie> getMovies() {
+        return Collections.unmodifiableList(allMovies);
+    }
 
+
+    //MODIFIES: movie.totalRatings
+    //EFFECTS: adds rating to movies totalRatings list
     public void addToAverageRating(Movie movie, Integer rating) {
         isMovieInDatabaseReturnMovie(movie).addToTotalRatings(rating);
     }
 
+    //EFFECTS: gets a movie from its title and year, then returns its average rating
     public double getAverageRatingFromDatabase(String movieTitleForSearch, Integer movieYearForSearch) {
         for (Movie m: allMovies) {
             if ((movieTitleForSearch.equals(m.getMovieName())) && (movieYearForSearch == m.getMovieYear())) {
@@ -76,6 +85,8 @@ public class MovieDatabase implements Writable {
         return 0.0;
     }
 
+    //MODIFIES: JSON
+    //EFFECTS: converts entire database to a json object, then returns it
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -83,6 +94,8 @@ public class MovieDatabase implements Writable {
         return json;
     }
 
+    //MODIFIES: JSON
+    //EFFECTS: converts each movie in the database to a JSON format and returns the list
     private JSONArray databaseToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Movie m : allMovies) {

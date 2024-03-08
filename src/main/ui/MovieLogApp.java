@@ -379,7 +379,7 @@ public class MovieLogApp {
     private String watchedMovieDetails(Movie movie) {
         return myMovies.isMovieInMyListReturnMovie(movie).getMovieName() + "   " + "("
                 + myMovies.isMovieInMyListReturnMovie(movie).getMovieYear() + ")" + System.lineSeparator()
-            + "Directed by: " + myMovies.isMovieInMyListReturnMovie(movie).getDirector() + System.lineSeparator()
+            + "Directed by: " + database.isMovieInDatabaseReturnMovie(movie).getDirector() + System.lineSeparator()
             + "Your Rating: " + myMovies.isMovieInMyListReturnMovie(movie).getUserRating() + "/100"
                 + "  ...  Average rating of all users: "
             + database.getAverageRatingFromDatabase(movie.getMovieName(), movie.getMovieYear())

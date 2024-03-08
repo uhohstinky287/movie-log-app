@@ -94,6 +94,19 @@ public class MovieDatabaseTest {
 
     @Test
     public void testAddToAverageRating() {
+        allMovies.addMovieToDatabase(theBatmanFromDatabase);
+        assertEquals(0, theBatmanFromDatabase.getTotalRatings());
+        allMovies.addToAverageRating(theBatmanFromDatabase, 100);
+        assertEquals(1, theBatmanFromDatabase.getTotalRatings());
+    }
+
+    @Test
+    public void testGetAverageRatingFromDatabase() {
+        allMovies.addMovieToDatabase(theBatmanFromDatabase);
+        assertEquals(0, allMovies.getAverageRatingFromDatabase("The Batman", 2022));
+        allMovies.addToAverageRating(theBatmanFromDatabase,100);
+        assertEquals(100.0, allMovies.getAverageRatingFromDatabase("The Batman", 2022));
+
 
     }
 

@@ -15,7 +15,6 @@ public class Movie implements Writable {
     private String movieDescription;
     private String director;
     private ArrayList<Integer> totalRatings;
-    private ArrayList<Review> reviews;
 
     //EFFECTS: creates a movie with a name, year of release, not watched, 0 rating and
     // no description and undetermined director
@@ -26,7 +25,6 @@ public class Movie implements Writable {
         this.movieDescription = "";
         this.director = "";
         totalRatings = new ArrayList<>();
-        reviews = new ArrayList<>();
     }
 
     //getters
@@ -83,7 +81,7 @@ public class Movie implements Writable {
     }
 
     //EFFECTS: Returns user rating or says no ratings yet
-    public String ratingDetails() { //TODO: TEST
+    public String ratingDetails() {
         if (getTotalRatings() == 0) {
             return "No ratings yet";
         } else {
@@ -92,13 +90,13 @@ public class Movie implements Writable {
     }
 
     //EFFECTS: returns the size of totalRatings
-    public int getTotalRatings() { //TODO: TEST
+    public int getTotalRatings() {
         return totalRatings.size();
     }
 
     //REQUIRES: totalRatings is not empty
     //EFFECTS: returns the average of the totalRatings
-    public double calculateAverageRating() { //TODO: TEST (copy getAverageRating)
+    public double calculateAverageRating() {
         int sum = 0;
         for (int i : totalRatings) {
             sum = sum + i;
@@ -109,7 +107,7 @@ public class Movie implements Writable {
     }
 
     //EFFECTS: adds a rating to total ratings List
-    public void addToTotalRatings(int rating) { //TODO: TEST
+    public void addToTotalRatings(int rating) {
         totalRatings.add(rating);
     }
 
@@ -118,9 +116,9 @@ public class Movie implements Writable {
         return calculateAverageRating();
     }
 
-    public void addReview(Review r) {
-        reviews.add(r);
-    }
+//    public void addReview(Review r) {
+//        reviews.add(r);
+//    }
 
 
     @Override

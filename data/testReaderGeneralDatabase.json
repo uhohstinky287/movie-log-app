@@ -1,0 +1,31 @@
+{"movies": [
+  {
+    "year": 2022,
+    "director": "Matt Reeves",
+    "name": "THE BATMAN",
+    "rating": 0,
+    "description": "Emo Batman",
+    "allRatings": [
+      97,
+      98,
+      96,
+      99,
+      81,
+      70
+    ]
+  },
+  {
+    "year": 2023,
+    "director": "Greta Gerwig",
+    "name": "BARBIE",
+    "rating": 0,
+    "description": "Barbie and Ken",
+    "allRatings": [
+      89,
+      77,
+      90,
+      87,
+      96,
+      90
+    ]
+  }]}
