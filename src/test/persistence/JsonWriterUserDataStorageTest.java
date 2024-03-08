@@ -55,8 +55,8 @@ public class JsonWriterUserDataStorageTest extends JsonTestUserDataStorage {
             uds = reader.read();
             List<MyMovieList> users = uds.getUsers();
             assertEquals(2, users.size());
-            checkUser("jugaadlally", users.get(0));
-            checkUser("seeritlally", users.get(1));
+            checkUser("jugaadlally", users.get(0), "THE BATMAN");
+            checkUser("seeritlally", users.get(1), "BARBIE");
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

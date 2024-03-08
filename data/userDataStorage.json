@@ -46,7 +46,7 @@
                 "name": "DUNE",
                 "rating": 85,
                 "description": "",
-                "allRatings": [85]
+                "allRatings": []
             }
         ],
         "username": "seeritlally"
@@ -80,5 +80,17 @@
             }
         ],
         "username": "saharah"
+    },
+    {
+        "password": "cookies",
+        "myMovies": [{
+            "year": 2023,
+            "director": "",
+            "name": "BARBIE",
+            "rating": 100,
+            "description": "",
+            "allRatings": [100]
+        }],
+        "username": "emi"
     }
 ]}

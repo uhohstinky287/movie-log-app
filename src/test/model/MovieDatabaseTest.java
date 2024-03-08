@@ -106,6 +106,7 @@ public class MovieDatabaseTest {
         assertEquals(0, allMovies.getAverageRatingFromDatabase("The Batman", 2022));
         allMovies.addToAverageRating(theBatmanFromDatabase,100);
         assertEquals(100.0, allMovies.getAverageRatingFromDatabase("The Batman", 2022));
+        assertEquals(0.0, allMovies.getAverageRatingFromDatabase("The Batman", 2021));
 
 
     }
