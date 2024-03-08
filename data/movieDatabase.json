@@ -1,0 +1,66 @@
+{"movies": [
+    {
+        "year": 2022,
+        "director": "Matt Reeves",
+        "name": "THE BATMAN",
+        "rating": 0,
+        "description": "Emo Batman",
+        "allRatings": [
+            97,
+            98,
+            96,
+            99,
+            81,
+            70
+        ]
+    },
+    {
+        "year": 2023,
+        "director": "Greta Gerwig",
+        "name": "BARBIE",
+        "rating": 0,
+        "description": "Barbie and Ken",
+        "allRatings": [
+            89,
+            77,
+            90,
+            87,
+            96
+        ]
+    },
+    {
+        "year": 2023,
+        "director": "Christopher Nolan",
+        "name": "OPPENHEIMER",
+        "rating": 0,
+        "description": "Oppenheimer BOOM",
+        "allRatings": [87]
+    },
+    {
+        "year": 2021,
+        "director": "Denis Villenueve",
+        "name": "DUNE",
+        "rating": 0,
+        "description": "The first Dune movie",
+        "allRatings": []
+    },
+    {
+        "year": 2013,
+        "director": "Richard Curtis",
+        "name": "ABOUT TIME",
+        "rating": 0,
+        "description": "What if every moment in life came with a second chance?",
+        "allRatings": [
+            90,
+            90
+        ]
+    },
+    {
+        "year": 2023,
+        "director": "Emma Seligman",
+        "name": "BOTTOMS",
+        "rating": 0,
+        "description": "Lesbian fight club",
+        "allRatings": [96]
+    }
+]}

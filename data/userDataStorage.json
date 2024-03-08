@@ -1,0 +1,66 @@
+{"users": [
+    {
+        "password": "",
+        "myMovies": [
+            {
+                "year": 2022,
+                "director": "",
+                "name": "THE BATMAN",
+                "rating": 98,
+                "description": "",
+                "allRatings": []
+            },
+            {
+                "year": 2023,
+                "director": "",
+                "name": "BARBIE",
+                "rating": 87,
+                "description": "",
+                "allRatings": []
+            }
+        ],
+        "username": "jugaadlally"
+    },
+    {
+        "password": "",
+        "myMovies": [{
+            "year": 2022,
+            "director": "",
+            "name": "THE BATMAN",
+            "rating": 81,
+            "description": "",
+            "allRatings": []
+        }],
+        "username": "seeritlally"
+    },
+    {
+        "password": "lucky2",
+        "myMovies": [
+            {
+                "year": 2013,
+                "director": "",
+                "name": "ABOUT TIME",
+                "rating": 90,
+                "description": "",
+                "allRatings": []
+            },
+            {
+                "year": 2023,
+                "director": "",
+                "name": "BOTTOMS",
+                "rating": 96,
+                "description": "",
+                "allRatings": []
+            },
+            {
+                "year": 2023,
+                "director": "",
+                "name": "BARBIE",
+                "rating": 96,
+                "description": "",
+                "allRatings": [96]
+            }
+        ],
+        "username": "saharah"
+    }
+]}

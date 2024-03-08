@@ -62,7 +62,7 @@ public class MovieLogApp {
             command = input.next();
             command = command.toLowerCase();
             if (command.equals("e")) {
-                allUsers.overrideUserData(myMovies);
+//                allUsers.overrideUserData(myMovies);
                 displaySaveOption();
                 keepGoing = false;
             } else {
@@ -89,8 +89,8 @@ public class MovieLogApp {
         System.out.println("\ts -> Search for a movie");
         System.out.println("\tu -> Search for another user");
         System.out.println("\tv -> View your movies");
-        System.out.println("\tl -> Logout of your account");
-        System.out.println("\te -> Exit App");
+//        System.out.println("\tl -> Logout of your account");
+        System.out.println("\te -> Exit App and logout");
     }
 
     // processes dashboard commands
@@ -104,11 +104,11 @@ public class MovieLogApp {
             System.out.println("searching users...");
         } else if (command.equals("v")) {
             viewMyMovies();
-        } else if (command.equals("l")) {
-            allUsers.overrideUserData(myMovies);
-            displaySaveOption();
-            System.out.println("You have been logged out");
-            startingMenu();
+//        } else if (command.equals("l")) {
+//            allUsers.overrideUserData(myMovies);
+//            displaySaveOption();
+//            System.out.println("You have been logged out");
+//            startingMenu();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -400,6 +400,7 @@ public class MovieLogApp {
             selection = selection.toLowerCase();
         }
         if (selection.equals("y")) {
+            allUsers.overrideUserData(myMovies);
             save();
         }
     }
@@ -444,5 +445,8 @@ public class MovieLogApp {
             System.out.println("Unable to read from file: " + JSON_USERS);
         }
     }
+
+
+    //todo from my movie list, see full description
 }
 
