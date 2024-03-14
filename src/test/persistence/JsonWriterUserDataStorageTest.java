@@ -42,10 +42,17 @@ public class JsonWriterUserDataStorageTest extends JsonTestUserDataStorage {
 
     @Test
     void testWriterGeneralDatabase() {
+        Movie batman = new Movie("THE BATMAN", 2022);
+        Movie barbie = new Movie("BARBIE", 2023);
+        MyMovieList jugaadsMovies = new MyMovieList("jugaadlally");
+        jugaadsMovies.addMovie(batman);
+        MyMovieList seeritsMovies = new MyMovieList(("seeritlally"));
+        seeritsMovies.addMovie(barbie);
+
         try {
             UserDataStorage uds = new UserDataStorage();
-            uds.addUserToDatabase(new MyMovieList("jugaadlally"));
-            uds.addUserToDatabase(new MyMovieList("seeritlally"));
+            uds.addUserToDatabase(jugaadsMovies);
+            uds.addUserToDatabase(seeritsMovies);
             JsonWriterUserDataStorage writer = new JsonWriterUserDataStorage("./data/testWriterGeneralUsers.json");
             writer.open();
             writer.write(uds);

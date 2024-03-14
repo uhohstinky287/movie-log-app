@@ -1,128 +1,52 @@
 {"users": [
     {
         "password": "password",
-        "myMovies": [
-            {
-                "year": 2022,
-                "director": "",
-                "name": "THE BATMAN",
-                "rating": 98,
-                "description": "",
-                "allRatings": []
-            },
-            {
-                "year": 2023,
-                "director": "",
-                "name": "BARBIE",
-                "rating": 87,
-                "description": "",
-                "allRatings": []
-            },
-            {
-                "year": 2024,
-                "director": "Denis Villenueve",
-                "name": "DUNE: PART TWO",
-                "rating": 94,
-                "description": "Paul Atreides unites with Chani and the Fremen",
-                "allRatings": []
-            }
-        ],
+        "myMovies": [{
+            "reviews": {"jugaadlally": {
+                "rating": 97,
+                "writtenReview": "",
+                "username": "jugaadlally"
+            }},
+            "year": 2022,
+            "director": "Matt Reeves",
+            "name": "THE BATMAN",
+            "description": "Emo Batman"
+        }],
         "username": "jugaadlally"
     },
     {
-        "password": "seerit",
+        "password": "bains",
         "myMovies": [
             {
+                "reviews": {"saharah": {
+                    "rating": 100,
+                    "writtenReview": "",
+                    "username": "saharah"
+                }},
+                "year": 2023,
+                "director": "Greta Gerwig",
+                "name": "BARBIE",
+                "description": "Barbie and Ken enter the real world"
+            },
+            {
+                "reviews": {
+                    "jugaadlally": {
+                        "rating": 97,
+                        "writtenReview": "",
+                        "username": "jugaadlally"
+                    },
+                    "saharah": {
+                        "rating": 80,
+                        "writtenReview": "",
+                        "username": "saharah"
+                    }
+                },
                 "year": 2022,
-                "director": "",
+                "director": "Matt Reeves",
                 "name": "THE BATMAN",
-                "rating": 81,
-                "description": "",
-                "allRatings": []
-            },
-            {
-                "year": 2023,
-                "director": "",
-                "name": "BARBIE",
-                "rating": 90,
-                "description": "",
-                "allRatings": []
-            },
-            {
-                "year": 2021,
-                "director": "",
-                "name": "DUNE",
-                "rating": 85,
-                "description": "",
-                "allRatings": []
-            }
-        ],
-        "username": "seeritlally"
-    },
-    {
-        "password": "lucky2",
-        "myMovies": [
-            {
-                "year": 2013,
-                "director": "",
-                "name": "ABOUT TIME",
-                "rating": 90,
-                "description": "",
-                "allRatings": []
-            },
-            {
-                "year": 2023,
-                "director": "",
-                "name": "BOTTOMS",
-                "rating": 96,
-                "description": "",
-                "allRatings": []
-            },
-            {
-                "year": 2023,
-                "director": "",
-                "name": "BARBIE",
-                "rating": 96,
-                "description": "",
-                "allRatings": []
+                "description": "Emo Batman"
             }
         ],
         "username": "saharah"
-    },
-    {
-        "password": "cookies",
-        "myMovies": [{
-            "year": 2023,
-            "director": "",
-            "name": "BARBIE",
-            "rating": 100,
-            "description": "",
-            "allRatings": []
-        }],
-        "username": "emi"
-    },
-    {
-        "password": "password",
-        "myMovies": [{
-            "year": 2024,
-            "director": "",
-            "name": "DUNE: PART TWO",
-            "rating": 95,
-            "description": "",
-            "allRatings": []
-        }],
-        "username": "buttman123"
-    },
-    {
-        "password": "movies",
-        "myMovies": [{
-            "year": 2022,
-            "director": "",
-            "name": "THE BATMAN",
-            "rating": 90,
-            "description": "",
-            "allRatings": [90]
-        }],
-        "username": "ilikemovies"
     }
 ]}

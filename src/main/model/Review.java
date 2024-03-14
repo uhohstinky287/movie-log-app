@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 //represents a Review for a movie by a user
 //TODO: NEW! create a test class
-public class Review {
+public class Review implements Writable {
     private String username;
     private String writtenReview;
     private int rating;
@@ -37,5 +40,16 @@ public class Review {
 
     public void setWrittenReview(String wr) {
         this.writtenReview = wr;
+    }
+
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("username", username);
+        json.put("rating", rating);
+        json.put("writtenReview", writtenReview);
+        return json;
     }
 }

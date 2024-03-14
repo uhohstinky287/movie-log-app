@@ -7,6 +7,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.json.*;
@@ -79,14 +82,37 @@ public class JsonReaderUserDataStorage {
     private void addMovie(MyMovieList mml, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int year = jsonObject.getInt("year");
-        int rating = jsonObject.getInt("rating");
         String description = jsonObject.getString("description");
         String director = jsonObject.getString("director");
+        JSONObject reviews = jsonObject.getJSONObject("reviews");
         Movie m = new Movie(name, year);
-        m.setUserRating(rating);
         m.setMovieDescription(description);
         m.setDirector(director);
+        m.setReviews(reviewsToMap(reviews));
         mml.addMovie(m);
+    }
+
+
+    //EFFECTS: converts reviews JSONObject to HashMap
+    private Map<String, Review> reviewsToMap(JSONObject jsonObject) {
+        Map<String, Review> reviewMap = new LinkedHashMap<>();
+        Iterator<String> keys = jsonObject.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            JSONObject review = jsonObject.getJSONObject(key);
+            reviewMap.put(key, jsonObjectToReview(review));
+        }
+        return reviewMap;
+    }
+
+    //EFFECTS: coverts review JSONObject to Review
+    private Review jsonObjectToReview(JSONObject jsonObject) {
+        int rating = jsonObject.getInt("rating");
+        String username = jsonObject.getString("username");
+        String writtenReview = jsonObject.getString("writtenReview");
+        Review review = new Review(username, rating);
+        review.setWrittenReview(writtenReview);
+        return review;
     }
 
 }

@@ -7,7 +7,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Stream;
+import java.util.Iterator;
 
 import org.json.*;
 
@@ -58,24 +61,36 @@ public class JsonReaderMovieDatabase {
     private void addMovie(MovieDatabase md, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int year = jsonObject.getInt("year");
-        int rating = jsonObject.getInt("rating");
         String description = jsonObject.getString("description");
         String director = jsonObject.getString("director");
-        JSONArray allRatings = jsonObject.getJSONArray("allRatings");
+        JSONObject reviews = jsonObject.getJSONObject("reviews");
         Movie m = new Movie(name, year);
-        m.setUserRating(rating);
         m.setMovieDescription(description);
         m.setDirector(director);
-        m.setTotalRatings(allRatingsToList(allRatings));
+        m.setReviews(reviewsToMap(reviews));
         md.addMovieToDatabase(m);
     }
 
-    //EFFECTS: converts allRatingsList from JSONArray to ArrayList
-    private ArrayList allRatingsToList(JSONArray jsonArray) {
-        ArrayList arrayList = new ArrayList();
-        for (Object o: jsonArray) {
-            arrayList.add(o);
+
+    //EFFECTS: converts reviews JSONObject to HashMap
+    private Map<String, Review> reviewsToMap(JSONObject jsonObject) {
+        Map<String, Review> reviewMap = new LinkedHashMap<>();
+        Iterator<String> keys = jsonObject.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            JSONObject review = jsonObject.getJSONObject(key);
+            reviewMap.put(key, jsonObjectToReview(review));
         }
-        return arrayList;
+        return reviewMap;
+    }
+
+    //EFFECTS: coverts review JSONObject to Review
+    private Review jsonObjectToReview(JSONObject jsonObject) {
+        int rating = jsonObject.getInt("rating");
+        String username = jsonObject.getString("username");
+        String writtenReview = jsonObject.getString("writtenReview");
+        Review review = new Review(username, rating);
+        review.setWrittenReview(writtenReview);
+        return review;
     }
 }

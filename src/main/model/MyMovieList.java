@@ -62,11 +62,11 @@ public class MyMovieList implements Writable {
 
     //REQUIRES: the list is not empty
     //EFFECTS: prints the list of movies in My Movie List
-    public String viewMoviesNotEmpty() {
+    public String viewMoviesNotEmpty(String username) {
         StringBuilder printedList = new StringBuilder();
         for (Movie m : myMovieList) {
             printedList.append("\n").append(m.getMovieName()).append(
-                    "  (").append(m.getMovieYear()).append(")  ").append(m.getUserRating()).append("/100");
+                    "  (").append(m.getMovieYear()).append(")  ").append(m.getUserRating(username)).append("/100");
         }
         return printedList.toString();
     }

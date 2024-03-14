@@ -1,80 +1,31 @@
 {"movies": [
     {
+        "reviews": {
+            "jugaadlally": {
+                "rating": 97,
+                "writtenReview": "",
+                "username": "jugaadlally"
+            },
+            "saharah": {
+                "rating": 80,
+                "writtenReview": "",
+                "username": "saharah"
+            }
+        },
         "year": 2022,
         "director": "Matt Reeves",
         "name": "THE BATMAN",
-        "rating": 0,
-        "description": "Emo Batman",
-        "allRatings": [
-            97,
-            98,
-            96,
-            99,
-            81,
-            70,
-            90
-        ]
+        "description": "Emo Batman"
     },
     {
+        "reviews": {"saharah": {
+            "rating": 100,
+            "writtenReview": "",
+            "username": "saharah"
+        }},
         "year": 2023,
         "director": "Greta Gerwig",
         "name": "BARBIE",
-        "rating": 0,
-        "description": "Barbie and Ken",
-        "allRatings": [
-            89,
-            77,
-            90,
-            87,
-            96,
-            90,
-            100
-        ]
-    },
-    {
-        "year": 2023,
-        "director": "Christopher Nolan",
-        "name": "OPPENHEIMER",
-        "rating": 0,
-        "description": "Oppenheimer BOOM",
-        "allRatings": [87]
-    },
-    {
-        "year": 2021,
-        "director": "Denis Villenueve",
-        "name": "DUNE",
-        "rating": 0,
-        "description": "The first Dune movie",
-        "allRatings": [85]
-    },
-    {
-        "year": 2013,
-        "director": "Richard Curtis",
-        "name": "ABOUT TIME",
-        "rating": 0,
-        "description": "What if every moment in life came with a second chance?",
-        "allRatings": [
-            90,
-            90
-        ]
-    },
-    {
-        "year": 2023,
-        "director": "Emma Seligman",
-        "name": "BOTTOMS",
-        "rating": 0,
-        "description": "Lesbian fight club",
-        "allRatings": [96]
-    },
-    {
-        "year": 2024,
-        "director": "Denis Villenueve",
-        "name": "DUNE: PART TWO",
-        "rating": 0,
-        "description": "Paul Atreides unites with Chani and the Fremen",
-        "allRatings": [
-            94,
-            95
-        ]
+        "description": "Barbie and Ken enter the real world"
     }
 ]}

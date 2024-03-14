@@ -1,9 +1,6 @@
 package ui;
 
-import model.MovieDatabase;
-import model.Movie;
-import model.MyMovieList;
-import model.UserDataStorage;
+import model.*;
 import persistence.JsonReaderMovieDatabase;
 import persistence.JsonReaderUserDataStorage;
 import persistence.JsonWriterMovieDatabase;
@@ -33,6 +30,7 @@ public class MovieLogApp {
     private String otherUser;
     private int movieYear;
     private int movieRating;
+    private Review review;
     private JsonWriterMovieDatabase jsonWriterMovieDatabase;
     private JsonReaderMovieDatabase jsonReaderMovieDatabase;
     private JsonWriterUserDataStorage jsonWriterUserDataStorage;
@@ -206,7 +204,7 @@ public class MovieLogApp {
         } else {
             System.out.println(username + "'s Movies:");
             System.out.println("\t");
-            System.out.println(myMovies.viewMoviesNotEmpty());
+            System.out.println(myMovies.viewMoviesNotEmpty(username));
             returnToMenuOption();
         }
     }
@@ -224,7 +222,7 @@ public class MovieLogApp {
             } else {
                 System.out.println(otherUser + "'s Movies:");
                 System.out.println("\t");
-                System.out.println(allUsers.isUserInDatabaseReturnUser(otherUser).viewMoviesNotEmpty());
+                System.out.println(allUsers.isUserInDatabaseReturnUser(otherUser).viewMoviesNotEmpty(username));
                 returnToMenuOption();
             }
         } else {
@@ -314,10 +312,9 @@ public class MovieLogApp {
         System.out.println("What would you rate this movie from 1-100"); // REQUIRES: the int be between 1-100
         movieRatingInput = new Scanner(System.in);
         movieRating = movieRatingInput.nextInt();
-        myMovie.setUserRating(movieRating);
-        myMovie.addToTotalRatings(movieRating);
-        database.addToAverageRating(myMovie, movieRating);
-        myMovies.addMovie(myMovie);
+        review = new Review(username, movieRating);
+        database.addToAverageRating(myMovie, review);
+        myMovies.addMovie(database.isMovieInDatabaseReturnMovie(myMovie));
         System.out.println("\n" + movieTitle + " has been added to your list");
         returnToMenuOption();
     }
@@ -380,7 +377,7 @@ public class MovieLogApp {
         return myMovies.isMovieInMyListReturnMovie(movie).getMovieName() + "   " + "("
                 + myMovies.isMovieInMyListReturnMovie(movie).getMovieYear() + ")" + System.lineSeparator()
             + "Directed by: " + database.isMovieInDatabaseReturnMovie(movie).getDirector() + System.lineSeparator()
-            + "Your Rating: " + myMovies.isMovieInMyListReturnMovie(movie).getUserRating() + "/100"
+            + "Your Rating: " + myMovies.isMovieInMyListReturnMovie(movie).getUserRating(username) + "/100"
                 + "  ...  Average rating of all users: "
             + database.getAverageRatingFromDatabase(movie.getMovieName(), movie.getMovieYear())
                 + "/100" + System.lineSeparator()

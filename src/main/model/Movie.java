@@ -1,35 +1,29 @@
 package model;
 
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // Represents a movie with a name, year released, description, director, watched/unwatched status, and user rating
 public class Movie implements Writable {
     private String movieName;
     private int movieYear;
-    private int userRating;
+//    private int userRating;
     private String movieDescription;
     private String director;
-    private ArrayList<Integer> totalRatings;
     private Map<String,Review> reviews; //TODO: NEW! create tests
+
 
     //EFFECTS: creates a movie with a name, year of release, not watched, 0 rating and
     // no description and undetermined director
     public Movie(String movieName, int movieYear) {
         this.movieName = movieName;
         this.movieYear = movieYear;
-        this.userRating = 0;
         this.movieDescription = "";
         this.director = "";
-        totalRatings = new ArrayList<>();
-        reviews = new HashMap<>(); //TODO: NEW!
+        reviews = new LinkedHashMap<>();
     }
 
     //getters
@@ -43,8 +37,8 @@ public class Movie implements Writable {
     }
 
 
-    public int getUserRating() {
-        return this.userRating;
+    public int getUserRating(String username) {
+        return reviews.get(username).getRating();
     }
 
     public String getMovieDescription() {
@@ -55,10 +49,14 @@ public class Movie implements Writable {
         return this.director;
     }
 
-    public Map<String,Review> getReviews() { //TODO:NEW!
-        return this.reviews;
-    } //TODO:NEW
+    //REQUIRES: totalRating != 0
+    public double getAverageRating() {
+        return calculateAverageRating();
+    }
 
+    public Map<String,Review> getReviewsMap() { //TODO:NEW!
+        return this.reviews;
+    }
 
     //setters
 
@@ -66,18 +64,18 @@ public class Movie implements Writable {
         this.movieDescription = movieDescription;
     }
 
-    public void setUserRating(int userRating) {
-        this.userRating = userRating;
-    }
+//    public void setUserRating(int userRating) {
+//        revi;
+//    }
 
 
     public void setDirector(String director) {
         this.director = director;
     }
 
-    public void setTotalRatings(ArrayList totalRatings) {
-        this.totalRatings = totalRatings;
-    }
+//    public void setTotalRatings(ArrayList totalRatings) {
+//        this.totalRatings = totalRatings;
+//    }
 
     public void setReviews(Map reviews) { //TODO: NEW!
         this.reviews = reviews;
@@ -93,41 +91,42 @@ public class Movie implements Writable {
                     + getMovieDescription();
     }
 
+
+
     //EFFECTS: Returns user rating or says no ratings yet
     public String ratingDetails() {
-        if (getTotalRatings() == 0) {
+        if (reviews.isEmpty()) {
             return "No ratings yet";
         } else {
             return "Average rating of all users: " + String.valueOf(getAverageRating()) + "/100";
         }
     }
 
-    //EFFECTS: returns the size of totalRatings
-    public int getTotalRatings() {
-        return totalRatings.size();
-    }
 
-    //REQUIRES: totalRatings is not empty
-    //EFFECTS: returns the average of the totalRatings
+    //EFFECTS making a calculateAverageRating() with a HashMapInstead
     public double calculateAverageRating() {
         int sum = 0;
-        for (int i : totalRatings) {
+        for (int i : getTotalRatingsList()) {
             sum = sum + i;
         }
-        double average = (double) sum / totalRatings.size();
+        double average = (double) sum / getTotalRatingsSize();
         average = Math.round(average * 10.0) / 10.0;
         return average;
     }
 
-    //EFFECTS: adds a rating to total ratings List
-    public void addToTotalRatings(int rating) {
-        totalRatings.add(rating);
+    //EFFECTS: makes a list of all the ratings left in the reviews
+    public List<Integer> getTotalRatingsList() {
+        List<Integer> totalRatingsLOL = new ArrayList<>();
+        for (Review r : getAllReviews()) {
+            totalRatingsLOL.add(r.getRating());
+        }
+        return totalRatingsLOL;
     }
 
-    //REQUIRES: totalRating != 0
-    public double getAverageRating() {
-        return calculateAverageRating();
+    public int getTotalRatingsSize() {
+        return getTotalRatingsList().size();
     }
+
 
     //EFFECTS: adds a review to reviews list if they have not written one yet
     public void addReview(String username, Review r) {
@@ -135,6 +134,12 @@ public class Movie implements Writable {
             reviews.put(username, r);
         }
     } //TODO:NEW
+
+    //REQUIRES: user in the list
+    //EFFECTS: changes the user's review
+    public void changeReview(String username, Review r) {
+        reviews.replace(username, r);
+    }
 
     //EFFECTS: gets a user's review from their username
     public Review getUserReview(String username) {
@@ -146,10 +151,10 @@ public class Movie implements Writable {
     } //TODO: NEW
 
     //EFFECTS: gets a list of all reviews
-    public Object[] getAllReviews() {
-        return reviews.values().toArray();
+    public List<Review> getAllReviews() {
+        List<Review> reviewsAsList = new ArrayList<Review>(reviews.values());
+        return reviewsAsList;
     } //TODO: NEW
-
 
 
     @Override
@@ -157,19 +162,19 @@ public class Movie implements Writable {
         JSONObject json = new JSONObject();
         json.put("name", movieName);
         json.put("year", movieYear);
-        json.put("rating", userRating);
         json.put("description", movieDescription);
         json.put("director", director);
-        json.put("allRatings", totalRatingsToJson());
+        json.put("reviews", reviewsToJson());
         return json;
     }
 
-    //EFFECTS: returns totalRatings as a JSON array
-    public JSONArray totalRatingsToJson() {
-        JSONArray jsonArray = new JSONArray();
-        for (Integer i : totalRatings) {
-            jsonArray.put(i);
+    //EFFECTS: returns reviews as an Object that JSON can read
+    public JSONObject reviewsToJson() {
+        JSONObject jsonHashMap = new JSONObject();
+        for (String key : reviews.keySet()) {
+            jsonHashMap.put(key, reviews.get(key).toJson());
         }
-        return jsonArray;
+        return jsonHashMap;
     }
+
 }

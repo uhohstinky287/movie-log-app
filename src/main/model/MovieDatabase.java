@@ -71,8 +71,8 @@ public class MovieDatabase implements Writable {
 
     //MODIFIES: movie.totalRatings
     //EFFECTS: adds rating to movies totalRatings list
-    public void addToAverageRating(Movie movie, Integer rating) {
-        isMovieInDatabaseReturnMovie(movie).addToTotalRatings(rating);
+    public void addToAverageRating(Movie movie, Review r) {
+        isMovieInDatabaseReturnMovie(movie).addReview(r.getUsername(), r);
     }
 
     //EFFECTS: gets a movie from its title and year, then returns its average rating
