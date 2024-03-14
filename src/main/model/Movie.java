@@ -6,6 +6,9 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // Represents a movie with a name, year released, description, director, watched/unwatched status, and user rating
 public class Movie implements Writable {
@@ -15,6 +18,7 @@ public class Movie implements Writable {
     private String movieDescription;
     private String director;
     private ArrayList<Integer> totalRatings;
+    private Map<String,Review> reviews; //TODO: NEW! create tests
 
     //EFFECTS: creates a movie with a name, year of release, not watched, 0 rating and
     // no description and undetermined director
@@ -25,6 +29,7 @@ public class Movie implements Writable {
         this.movieDescription = "";
         this.director = "";
         totalRatings = new ArrayList<>();
+        reviews = new HashMap<>(); //TODO: NEW!
     }
 
     //getters
@@ -50,6 +55,10 @@ public class Movie implements Writable {
         return this.director;
     }
 
+    public Map<String,Review> getReviews() { //TODO:NEW!
+        return this.reviews;
+    } //TODO:NEW
+
 
     //setters
 
@@ -69,6 +78,10 @@ public class Movie implements Writable {
     public void setTotalRatings(ArrayList totalRatings) {
         this.totalRatings = totalRatings;
     }
+
+    public void setReviews(Map reviews) { //TODO: NEW!
+        this.reviews = reviews;
+    } //TODO:NEW
 
 
     //EFFECTS: prints out the details of an unwatched movie
@@ -116,9 +129,27 @@ public class Movie implements Writable {
         return calculateAverageRating();
     }
 
-//    public void addReview(Review r) {
-//        reviews.add(r);
-//    }
+    //EFFECTS: adds a review to reviews list if they have not written one yet
+    public void addReview(String username, Review r) {
+        if (!reviews.containsKey(username)) {
+            reviews.put(username, r);
+        }
+    } //TODO:NEW
+
+    //EFFECTS: gets a user's review from their username
+    public Review getUserReview(String username) {
+        if (reviews.containsKey(username)) {
+            return reviews.get(username);
+        } else  {
+            return null;
+        }
+    } //TODO: NEW
+
+    //EFFECTS: gets a list of all reviews
+    public Object[] getAllReviews() {
+        return reviews.values().toArray();
+    } //TODO: NEW
+
 
 
     @Override

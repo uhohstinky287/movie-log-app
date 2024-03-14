@@ -60,6 +60,7 @@ public class MovieDatabaseTest {
         allMovies.addMovieToDatabase(theBatmanFromDatabase);
         assertEquals("The Batman   (2022)" + System.lineSeparator()
                 + "Directed by: Matt Reeves" + System.lineSeparator()
+                + "No ratings yet" + System.lineSeparator()
                 + "Movie Description: " + System.lineSeparator()
                 + "Emo Batman", allMovies.provideDetailsUnwatched(theBatmanFromDatabase));
     }

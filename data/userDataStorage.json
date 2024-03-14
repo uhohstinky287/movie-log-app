@@ -17,6 +17,14 @@
                 "rating": 87,
                 "description": "",
                 "allRatings": []
+            },
+            {
+                "year": 2024,
+                "director": "Denis Villenueve",
+                "name": "DUNE: PART TWO",
+                "rating": 94,
+                "description": "Paul Atreides unites with Chani and the Fremen",
+                "allRatings": []
             }
         ],
         "username": "jugaadlally"
@@ -89,8 +97,32 @@
             "name": "BARBIE",
             "rating": 100,
             "description": "",
-            "allRatings": [100]
+            "allRatings": []
         }],
         "username": "emi"
+    },
+    {
+        "password": "password",
+        "myMovies": [{
+            "year": 2024,
+            "director": "",
+            "name": "DUNE: PART TWO",
+            "rating": 95,
+            "description": "",
+            "allRatings": []
+        }],
+        "username": "buttman123"
+    },
+    {
+        "password": "movies",
+        "myMovies": [{
+            "year": 2022,
+            "director": "",
+            "name": "THE BATMAN",
+            "rating": 90,
+            "description": "",
+            "allRatings": [90]
+        }],
+        "username": "ilikemovies"
     }
 ]}

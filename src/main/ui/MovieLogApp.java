@@ -147,7 +147,7 @@ public class MovieLogApp {
         if (allUsers.isUserInDatabase(username)) {
             returningUser();
         } else {
-            System.out.println("Username not in database");
+            System.out.println("Username not in database\n\n");
             startingMenu();
         }
         runApp();
@@ -161,7 +161,7 @@ public class MovieLogApp {
         this.password = input.nextLine();
         if (allUsers.isUserInDatabaseReturnUser(username).getPassword().equals(password)) {
             myMovies = allUsers.isUserInDatabaseReturnUser(username);
-            System.out.println("Welcome back " + username + " to:");
+            System.out.println("\n\nWelcome back " + username + " to:");
         } else {
             System.out.println("\n\n\nIncorrect password");
             try {

@@ -11,7 +11,8 @@
             96,
             99,
             81,
-            70
+            70,
+            90
         ]
     },
     {
@@ -64,5 +65,16 @@
         "rating": 0,
         "description": "Lesbian fight club",
         "allRatings": [96]
+    },
+    {
+        "year": 2024,
+        "director": "Denis Villenueve",
+        "name": "DUNE: PART TWO",
+        "rating": 0,
+        "description": "Paul Atreides unites with Chani and the Fremen",
+        "allRatings": [
+            94,
+            95
+        ]
     }
 ]}
