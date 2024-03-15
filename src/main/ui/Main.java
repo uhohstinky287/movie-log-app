@@ -2,7 +2,7 @@ package ui;
 
 import java.io.FileNotFoundException;
 
-//LAST SUMBITTED COMMIT
+//LAST SUBMITTED COMMIT
 public class Main {
     public static void main(String[] args) {
         try {
