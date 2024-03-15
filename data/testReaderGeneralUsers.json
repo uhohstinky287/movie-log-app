@@ -9,7 +9,7 @@
           "name": "THE BATMAN",
           "rating": 98,
           "description": "",
-          "allRatings": []
+          "reviews": {}
         },
         {
           "year": 2023,
@@ -17,7 +17,7 @@
           "name": "BARBIE",
           "rating": 87,
           "description": "",
-          "allRatings": []
+          "reviews": {}
         }
       ],
       "username": "jugaadlally"
@@ -31,7 +31,7 @@
           "name": "BARBIE",
           "rating": 90,
           "description": "",
-          "allRatings": []
+          "reviews": {}
         },
         {
           "year": 2022,
@@ -39,7 +39,7 @@
           "name": "THE BATMAN",
           "rating": 81,
           "description": "",
-          "allRatings": []
+          "reviews": {}
         },
         {
           "year": 2021,
@@ -47,9 +47,7 @@
           "name": "DUNE",
           "rating": 85,
           "description": "",
-          "allRatings": [
-            85
-          ]
+          "reviews": {}
         }
       ],
       "username": "seeritlally"

@@ -5,14 +5,7 @@
     "name": "THE BATMAN",
     "rating": 0,
     "description": "Emo Batman",
-    "allRatings": [
-      97,
-      98,
-      96,
-      99,
-      81,
-      70
-    ]
+    "reviews": {}
   },
   {
     "year": 2023,
@@ -20,12 +13,5 @@
     "name": "BARBIE",
     "rating": 0,
     "description": "Barbie and Ken",
-    "allRatings": [
-      89,
-      77,
-      90,
-      87,
-      96,
-      90
-    ]
+    "reviews": {}
   }]}

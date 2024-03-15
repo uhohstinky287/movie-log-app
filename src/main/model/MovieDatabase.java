@@ -96,7 +96,7 @@ public class MovieDatabase implements Writable {
 
     //MODIFIES: JSON
     //EFFECTS: converts each movie in the database to a JSON format and returns the list
-    private JSONArray databaseToJson() {
+    public JSONArray databaseToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Movie m : allMovies) {
             jsonArray.put(m.toJson());

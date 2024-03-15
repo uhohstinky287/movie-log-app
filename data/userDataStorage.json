@@ -48,5 +48,32 @@
             }
         ],
         "username": "saharah"
+    },
+    {
+        "password": "poop",
+        "myMovies": [{
+            "reviews": {
+                "jugaadlally": {
+                    "rating": 97,
+                    "writtenReview": "",
+                    "username": "jugaadlally"
+                },
+                "saharah": {
+                    "rating": 80,
+                    "writtenReview": "",
+                    "username": "saharah"
+                },
+                "poopman": {
+                    "rating": 94,
+                    "writtenReview": "",
+                    "username": "poopman"
+                }
+            },
+            "year": 2022,
+            "director": "Matt Reeves",
+            "name": "THE BATMAN",
+            "description": "Emo Batman"
+        }],
+        "username": "poopman"
     }
 ]}

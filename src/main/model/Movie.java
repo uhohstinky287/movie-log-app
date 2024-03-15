@@ -50,8 +50,15 @@ public class Movie implements Writable {
     }
 
     //REQUIRES: totalRating != 0
+    //EFFECTS: calculates the average rating of the hashmap, then returns it
     public double getAverageRating() {
-        return calculateAverageRating();
+        int sum = 0;
+        for (int i : getTotalRatingsList()) {
+            sum = sum + i;
+        }
+        double average = (double) sum / getTotalRatingsSize();
+        average = Math.round(average * 10.0) / 10.0;
+        return average;
     }
 
     public Map<String,Review> getReviewsMap() { //TODO:NEW!
@@ -64,22 +71,17 @@ public class Movie implements Writable {
         this.movieDescription = movieDescription;
     }
 
-//    public void setUserRating(int userRating) {
-//        revi;
-//    }
-
 
     public void setDirector(String director) {
         this.director = director;
     }
 
-//    public void setTotalRatings(ArrayList totalRatings) {
-//        this.totalRatings = totalRatings;
-//    }
 
     public void setReviews(Map reviews) { //TODO: NEW!
         this.reviews = reviews;
-    } //TODO:NEW
+    }
+
+
 
 
     //EFFECTS: prints out the details of an unwatched movie
@@ -91,7 +93,15 @@ public class Movie implements Writable {
                     + getMovieDescription();
     }
 
-
+    //EFFECTS: Provides the details of a movie that is in myMovies
+    public String movieDetailsWatched(String username) {
+        return getMovieName() + "   " + "(" + getMovieYear() + ")" + System.lineSeparator()
+                + "Directed by: " + getDirector() + System.lineSeparator()
+                + "Your Rating: " + getUserRating(username) + "/100"
+                + "  ...  Average rating of all users: " + getAverageRating() + "/100" + System.lineSeparator()
+                + "Movie Description: " + System.lineSeparator()
+                + getMovieDescription();
+    }
 
     //EFFECTS: Returns user rating or says no ratings yet
     public String ratingDetails() {
@@ -102,17 +112,6 @@ public class Movie implements Writable {
         }
     }
 
-
-    //EFFECTS making a calculateAverageRating() with a HashMapInstead
-    public double calculateAverageRating() {
-        int sum = 0;
-        for (int i : getTotalRatingsList()) {
-            sum = sum + i;
-        }
-        double average = (double) sum / getTotalRatingsSize();
-        average = Math.round(average * 10.0) / 10.0;
-        return average;
-    }
 
     //EFFECTS: makes a list of all the ratings left in the reviews
     public List<Integer> getTotalRatingsList() {

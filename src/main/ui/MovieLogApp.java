@@ -50,68 +50,24 @@ public class MovieLogApp {
         startingMenu();
     }
 
-
-    private void runApp() {
-        boolean keepGoing = true;
-        String command;
-        init(username);
-        while (keepGoing) {
-            displayDashBoard();
-            command = input.next();
-            command = command.toLowerCase();
-            if (command.equals("e")) {
-//                allUsers.overrideUserData(myMovies);
-                displaySaveOption();
-                keepGoing = false;
-            } else {
-                processCommand(command);
-            }
-        }
-        System.out.println("See you later!");
-        System.exit(0);
-    }
-
-
-    //MODIFIES: this
-    //EFFECTS: initializes lists
-    private void init(String username) {
-        input = new Scanner(System.in);
-    }
-
-
-    // EFFECTS: displays the dashboard of options to the user
-    private void displayDashBoard() {
-        System.out.println("\n" + username + "'s Movie Log");
-        System.out.println("\nWould you like to do?");
-        System.out.println("\ta -> Add a movie");
-        System.out.println("\ts -> Search for a movie");
-        System.out.println("\tu -> Search for another user");
-        System.out.println("\tv -> View your movies");
-//        System.out.println("\tl -> Logout of your account");
-        System.out.println("\te -> Exit App and logout");
-    }
-
-    // processes dashboard commands
-    private void processCommand(String command) {
-        if (command.equals("a")) {
-            checkIfInMyMoviesForAdd(movieInitializer());
-        } else if (command.equals("s")) {
-            checkIfInMyMoviesForSearch(movieInitializer());
-        } else if (command.equals("u")) {
-            searchUsers();
-            System.out.println("searching users...");
-        } else if (command.equals("v")) {
-            viewMyMovies();
-//        } else if (command.equals("l")) {
-//            allUsers.overrideUserData(myMovies);
-//            displaySaveOption();
-//            System.out.println("You have been logged out");
-//            startingMenu();
-        } else {
-            System.out.println("Selection not valid...");
+    // MODIFIES: this
+    // EFFECTS: loads database from file
+    private void loadDatabase() {
+        try {
+            database = jsonReaderMovieDatabase.read();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_MOVIES);
         }
     }
 
+    //EFFECTS: loads the list of all users from Json
+    private void loadUsers() {
+        try {
+            allUsers = jsonReaderUserDataStorage.read();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_USERS);
+        }
+    }
 
     //EFFECTS: creates a starting menu
     private void startingMenu() {
@@ -193,27 +149,77 @@ public class MovieLogApp {
         runApp();
     }
 
+    private void runApp() {
+        boolean keepGoing = true;
+        String command;
+        while (keepGoing) {
+            displayDashBoard();
+            command = input.next();
+            command = command.toLowerCase();
+            if (command.equals("e")) {
+                displaySaveOption();
+                keepGoing = false;
+            } else {
+                processCommand(command);
+            }
+        }
+        System.out.println("See you later!");
+        System.exit(0);
+    }
 
 
+    // EFFECTS: displays the dashboard of options to the user
+    private void displayDashBoard() {
+        System.out.println("\n" + username + "'s Movie Log");
+        System.out.println("\nWould you like to do?");
+        System.out.println("\ta -> Add a movie");
+        System.out.println("\ts -> Search for a movie");
+        System.out.println("\tu -> Search for another user");
+        System.out.println("\tv -> View your movies");
+//        System.out.println("\tl -> Logout of your account");
+        System.out.println("\te -> Exit App and logout");
+    }
 
-    //EFFECTS: if myMovies is empty, it prints an error and returns to Dashboard, if not then it prints myMovies
-    private void viewMyMovies() {
-        if (myMovies.getTotalMoviesSeen() == 0) {
-            System.out.println("You have not rated any movies yet");
-            returnToMenuOption();
-        } else {
-            System.out.println(username + "'s Movies:");
-            System.out.println("\t");
-            System.out.println(myMovies.viewMoviesNotEmpty(username));
-            returnToMenuOption();
+    // processes dashboard commands
+    private void processCommand(String command) {
+        switch (command) {
+            case "a":
+                checkIfInMyMoviesForAdd(movieInitializer());
+                break;
+            case "s":
+                checkIfInMyMoviesForSearch(movieInitializer());
+                break;
+            case "u":
+                searchUsers();
+                break;
+            case "v":
+                viewMyMovies();
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
         }
     }
+
+    //EFFECTS: creates and returns a movie with a title and year of release for searching or adding.
+    private Movie movieInitializer() {
+        System.out.println("What is the title of the movie?");
+        movieNameInput = new Scanner(System.in);
+        this.movieTitle = movieNameInput.nextLine();
+        movieTitle = movieTitle.toUpperCase();
+        System.out.println("What year was it released?");
+        movieYearInput = new Scanner(System.in);
+        this.movieYear = movieYearInput.nextInt();
+        return new Movie(movieTitle, movieYear);
+    }
+
 
     //EFFECTS: searches all users and produces the users movie list
     private void searchUsers() {
         System.out.println("\nWhat is the other user's username?");
         otherUserInput = new Scanner(System.in);
         this.otherUser = otherUserInput.nextLine();
+        System.out.println("\nsearching users...\n");
         if (allUsers.isUserInDatabase(otherUser)) {
             if (allUsers.isUserInDatabaseReturnUser(otherUser).getTotalMoviesSeen() == 0) {
                 System.out.println(allUsers.isUserInDatabaseReturnUser(otherUser).getUsername()
@@ -231,19 +237,21 @@ public class MovieLogApp {
         }
     }
 
-
-    //EFFECTS: creates and returns a movie with a title and year of release for searching or adding.
-    private Movie movieInitializer() {
-        System.out.println("What is the title of the movie?");
-        movieNameInput = new Scanner(System.in);
-        this.movieTitle = movieNameInput.nextLine();
-        movieTitle = movieTitle.toUpperCase();
-        System.out.println("What year was it released?");
-        movieYearInput = new Scanner(System.in);
-        this.movieYear = movieYearInput.nextInt();
-        Movie movie = new Movie(movieTitle, movieYear);
-        return movie;
+    //EFFECTS: if myMovies is empty, it prints an error and returns to Dashboard, if not then it prints myMovies
+    private void viewMyMovies() {
+        if (myMovies.getTotalMoviesSeen() == 0) {
+            System.out.println("You have not rated any movies yet");
+            returnToMenuOption();
+        } else {
+            System.out.println(username + "'s Movies:");
+            System.out.println("\t");
+            System.out.println(myMovies.viewMoviesNotEmpty(username));
+            returnToMenuOption();
+        }
     }
+
+
+
 
     //EFFECTS: searches myMovies for the given movie, if myMovies contains the movie, prints and error and returns to
     // dashboard. If the movie is not in myMovies, then it goes to tryAddMovie
@@ -260,7 +268,7 @@ public class MovieLogApp {
     private void checkIfInMyMoviesForSearch(Movie movie) {
         if (myMovies.isMovieInMyMovieList(movie)) {
             System.out.println("\n");
-            System.out.println(watchedMovieDetails(movie));
+            System.out.println(database.isMovieInDatabaseReturnMovie(movie).movieDetailsWatched(username));
             returnToMenuOption();
         } else {
             tryAddMovie(movie);
@@ -282,8 +290,7 @@ public class MovieLogApp {
     }
 
     //MODIFIES: myMovies,
-    //EFFECTS: if the user has seen the movie, asks user for rating, then creates a new movie with details
-    // from allMovies plus the user rating and adds to myMovies
+    //EFFECTS: if the user has seen the movie, if yes, go to addFromDatabase, if not, returns to dashboard
     private void askAddFromDatabase(Movie movie) {
         String selection = "";
         while (!(selection.equals("y") || selection.equals("n"))) {
@@ -303,18 +310,15 @@ public class MovieLogApp {
     }
 
     //MODIFIES: myMovies
-    //EFFECTS: creates a new movie with the same name, title, director and description.
-    // Adds a user rating, then adds the movie to myMovies
+    //EFFECTS: Asks user for rating, then creates a new review. Adds review to movie, and adds movie to list
+    // then goes to returnToMenuOption
     private void addFromDataBase(Movie movie) {
-        Movie myMovie = new Movie(movieTitle, movieYear);
-        myMovie.setDirector(movie.getDirector());
-        myMovie.setMovieDescription(movie.getMovieDescription());
         System.out.println("What would you rate this movie from 1-100"); // REQUIRES: the int be between 1-100
         movieRatingInput = new Scanner(System.in);
         movieRating = movieRatingInput.nextInt();
         review = new Review(username, movieRating);
-        database.addToAverageRating(myMovie, review);
-        myMovies.addMovie(database.isMovieInDatabaseReturnMovie(myMovie));
+        database.addToAverageRating(movie, review);
+        myMovies.addMovie(database.isMovieInDatabaseReturnMovie(movie));
         System.out.println("\n" + movieTitle + " has been added to your list");
         returnToMenuOption();
     }
@@ -324,8 +328,7 @@ public class MovieLogApp {
     private void askAddToDataBase(Movie movie) {
         String selection = "";
         while (!(selection.equals("y") || selection.equals("r"))) {
-            System.out.println("\nThis movie is not in our database");
-            System.out.println("");
+            System.out.println("\nThis movie is not in our database\n");
             System.out.println("Would you like to add this movie to the movie database?");
             System.out.println("\ty -> Yes");
             System.out.println("\tr -> Return to menu");
@@ -359,9 +362,7 @@ public class MovieLogApp {
     private void returnToMenuOption() {
         String selection = "";
         while (!(selection.equals("r"))) {
-            System.out.println("");
-            System.out.println("");
-            System.out.println("Press r to return to menu");
+            System.out.println("\n\nPress r to return to menu");
             selection = input.next();
             selection = selection.toLowerCase();
         }
@@ -370,19 +371,6 @@ public class MovieLogApp {
         System.out.println("\n");
         System.out.println("\n");
 
-    }
-
-    //EFFECTS: Provides the details of a movie that is in myMovies
-    private String watchedMovieDetails(Movie movie) {
-        return myMovies.isMovieInMyListReturnMovie(movie).getMovieName() + "   " + "("
-                + myMovies.isMovieInMyListReturnMovie(movie).getMovieYear() + ")" + System.lineSeparator()
-            + "Directed by: " + database.isMovieInDatabaseReturnMovie(movie).getDirector() + System.lineSeparator()
-            + "Your Rating: " + myMovies.isMovieInMyListReturnMovie(movie).getUserRating(username) + "/100"
-                + "  ...  Average rating of all users: "
-            + database.getAverageRatingFromDatabase(movie.getMovieName(), movie.getMovieYear())
-                + "/100" + System.lineSeparator()
-            + "Movie Description: " + System.lineSeparator()
-            + database.isMovieInDatabaseReturnMovie(movie).getMovieDescription();
     }
 
 
@@ -419,27 +407,6 @@ public class MovieLogApp {
             System.out.println("Saved " + " to " + JSON_USERS);
         } catch (IOException e) {
             System.out.println("Unable to write to file: " + JSON_USERS);
-        }
-    }
-
-
-
-    // MODIFIES: this
-    // EFFECTS: loads database from file
-    private void loadDatabase() {
-        try {
-            database = jsonReaderMovieDatabase.read();
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_MOVIES);
-        }
-    }
-
-    //EFFECTS: loads the list of all users from Json
-    private void loadUsers() {
-        try {
-            allUsers = jsonReaderUserDataStorage.read();
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_USERS);
         }
     }
 
