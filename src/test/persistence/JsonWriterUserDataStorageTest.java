@@ -46,7 +46,7 @@ public class JsonWriterUserDataStorageTest extends JsonTestUserDataStorage {
         Movie barbie = new Movie("BARBIE", 2023);
         MyMovieList jugaadsMovies = new MyMovieList("jugaadlally");
         jugaadsMovies.addMovie(batman);
-        MyMovieList seeritsMovies = new MyMovieList(("seeritlally"));
+        MyMovieList seeritsMovies = new MyMovieList(("saharah"));
         seeritsMovies.addMovie(barbie);
 
         try {
@@ -62,8 +62,8 @@ public class JsonWriterUserDataStorageTest extends JsonTestUserDataStorage {
             uds = reader.read();
             List<MyMovieList> users = uds.getUsers();
             assertEquals(2, users.size());
-            checkUser("jugaadlally", users.get(0), "THE BATMAN");
-            checkUser("seeritlally", users.get(1), "BARBIE");
+            checkUser("jugaadlally", users.get(0), "THE BATMAN", 0);
+            checkUser("saharah", users.get(1), "BARBIE", 0);
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

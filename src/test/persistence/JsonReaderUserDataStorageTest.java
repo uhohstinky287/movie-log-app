@@ -37,9 +37,10 @@ public class JsonReaderUserDataStorageTest extends JsonTestUserDataStorage {
         try {
             UserDataStorage uds = reader.read();
             List<MyMovieList> users = uds.getUsers();
-            assertEquals(2, users.size());
-            checkUser("jugaadlally",users.get(0), "THE BATMAN" );
-            checkUser("seeritlally", users.get(1),"BARBIE");
+            assertEquals(3, users.size());
+            checkUser("jugaadlally",users.get(0), "THE BATMAN", 1 );
+            checkUser("saharah", users.get(1),"BARBIE", 1);
+            checkUser("poopman", users.get(2), "THE BATMAN", 3);
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

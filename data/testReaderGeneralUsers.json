@@ -1,56 +1,79 @@
-{
-  "users": [
-    {
-      "password": "password",
-      "myMovies": [
-        {
-          "year": 2022,
-          "director": "",
-          "name": "THE BATMAN",
-          "rating": 98,
-          "description": "",
-          "reviews": {}
+{"users": [
+  {
+    "password": "password",
+    "myMovies": [{
+      "reviews": {"jugaadlally": {
+        "rating": 97,
+        "writtenReview": "",
+        "username": "jugaadlally"
+      }},
+      "year": 2022,
+      "director": "Matt Reeves",
+      "name": "THE BATMAN",
+      "description": "Emo Batman"
+    }],
+    "username": "jugaadlally"
+  },
+  {
+    "password": "bains",
+    "myMovies": [
+      {
+        "reviews": {"saharah": {
+          "rating": 100,
+          "writtenReview": "",
+          "username": "saharah"
+        }},
+        "year": 2023,
+        "director": "Greta Gerwig",
+        "name": "BARBIE",
+        "description": "Barbie and Ken enter the real world"
+      },
+      {
+        "reviews": {
+          "jugaadlally": {
+            "rating": 97,
+            "writtenReview": "",
+            "username": "jugaadlally"
+          },
+          "saharah": {
+            "rating": 80,
+            "writtenReview": "",
+            "username": "saharah"
+          }
         },
-        {
-          "year": 2023,
-          "director": "",
-          "name": "BARBIE",
-          "rating": 87,
-          "description": "",
-          "reviews": {}
+        "year": 2022,
+        "director": "Matt Reeves",
+        "name": "THE BATMAN",
+        "description": "Emo Batman"
+      }
+    ],
+    "username": "saharah"
+  },
+  {
+    "password": "poop",
+    "myMovies": [{
+      "reviews": {
+        "jugaadlally": {
+          "rating": 97,
+          "writtenReview": "",
+          "username": "jugaadlally"
+        },
+        "saharah": {
+          "rating": 80,
+          "writtenReview": "",
+          "username": "saharah"
+        },
+        "poopman": {
+          "rating": 94,
+          "writtenReview": "",
+          "username": "poopman"
         }
-      ],
-      "username": "jugaadlally"
-    },
-    {
-      "password": "seerit",
-      "myMovies": [
-        {
-          "year": 2023,
-          "director": "",
-          "name": "BARBIE",
-          "rating": 90,
-          "description": "",
-          "reviews": {}
-        },
-        {
-          "year": 2022,
-          "director": "",
-          "name": "THE BATMAN",
-          "rating": 81,
-          "description": "",
-          "reviews": {}
-        },
-        {
-          "year": 2021,
-          "director": "",
-          "name": "DUNE",
-          "rating": 85,
-          "description": "",
-          "reviews": {}
-        }
-      ],
-      "username": "seeritlally"
-    }
-  ]
-}
+      },
+      "year": 2022,
+      "director": "Matt Reeves",
+      "name": "THE BATMAN",
+      "description": "Emo Batman"
+    }],
+    "username": "poopman"
+  }
+]}

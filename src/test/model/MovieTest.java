@@ -42,19 +42,23 @@ public class MovieTest {
     }
 
     @Test
+    public void testGetAverageRating() {
+        assertEquals(0, batman.getAverageRating());
+        batman.addReview(r1.getUsername(),r1);
+        assertEquals(1, batman.getTotalRatingsSize());
+        assertEquals(1.0, batman.getAverageRating());
+        batman.addReview(r2.getUsername(), r2);
+        assertEquals(1.5, batman.getAverageRating());
+        batman.addReview(r3.getUsername(), r3);
+        assertEquals(2.0, batman.getAverageRating());
+    }
+
+    @Test
     public void testSetMovieDescription() {
         batman.setMovieDescription("In his sophomore year, Batman faces the Riddler");
         assertEquals("In his sophomore year, Batman faces the Riddler", batman.getMovieDescription());
     }
 
-    @Test
-    public void testAddReview() {
-        batman.addReview(r1.getUsername(), r1);
-        assertEquals(1, batman.getAllReviews().size());
-        batman.addReview(r5.getUsername(), r5);
-        assertEquals(1, batman.getAllReviews().size());
-        assertEquals(r1, batman.getReviewsMap().get(r1.getUsername()));
-    }
     @Test
     public void testSetDirector() {
         batman.setDirector("Matt Reeves");
@@ -110,19 +114,41 @@ public class MovieTest {
         assertEquals(2, batman.getTotalRatingsSize());
     }
 
-
     @Test
-    public void testGetAverageRating() {
-        assertEquals(0, batman.getAverageRating());
-        batman.addReview(r1.getUsername(),r1);
-        assertEquals(1, batman.getTotalRatingsSize());
-        assertEquals(1.0, batman.getAverageRating());
-        batman.addReview(r2.getUsername(), r2);
-        assertEquals(1.5, batman.getAverageRating());
-        batman.addReview(r3.getUsername(), r3);
-        assertEquals(2.0, batman.getAverageRating());
+    public void testAddReview() {
+        batman.addReview(r1.getUsername(), r1);
+        assertEquals(1, batman.getAllReviews().size());
+        batman.addReview(r5.getUsername(), r5);
+        assertEquals(1, batman.getAllReviews().size());
+        assertEquals(r1, batman.getReviewsMap().get(r1.getUsername()));
     }
 
+
+    @Test
+    public void testChangeReview() {
+        batman.addReview(r1.getUsername(), r1);
+        batman.changeReview(r1.getUsername(), r5);
+        batman.getUserReview(r1.getUsername());
+    }
+
+    @Test
+    public void testGetUserReview() {
+        assertNull(batman.getUserReview(r1.getUsername()));
+        batman.addReview(r1.getUsername(), r1);
+        assertEquals(r1, batman.getUserReview(r1.getUsername()));
+    }
+
+    @Test
+    public void testGetAllReviews() {
+        batman.addReview(r1.getUsername(), r1);
+        batman.addReview(r2.getUsername(), r2);
+        batman.addReview(r3.getUsername(), r3);
+        batman.addReview(r4.getUsername(), r4);
+        assertTrue(batman.getAllReviews().contains(r1));
+        assertTrue(batman.getAllReviews().contains(r2));
+        assertEquals(r1, batman.getAllReviews().get(0));
+        assertEquals(r2, batman.getAllReviews().get(1));
+    }
 
     @Test
     public void testToJson() {
@@ -148,17 +174,9 @@ public class MovieTest {
         assertEquals(reviewsJson.toMap(), batman.getReviewsMap());
     }
 
-    @Test
-    public void testGetAllReviews() {
-        batman.addReview(r1.getUsername(), r1);
-        batman.addReview(r2.getUsername(), r2);
-        batman.addReview(r3.getUsername(), r3);
-        batman.addReview(r4.getUsername(), r4);
-        assertTrue(batman.getAllReviews().contains(r1));
-        assertTrue(batman.getAllReviews().contains(r2));
-        assertEquals(r1, batman.getAllReviews().get(0));
-        assertEquals(r2, batman.getAllReviews().get(1));
-    }
+
+
+
 
 
 

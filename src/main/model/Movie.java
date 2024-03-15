@@ -115,11 +115,11 @@ public class Movie implements Writable {
 
     //EFFECTS: makes a list of all the ratings left in the reviews
     public List<Integer> getTotalRatingsList() {
-        List<Integer> totalRatingsLOL = new ArrayList<>();
+        List<Integer> totalRatings = new ArrayList<>();
         for (Review r : getAllReviews()) {
-            totalRatingsLOL.add(r.getRating());
+            totalRatings.add(r.getRating());
         }
-        return totalRatingsLOL;
+        return totalRatings;
     }
 
     public int getTotalRatingsSize() {
@@ -132,7 +132,7 @@ public class Movie implements Writable {
         if (!reviews.containsKey(username)) {
             reviews.put(username, r);
         }
-    } //TODO:NEW
+    }
 
     //REQUIRES: user in the list
     //EFFECTS: changes the user's review
@@ -147,13 +147,13 @@ public class Movie implements Writable {
         } else  {
             return null;
         }
-    } //TODO: NEW
+    }
 
     //EFFECTS: gets a list of all reviews
     public List<Review> getAllReviews() {
         List<Review> reviewsAsList = new ArrayList<Review>(reviews.values());
         return reviewsAsList;
-    } //TODO: NEW
+    }
 
 
     @Override
