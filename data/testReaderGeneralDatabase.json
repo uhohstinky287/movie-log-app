@@ -1,17 +1,36 @@
 {"movies": [
   {
+    "reviews": {
+      "jugaadlally": {
+        "rating": 97,
+        "writtenReview": "",
+        "username": "jugaadlally"
+      },
+      "saharah": {
+        "rating": 80,
+        "writtenReview": "",
+        "username": "saharah"
+      },
+      "poopman": {
+        "rating": 94,
+        "writtenReview": "",
+        "username": "poopman"
+      }
+    },
     "year": 2022,
     "director": "Matt Reeves",
     "name": "THE BATMAN",
-    "rating": 0,
-    "description": "Emo Batman",
-    "reviews": {}
+    "description": "Emo Batman"
   },
   {
+    "reviews": {"saharah": {
+      "rating": 100,
+      "writtenReview": "",
+      "username": "saharah"
+    }},
     "year": 2023,
     "director": "Greta Gerwig",
     "name": "BARBIE",
-    "rating": 0,
-    "description": "Barbie and Ken",
-    "reviews": {}
-  }]}
+    "description": "Barbie and Ken enter the real world"
+  }
+]}
