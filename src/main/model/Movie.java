@@ -41,6 +41,10 @@ public class Movie implements Writable {
         return reviews.get(username).getRating();
     }
 
+    public String getUserWrittenReview(String username) {
+        return reviews.get(username).getWrittenReview();
+    }
+
     public String getMovieDescription() {
         return this.movieDescription;
     }
@@ -100,7 +104,9 @@ public class Movie implements Writable {
                 + "Your Rating: " + getUserRating(username) + "/100"
                 + "  ...  Average rating of all users: " + getAverageRating() + "/100" + System.lineSeparator()
                 + "Movie Description: " + System.lineSeparator()
-                + getMovieDescription();
+                + getMovieDescription() + System.lineSeparator()
+                + getUserWrittenReviewForMovieDetailsWatched(username);
+
     }
 
     //EFFECTS: Returns user rating or says no ratings yet
@@ -153,6 +159,14 @@ public class Movie implements Writable {
     public List<Review> getAllReviews() {
         List<Review> reviewsAsList = new ArrayList<Review>(reviews.values());
         return reviewsAsList;
+    }
+
+    public String getUserWrittenReviewForMovieDetailsWatched(String username) {
+        if (!getUserWrittenReview(username).equals("")) {
+            return "Your review:\n" + getUserWrittenReview(username);
+        } else {
+            return getUserWrittenReview(username);
+        }
     }
 
 

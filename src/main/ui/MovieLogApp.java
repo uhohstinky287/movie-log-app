@@ -314,13 +314,45 @@ public class MovieLogApp {
     // then goes to returnToMenuOption
     private void addFromDataBase(Movie movie) {
         System.out.println("What would you rate this movie from 1-100"); // REQUIRES: the int be between 1-100
-        movieRatingInput = new Scanner(System.in);
-        movieRating = movieRatingInput.nextInt();
+        input = new Scanner(System.in);
+        movieRating = input.nextInt();
         review = new Review(username, movieRating);
+        askAddWrittenReview(movie, review);
+        returnToMenuOption();
+    }
+
+    //EFFECTS: Asks for a written review, if they want to write a review, then goes to addWrittenReview, if not
+    // then leaves review blank
+    private void askAddWrittenReview(Movie movie, Review review) {
+        String selection = "";
+        while (!(selection.equals("y") || selection.equals("n"))) {
+            System.out.println("\nWould you like to write a review?");
+            System.out.println("\ty -> Yes");
+            System.out.println("\tn -> No");
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
+        if (selection.equals("y")) {
+            addWrittenReview(movie, review);
+        } else {
+            database.addToAverageRating(movie, review);
+            myMovies.addMovie(database.isMovieInDatabaseReturnMovie(movie));
+            System.out.println("\n" + movieTitle + " has been added to your list");
+            returnToMenuOption();
+        }
+    }
+
+    //EFFECTS: allows user to write written review
+    private void addWrittenReview(Movie movie, Review review) {
+        System.out.println("What are your thoughts on " + database.isMovieInDatabaseReturnMovie(movie).getDirector()
+                + "'s " + movie.getMovieName() + "?");
+        input = new Scanner(System.in);
+        String movieWrittenReview = input.nextLine();
+        review.setWrittenReview(movieWrittenReview);
+        System.out.println("\n Thank you for your review");
         database.addToAverageRating(movie, review);
         myMovies.addMovie(database.isMovieInDatabaseReturnMovie(movie));
         System.out.println("\n" + movieTitle + " has been added to your list");
-        returnToMenuOption();
     }
 
 

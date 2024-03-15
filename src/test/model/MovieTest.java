@@ -94,7 +94,8 @@ public class MovieTest {
                 + "Your Rating: 1/100"
                 + "  ...  Average rating of all users: 1.5/100" + System.lineSeparator()
                 + "Movie Description: " + System.lineSeparator()
-                + "In his sophomore year, Batman faces the Riddler", batman.movieDetailsWatched(r1.getUsername()));
+                + "In his sophomore year, Batman faces the Riddler" + System.lineSeparator()
+                , batman.movieDetailsWatched(r1.getUsername()));
     }
 
     @Test
