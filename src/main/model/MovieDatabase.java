@@ -32,7 +32,7 @@ public class MovieDatabase implements Writable {
 
 
     //EFFECTS: checks if the movie is in database, then returns the database movie
-    public Movie isMovieInDatabaseReturnMovie(Movie movie) {
+    public Movie returnMovieFromDatabase(Movie movie) {
         for (Movie m : allMovies) {
             if ((movie.getMovieName().equals(m.getMovieName())) && (movie.getMovieYear() == m.getMovieYear())) {
                 return m;
@@ -72,7 +72,7 @@ public class MovieDatabase implements Writable {
     //MODIFIES: movie.totalRatings
     //EFFECTS: adds rating to movies totalRatings list
     public void addToAverageRating(Movie movie, Review r) {
-        isMovieInDatabaseReturnMovie(movie).addReview(r.getUsername(), r);
+        returnMovieFromDatabase(movie).addReview(r.getUsername(), r);
     }
 
     //EFFECTS: gets a movie from its title and year, then returns its average rating
@@ -103,5 +103,6 @@ public class MovieDatabase implements Writable {
         }
         return jsonArray;
     }
+
 }
 

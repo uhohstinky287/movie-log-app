@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class MovieLogApp {
     private static final String JSON_MOVIES = "./data/movieDatabase.json";
     private static final String JSON_USERS = "./data/userDataStorage.json";
-    private MyMovieList myMovies;
+    private User user;
     private MovieDatabase database;
     private UserDataStorage allUsers;
     private String username;
@@ -25,26 +25,16 @@ public class MovieLogApp {
     private String movieTitle;
     private Scanner movieDirectorInput;
     private Scanner movieDescriptionInput;
-    private Scanner movieRatingInput;
-    private Scanner otherUserInput;
     private String otherUser;
     private int movieYear;
     private int movieRating;
     private Review review;
-    private JsonWriterMovieDatabase jsonWriterMovieDatabase;
-    private JsonReaderMovieDatabase jsonReaderMovieDatabase;
-    private JsonWriterUserDataStorage jsonWriterUserDataStorage;
-    private JsonReaderUserDataStorage jsonReaderUserDataStorage;
 
 
     //EFFECTS: Runs the movie log application
     public MovieLogApp() throws FileNotFoundException {
         database = new MovieDatabase();
         allUsers = new UserDataStorage();
-        jsonWriterMovieDatabase = new JsonWriterMovieDatabase(JSON_MOVIES);
-        jsonReaderMovieDatabase = new JsonReaderMovieDatabase(JSON_MOVIES);
-        jsonWriterUserDataStorage = new JsonWriterUserDataStorage(JSON_USERS);
-        jsonReaderUserDataStorage = new JsonReaderUserDataStorage(JSON_USERS);
         loadDatabase();
         loadUsers();
         startingMenu();
@@ -53,6 +43,7 @@ public class MovieLogApp {
     // MODIFIES: this
     // EFFECTS: loads database from file
     private void loadDatabase() {
+        JsonReaderMovieDatabase jsonReaderMovieDatabase = new JsonReaderMovieDatabase(JSON_MOVIES);
         try {
             database = jsonReaderMovieDatabase.read();
         } catch (IOException e) {
@@ -62,6 +53,7 @@ public class MovieLogApp {
 
     //EFFECTS: loads the list of all users from Json
     private void loadUsers() {
+        JsonReaderUserDataStorage jsonReaderUserDataStorage = new JsonReaderUserDataStorage(JSON_USERS);
         try {
             allUsers = jsonReaderUserDataStorage.read();
         } catch (IOException e) {
@@ -98,7 +90,7 @@ public class MovieLogApp {
         input = new Scanner(System.in);
         this.username = input.nextLine();
         username = username.toLowerCase();
-        if (allUsers.isUserInDatabase(username)) {
+        if (allUsers.isUserInDataBaseLOL(username)) {
             returningUser();
         } else {
             System.out.println("Username not in database\n\n");
@@ -113,8 +105,8 @@ public class MovieLogApp {
         System.out.println("Password:");
         input = new Scanner(System.in);
         this.password = input.nextLine();
-        if (allUsers.isUserInDatabaseReturnUser(username).getPassword().equals(password)) {
-            myMovies = allUsers.isUserInDatabaseReturnUser(username);
+        if (allUsers.returnUserFromDatabase(username).getPassword().equals(password)) {
+            user = allUsers.returnUserFromDatabase(username);
             System.out.println("\n\nWelcome back " + username + " to:");
         } else {
             System.out.println("\n\n\nIncorrect password");
@@ -134,13 +126,13 @@ public class MovieLogApp {
         System.out.println("\nPick a username:");
         input = new Scanner(System.in);
         this.usernameChecker = input.nextLine();
-        if (!allUsers.isUserInDatabase(usernameChecker)) {
+        if (!allUsers.isUserInDataBaseLOL(usernameChecker)) {
             this.username = usernameChecker;
             System.out.println("Create a password:");
             input = new Scanner(System.in);
             this.password = input.nextLine();
-            myMovies = new MyMovieList(username);
-            myMovies.setPassword(password);
+            user = new User(username);
+            user.setPassword(password);
             System.out.println("\nWelcome " + username + " to:");
         } else {
             System.out.println("This username is taken");
@@ -174,6 +166,7 @@ public class MovieLogApp {
         System.out.println("\nWould you like to do?");
         System.out.println("\ta -> Add a movie");
         System.out.println("\ts -> Search for a movie");
+        System.out.println("\tf -> View your friends");
         System.out.println("\tu -> Search for another user");
         System.out.println("\tv -> View your movies");
 //        System.out.println("\tl -> Logout of your account");
@@ -188,6 +181,9 @@ public class MovieLogApp {
                 break;
             case "s":
                 checkIfInMyMoviesForSearch(movieInitializer());
+                break;
+            case "f":
+                viewFriends();
                 break;
             case "u":
                 searchUsers();
@@ -213,23 +209,35 @@ public class MovieLogApp {
         return new Movie(movieTitle, movieYear);
     }
 
+    //EFFECTS: checks if a user is in a user's friend list
+    private void viewFriends() {
+        if (user.getFriends().isEmpty()) {
+            System.out.println("\n You have no friends :(");
+            returnToMenuOption();
+        } else {
+            System.out.println("Your friends:");
+            System.out.println("\t");
+            System.out.println(user.viewFriendsNotEmpty());
+            returnToMenuOption();
+        }
+    }
 
     //EFFECTS: searches all users and produces the users movie list
     private void searchUsers() {
         System.out.println("\nWhat is the other user's username?");
-        otherUserInput = new Scanner(System.in);
-        this.otherUser = otherUserInput.nextLine();
+        input = new Scanner(System.in);
+        this.otherUser = input.nextLine();
         System.out.println("\nsearching users...\n");
-        if (allUsers.isUserInDatabase(otherUser)) {
-            if (allUsers.isUserInDatabaseReturnUser(otherUser).getTotalMoviesSeen() == 0) {
-                System.out.println(allUsers.isUserInDatabaseReturnUser(otherUser).getUsername()
+        if (allUsers.isUserInDataBaseLOL(otherUser)) {
+            if (allUsers.returnUserFromDatabase(otherUser).getTotalMoviesSeen() == 0) {
+                System.out.println(allUsers.returnUserFromDatabase(otherUser).getUsername()
                         + " has not rated any movies yet");
-                returnToMenuOption();
+                askAddFriend(otherUser);
             } else {
                 System.out.println(otherUser + "'s Movies:");
                 System.out.println("\t");
-                System.out.println(allUsers.isUserInDatabaseReturnUser(otherUser).viewMoviesNotEmpty(username));
-                returnToMenuOption();
+                System.out.println(allUsers.returnUserFromDatabase(otherUser).viewMoviesNotEmpty(otherUser));
+                askAddFriend(otherUser);
             }
         } else {
             System.out.println("This user does not exist");
@@ -237,15 +245,35 @@ public class MovieLogApp {
         }
     }
 
-    //EFFECTS: if myMovies is empty, it prints an error and returns to Dashboard, if not then it prints myMovies
+    //EFFECTS: asks user if they want to add a user as a friend
+    private void askAddFriend(String otherUser) {
+        String selection = "";
+        while (!(selection.equals("y") || selection.equals("n"))) {
+            System.out.println("\n Do you want to add user as a friend?");
+            System.out.println("\ty -> Yes ");
+            System.out.println("\tn -> No and return to menu");
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
+        if (selection.equals("y")) {
+            user.addFriend(otherUser);
+        } else {
+            System.out.println("Returning to menu");
+            System.out.println("\n");
+            System.out.println("\n");
+        }
+    }
+
+    //EFFECTS: if User's movie List is empty, it prints an error and returns to Dashboard,
+    // if not then it prints user's movie List
     private void viewMyMovies() {
-        if (myMovies.getTotalMoviesSeen() == 0) {
+        if (user.getTotalMoviesSeen() == 0) {
             System.out.println("You have not rated any movies yet");
             returnToMenuOption();
         } else {
             System.out.println(username + "'s Movies:");
             System.out.println("\t");
-            System.out.println(myMovies.viewMoviesNotEmpty(username));
+            System.out.println(user.viewMoviesNotEmpty(username));
             returnToMenuOption();
         }
     }
@@ -253,10 +281,10 @@ public class MovieLogApp {
 
 
 
-    //EFFECTS: searches myMovies for the given movie, if myMovies contains the movie, prints and error and returns to
-    // dashboard. If the movie is not in myMovies, then it goes to tryAddMovie
+    //EFFECTS: searches user's movie list for the given movie, if it contains the movie, prints and error and returns to
+    // dashboard. If the movie is not in user's movies, then it goes to tryAddMovie
     private void checkIfInMyMoviesForAdd(Movie movie) {
-        if (myMovies.isMovieInMyMovieList(movie)) {
+        if (user.isMovieInMyMovieList(movie)) {
             System.out.println("You have already added this movie to your list");
             returnToMenuOption();
         } else {
@@ -264,11 +292,11 @@ public class MovieLogApp {
         }
     }
 
-    //EFFECTS: searches for movie in myMovies
+    //EFFECTS: searches for movie in user's movies
     private void checkIfInMyMoviesForSearch(Movie movie) {
-        if (myMovies.isMovieInMyMovieList(movie)) {
+        if (user.isMovieInMyMovieList(movie)) {
             System.out.println("\n");
-            System.out.println(database.isMovieInDatabaseReturnMovie(movie).movieDetailsWatched(username));
+            System.out.println(database.returnMovieFromDatabase(movie).movieDetailsWatched(username));
             returnToMenuOption();
         } else {
             tryAddMovie(movie);
@@ -276,12 +304,12 @@ public class MovieLogApp {
     }
 
     //EFFECTS: searches allMovies for the given movie, if allMovies contains the movie,
-    // provides details and the options to add to myMovies. If allMovies doesn't contain the movie,
+    // provides details and the options to add to user's movies. If allMovies doesn't contain the movie,
     // gives option to add to database
     private void tryAddMovie(Movie m) {
         if (database.isMovieInDatabase(m)) {
             System.out.println("\n");
-            System.out.println(database.provideDetailsUnwatched(database.isMovieInDatabaseReturnMovie(m)));
+            System.out.println(database.provideDetailsUnwatched(database.returnMovieFromDatabase(m)));
             System.out.println("\t");
             askAddFromDatabase(m);
         } else {
@@ -289,7 +317,7 @@ public class MovieLogApp {
         }
     }
 
-    //MODIFIES: myMovies,
+    //MODIFIES: user,
     //EFFECTS: if the user has seen the movie, if yes, go to addFromDatabase, if not, returns to dashboard
     private void askAddFromDatabase(Movie movie) {
         String selection = "";
@@ -309,7 +337,7 @@ public class MovieLogApp {
         }
     }
 
-    //MODIFIES: myMovies
+    //MODIFIES: user
     //EFFECTS: Asks user for rating, then creates a new review. Adds review to movie, and adds movie to list
     // then goes to returnToMenuOption
     private void addFromDataBase(Movie movie) {
@@ -336,22 +364,21 @@ public class MovieLogApp {
             addWrittenReview(movie, review);
         } else {
             database.addToAverageRating(movie, review);
-            myMovies.addMovie(database.isMovieInDatabaseReturnMovie(movie));
+            user.addMovie(database.returnMovieFromDatabase(movie));
             System.out.println("\n" + movieTitle + " has been added to your list");
-            returnToMenuOption();
         }
     }
 
     //EFFECTS: allows user to write written review
     private void addWrittenReview(Movie movie, Review review) {
-        System.out.println("What are your thoughts on " + database.isMovieInDatabaseReturnMovie(movie).getDirector()
+        System.out.println("What are your thoughts on " + database.returnMovieFromDatabase(movie).getDirector()
                 + "'s " + movie.getMovieName() + "?");
         input = new Scanner(System.in);
         String movieWrittenReview = input.nextLine();
         review.setWrittenReview(movieWrittenReview);
         System.out.println("\n Thank you for your review");
         database.addToAverageRating(movie, review);
-        myMovies.addMovie(database.isMovieInDatabaseReturnMovie(movie));
+        user.addMovie(database.returnMovieFromDatabase(movie));
         System.out.println("\n" + movieTitle + " has been added to your list");
     }
 
@@ -417,13 +444,15 @@ public class MovieLogApp {
             selection = selection.toLowerCase();
         }
         if (selection.equals("y")) {
-            allUsers.overrideUserData(myMovies);
+            allUsers.overrideUserDataLOL(user);
             save();
         }
     }
 
     //EFFECTS: saves all data to JSON files
     private void save() {
+        JsonWriterMovieDatabase jsonWriterMovieDatabase = new JsonWriterMovieDatabase(JSON_MOVIES);
+        JsonWriterUserDataStorage jsonWriterUserDataStorage = new JsonWriterUserDataStorage(JSON_USERS);
         try {
             jsonWriterMovieDatabase.open();
             jsonWriterMovieDatabase.write(database);
@@ -444,5 +473,6 @@ public class MovieLogApp {
 
 
     //todo from my movie list, see full description
+    //todo add friends and view friends list
 }
 

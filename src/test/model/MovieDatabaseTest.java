@@ -52,13 +52,13 @@ public class MovieDatabaseTest {
 
     @Test
     public void testIsMovieInDatabaseReturnMovie() {
-        assertNull(allMovies.isMovieInDatabaseReturnMovie(batman));
+        assertNull(allMovies.returnMovieFromDatabase(batman));
         allMovies.addMovieToDatabase(theBatmanFromDatabase);
-        assertEquals(theBatmanFromDatabase, allMovies.isMovieInDatabaseReturnMovie(batman));
+        assertEquals(theBatmanFromDatabase, allMovies.returnMovieFromDatabase(batman));
         allMovies.addMovieToDatabase(barbie);
-        assertEquals(barbie, allMovies.isMovieInDatabaseReturnMovie(barbie));
-        assertNull(allMovies.isMovieInDatabaseReturnMovie(oppenheimer));
-        assertNull(allMovies.isMovieInDatabaseReturnMovie(barbieOld));
+        assertEquals(barbie, allMovies.returnMovieFromDatabase(barbie));
+        assertNull(allMovies.returnMovieFromDatabase(oppenheimer));
+        assertNull(allMovies.returnMovieFromDatabase(barbieOld));
     }
 
     @Test

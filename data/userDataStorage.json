@@ -1,79 +1,54 @@
-{"users": [
-    {
+{"users": {
+    "jugaadlally": {
         "password": "password",
-        "myMovies": [{
-            "reviews": {"jugaadlally": {
-                "rating": 97,
-                "writtenReview": "",
-                "username": "jugaadlally"
-            }},
-            "year": 2022,
-            "director": "Matt Reeves",
-            "name": "THE BATMAN",
-            "description": "Emo Batman"
-        }],
-        "username": "jugaadlally"
-    },
-    {
-        "password": "bains",
         "myMovies": [
             {
-                "reviews": {"saharah": {
-                    "rating": 100,
-                    "writtenReview": "",
-                    "username": "saharah"
+                "reviews": {"jugaadlally": {
+                    "rating": 97,
+                    "writtenReview": "emo batman",
+                    "username": "jugaadlally"
+                }},
+                "year": 2022,
+                "director": "matt reeves",
+                "name": "THE BATMAN",
+                "description": "batman vs riddler"
+            },
+            {
+                "reviews": {"jugaadlally": {
+                    "rating": 85,
+                    "writtenReview": "yoooooo this is sick",
+                    "username": "jugaadlally"
                 }},
                 "year": 2023,
                 "director": "Greta Gerwig",
                 "name": "BARBIE",
                 "description": "Barbie and Ken enter the real world"
-            },
-            {
-                "reviews": {
-                    "jugaadlally": {
-                        "rating": 97,
-                        "writtenReview": "",
-                        "username": "jugaadlally"
-                    },
-                    "saharah": {
-                        "rating": 80,
-                        "writtenReview": "",
-                        "username": "saharah"
-                    }
-                },
-                "year": 2022,
-                "director": "Matt Reeves",
-                "name": "THE BATMAN",
-                "description": "Emo Batman"
             }
         ],
-        "username": "saharah"
+        "friends": [],
+        "username": "jugaadlally"
     },
-    {
-        "password": "poop",
+    "saharah": {
+        "password": "bains",
         "myMovies": [{
             "reviews": {
                 "jugaadlally": {
                     "rating": 97,
-                    "writtenReview": "",
+                    "writtenReview": "emo batman",
                     "username": "jugaadlally"
                 },
                 "saharah": {
                     "rating": 80,
                     "writtenReview": "",
                     "username": "saharah"
-                },
-                "poopman": {
-                    "rating": 94,
-                    "writtenReview": "",
-                    "username": "poopman"
                 }
             },
             "year": 2022,
-            "director": "Matt Reeves",
+            "director": "matt reeves",
             "name": "THE BATMAN",
-            "description": "Emo Batman"
+            "description": "batman vs riddler"
         }],
-        "username": "poopman"
+        "friends": [],
+        "username": "saharah"
     }
-]}
+}}

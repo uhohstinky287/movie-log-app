@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class JsonReaderUserDataStorage {
     // EFFECTS: parses userDataStorage from JSON object and returns it
     private UserDataStorage parseUserDataStorage(JSONObject jsonObject) {
         UserDataStorage uds = new UserDataStorage();
-        addUsers(uds, jsonObject);
+        usersToMap(uds, jsonObject);
         return uds;
     }
 
@@ -56,20 +55,44 @@ public class JsonReaderUserDataStorage {
         }
     }
 
+    //EFFECTS: converts reviews JSONObject to HashMap //todo
+    private void usersToMap(UserDataStorage uds, JSONObject jsonObject) {
+        JSONObject jsonUsers = jsonObject.getJSONObject("users");
+        Map<String, User> userMap = new LinkedHashMap<>();
+        Iterator<String> keys = jsonUsers.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            JSONObject user = jsonUsers.getJSONObject(key);
+            userMap.put(key, addUser(uds, user));
+            uds.setAllUsersMap(userMap);
+        }
+    }
+
     // MODIFIES: uds
     // EFFECTS: parses User from JSON object and adds it to UserDataStorage
-    private void addUser(UserDataStorage uds, JSONObject jsonObject) {
+    private User addUser(UserDataStorage uds, JSONObject jsonObject) {
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
-        MyMovieList mml = new MyMovieList(username);
-        mml.setPassword(password);
-        addMovies(mml, jsonObject);
-        uds.overrideUserData(mml);
+        User u = new User(username);
+        u.setPassword(password);
+        addMovies(u, jsonObject);
+        addFriends(u, jsonObject); //todo
+        return u;
     }
+
+    // MODIFIES: user
+    //EFFECTS: parses friends from JSON and adds them to user
+    private void addFriends(User u, JSONObject jsonObject) {  //todo
+        JSONArray jsonArray = jsonObject.getJSONArray("friends");
+        for (Object json : jsonArray) {
+            u.addFriend(json.toString());
+        }
+    }
+
 
     //MODIFIES: mml, uds
     //EFFECTS: parses movies from JSON object and adds them to user
-    private void addMovies(MyMovieList mml, JSONObject jsonObject) {
+    private void addMovies(User mml, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("myMovies");
         for (Object json : jsonArray) {
             JSONObject nextMovie = (JSONObject) json;
@@ -79,7 +102,7 @@ public class JsonReaderUserDataStorage {
 
     //MODIFIES: mml, uds
     //EFFECTS: parses movie from JSON object and adds it to myMovieList
-    private void addMovie(MyMovieList mml, JSONObject jsonObject) {
+    private void addMovie(User mml, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int year = jsonObject.getInt("year");
         String description = jsonObject.getString("description");

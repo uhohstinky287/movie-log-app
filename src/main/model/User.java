@@ -8,15 +8,17 @@ import persistence.Writable;
 import java.util.ArrayList;
 
 // Represents a list of movies watched by a user
-public class MyMovieList implements Writable {
+public class User implements Writable {
 
+    private ArrayList<String> friends;
     private ArrayList<Movie> myMovieList;
     private String username;
     private String password;
 
     //EFFECTS: creates a movie list that is empty
-    public MyMovieList(String username) {
+    public User(String username) {
         myMovieList = new ArrayList<>();
+        friends = new ArrayList<>();
         this.username = username;
         this.password = "";
     }
@@ -37,6 +39,11 @@ public class MyMovieList implements Writable {
     public String getPassword() {
         return password;
     }
+
+    public ArrayList<String> getFriends() {
+        return friends;
+    }
+
 
     //setters:
 //    public void setMyMovieList(ArrayList myMovieList) {
@@ -71,11 +78,27 @@ public class MyMovieList implements Writable {
         return printedList.toString();
     }
 
+    //REQUIRES: list is not empty
+    //EFFECTS: prints the list of friends in friend list
+    public String viewFriendsNotEmpty() {
+        StringBuilder printedFriendList = new StringBuilder();
+        for (String s : friends) {
+            printedFriendList.append("\n").append(s);
+        }
+        return printedFriendList.toString();
+    }
+
     //REQUIRES: the movie name and year are different
     //MODIFIES: myMovieList
     //EFFECTS: adds a movie on the personal movie list
     public void addMovie(Movie movie) {
         myMovieList.add(movie);
+    }
+
+
+    //EFFECTS: adds a user to friend list
+    public void addFriend(String friend) {
+        friends.add(friend);
     }
 
 
@@ -95,15 +118,24 @@ public class MyMovieList implements Writable {
         json.put("username", username);
         json.put("password", password);
         json.put("myMovies", myMoviesToJson());
+        json.put("friends", friendsToJson()); //TODO add friends
         return json;
     }
 
     public JSONArray myMoviesToJson() {
-        JSONArray jsonArray = new JSONArray();
+        JSONArray jsonArrayMyMovies = new JSONArray();
         for (Movie m : myMovieList) {
-            jsonArray.put(m.toJson());
+            jsonArrayMyMovies.put(m.toJson());
         }
-        return jsonArray;
+        return jsonArrayMyMovies;
+    }
+
+    public JSONArray friendsToJson() { //TODO: add friends
+        JSONArray jsonArrayFriends = new JSONArray();
+        for (String s : friends) {
+            jsonArrayFriends.put(s);
+        }
+        return jsonArrayFriends;
     }
 
 }

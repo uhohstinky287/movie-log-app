@@ -10,7 +10,6 @@ import java.util.*;
 public class Movie implements Writable {
     private String movieName;
     private int movieYear;
-//    private int userRating;
     private String movieDescription;
     private String director;
     private Map<String,Review> reviews; //TODO: NEW! create tests
@@ -190,4 +189,20 @@ public class Movie implements Writable {
         return jsonHashMap;
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//        Movie movie = (Movie) o;
+//        return movieYear == movie.movieYear && Objects.equals(movieName, movie.movieName);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(movieName, movieYear);
+//    }
 }
