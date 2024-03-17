@@ -96,7 +96,7 @@ public class SearchMoviesTab extends Tab {
             } else {
                 if (controller.getDatabase().isMovieInDatabase(movie)) {
 //                    JOptionPane.showMessageDialog(this, "Movie is in database");
-                    checkMyMovies(movie);
+                    displayMovieUnWatched(movie);
                 } else {
                     JOptionPane.showMessageDialog(this, "Movie is not in the database");
                 }
@@ -116,19 +116,12 @@ public class SearchMoviesTab extends Tab {
     }
 
 
-    private void checkMyMovies(Movie movie) {
+    private void displayMovieUnWatched(Movie movie) {
         movieDetailsPanel.removeAll();
 
-        // Get movie details
-        String detailsWatched =
-                controller.getDatabase().returnMovieFromDatabase(movie).movieDetailsWatched(controller.getUsername());
         String detailsUnwatched =
                 controller.getDatabase().provideDetailsUnwatched(movie);
         movieDetailsTextArea.setText(detailsUnwatched);
-
-        // Display movie details
-        JLabel movieDetailsLabelWatched = new JLabel(detailsWatched);
-        movieDetailsPanel.add(movieDetailsLabelWatched);
 
         // Update UI
         movieDetailsPanel.revalidate();
