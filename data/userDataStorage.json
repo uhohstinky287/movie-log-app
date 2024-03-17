@@ -23,6 +23,17 @@
                 "director": "Greta Gerwig",
                 "name": "BARBIE",
                 "description": "Barbie and Ken enter the real world"
+            },
+            {
+                "reviews": {"jugaadlally": {
+                    "rating": 94,
+                    "writtenReview": "Is this the Star Wars prequels?",
+                    "username": "jugaadlally"
+                }},
+                "year": 2024,
+                "director": "Denis Villnueve",
+                "name": "DUNE: PART TWO",
+                "description": "Paul Atreides joins the Fremen"
             }
         ],
         "friends": [],

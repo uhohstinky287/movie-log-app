@@ -8,7 +8,6 @@ import java.util.*;
 
 // Represents and list of users that have an account
 public class UserDataStorage implements Writable {
-    private ArrayList<User> allUsers;
     private Map<String, User> allUsersMap;
 
 
@@ -18,15 +17,6 @@ public class UserDataStorage implements Writable {
         allUsersMap = new LinkedHashMap<>();
     }
 
-    //EFFECTS: checks if user is in a list or not and returns the true
-    public boolean isUserInDatabasel(String username) {
-        for (User m : allUsers) {
-            if (username.equals(m.getUsername())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     //EFFECTS: checks if user in the userDatabase and returns true or false //TODO:NEW
     public boolean isUserInDataBaseLOL(String username) {
@@ -49,11 +39,6 @@ public class UserDataStorage implements Writable {
         return allUsersMap.get(username);
     }
 
-    //REQUIRES: user not already in database
-    //EFFECTS: adds users list to allUsers
-    public void addUserToDatabase(User u) {
-        allUsers.add(u);
-    }
 
     //REQUIRES: user not in database
     //EFFECTS: adds user to user database
@@ -95,25 +80,12 @@ public class UserDataStorage implements Writable {
 
     //testing methods (getters)
 
-    //EFFECTS: returns the total number of users
-    public int getTotalUsers() {
-        return allUsers.size();
-    }
 
     //EFFECTS: returns the total number of users //TODO:NEW
     public int getTotalUsersLOL() {
         return allUsersMap.keySet().size();
     }
 
-    //REQUIRES: i > 1
-    //EFFECTS: returns the movie at a certain position
-    public User getUserOrder(int i) {
-        return allUsers.get(i);
-    }
-
-    public List<User> getUsers() {
-        return Collections.unmodifiableList(allUsers);
-    }
 
     //TODO:NEW
     public Map<String, User> getAllUsersMap() {
@@ -138,13 +110,6 @@ public class UserDataStorage implements Writable {
         return json;
     }
 
-    private JSONArray usersToJson() {
-        JSONArray jsonArray = new JSONArray();
-        for (User u : allUsers) {
-            jsonArray.put(u.toJson());
-        }
-        return jsonArray;
-    }
 
     //TODO:NEW
     private JSONObject usersToJsonLOL() {

@@ -5,40 +5,45 @@ import persistence.JsonReaderMovieDatabase;
 import persistence.JsonReaderUserDataStorage;
 import persistence.JsonWriterMovieDatabase;
 import persistence.JsonWriterUserDataStorage;
+import ui.tabs.HomeTab;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class MovieLogApp {
+public class MovieLogApp extends JFrame implements ActionListener {
     private static final String JSON_MOVIES = "./data/movieDatabase.json";
     private static final String JSON_USERS = "./data/userDataStorage.json";
+
     private User user;
     private MovieDatabase database;
     private UserDataStorage allUsers;
     private String username;
     private String password;
-    private String usernameChecker;
     private Scanner input;
-    private Scanner movieNameInput;
-    private Scanner movieYearInput;
     private String movieTitle;
-    private Scanner movieDirectorInput;
-    private Scanner movieDescriptionInput;
     private String otherUser;
     private int movieYear;
     private int movieRating;
     private Review review;
 
 
+
+
     //EFFECTS: Runs the movie log application
     public MovieLogApp() throws FileNotFoundException {
+
         database = new MovieDatabase();
         allUsers = new UserDataStorage();
         loadDatabase();
         loadUsers();
-        startingMenu();
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: loads database from file
@@ -60,6 +65,8 @@ public class MovieLogApp {
             System.out.println("Unable to read from file: " + JSON_USERS);
         }
     }
+
+
 
     //EFFECTS: creates a starting menu
     private void startingMenu() {
@@ -125,7 +132,7 @@ public class MovieLogApp {
     private void createAccountMenu() {
         System.out.println("\nPick a username:");
         input = new Scanner(System.in);
-        this.usernameChecker = input.nextLine();
+        String usernameChecker = input.nextLine();
         if (!allUsers.isUserInDataBaseLOL(usernameChecker)) {
             this.username = usernameChecker;
             System.out.println("Create a password:");
@@ -158,6 +165,7 @@ public class MovieLogApp {
         System.out.println("See you later!");
         System.exit(0);
     }
+
 
 
     // EFFECTS: displays the dashboard of options to the user
@@ -200,12 +208,12 @@ public class MovieLogApp {
     //EFFECTS: creates and returns a movie with a title and year of release for searching or adding.
     private Movie movieInitializer() {
         System.out.println("What is the title of the movie?");
-        movieNameInput = new Scanner(System.in);
-        this.movieTitle = movieNameInput.nextLine();
+        input = new Scanner(System.in);
+        this.movieTitle = input.nextLine();
         movieTitle = movieTitle.toUpperCase();
         System.out.println("What year was it released?");
-        movieYearInput = new Scanner(System.in);
-        this.movieYear = movieYearInput.nextInt();
+        input = new Scanner(System.in);
+        this.movieYear = input.nextInt();
         return new Movie(movieTitle, movieYear);
     }
 
@@ -407,11 +415,11 @@ public class MovieLogApp {
     //EFFECTS: asks user for movie's director, description, then adds to all movies. Then goes to askAddFromDatabase
     private void addToDataBase(Movie movie) {
         System.out.println("\nWho directed this movie?");
-        movieDirectorInput = new Scanner(System.in);
-        movie.setDirector(movieDirectorInput.nextLine());
+        input = new Scanner(System.in);
+        movie.setDirector(input.nextLine());
         System.out.println("Write a one sentence objective description of this movie.");
-        movieDescriptionInput = new Scanner(System.in);
-        movie.setMovieDescription(movieDescriptionInput.nextLine());
+        input = new Scanner(System.in);
+        movie.setMovieDescription(input.nextLine());
         database.addMovieToDatabase(movie);
         askAddFromDatabase(movie);
     }
@@ -434,7 +442,7 @@ public class MovieLogApp {
 
 
     //EFFECTS: creates a display that prompts the user to choose whether to save the data to JSOn
-    private void displaySaveOption() {
+    public void displaySaveOption() {
         String selection = "";
         while (!(selection.equals("y") || selection.equals("n"))) {
             System.out.println("Do you want to save your changes?");
@@ -469,6 +477,11 @@ public class MovieLogApp {
         } catch (IOException e) {
             System.out.println("Unable to write to file: " + JSON_USERS);
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 
 
