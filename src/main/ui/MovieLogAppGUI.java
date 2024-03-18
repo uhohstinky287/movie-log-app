@@ -6,6 +6,8 @@ import model.User;
 import model.UserDataStorage;
 import persistence.JsonReaderMovieDatabase;
 import persistence.JsonReaderUserDataStorage;
+import persistence.JsonWriterMovieDatabase;
+import persistence.JsonWriterUserDataStorage;
 import ui.tabs.HomeTab;
 import ui.tabs.MyMoviesTab;
 import ui.tabs.SearchMoviesTab;
@@ -257,6 +259,30 @@ public class MovieLogAppGUI {
 
     }
 
+    //EFFECTS: saves all data to JSON files
+    public void save() {
+        JsonWriterMovieDatabase jsonWriterMovieDatabase = new JsonWriterMovieDatabase(JSON_MOVIES);
+        JsonWriterUserDataStorage jsonWriterUserDataStorage = new JsonWriterUserDataStorage(JSON_USERS);
+        try {
+            jsonWriterMovieDatabase.open();
+            jsonWriterMovieDatabase.write(database);
+            jsonWriterMovieDatabase.close();
+            JOptionPane.showMessageDialog(homeTab, "saved Database");
+            System.out.println("Saved " + " to " + JSON_MOVIES);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_MOVIES);
+        }
+        try {
+            jsonWriterUserDataStorage.open();
+            jsonWriterUserDataStorage.write(allUsers);
+            jsonWriterUserDataStorage.close();
+            JOptionPane.showMessageDialog(homeTab, "saved user info");
+            System.out.println("Saved " + " to " + JSON_USERS);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_USERS);
+        }
+    }
+
     //EFFECTS: JUST FOR TESTING, exits app
     public void exitAPP() {
         System.exit(0);
@@ -272,5 +298,9 @@ public class MovieLogAppGUI {
 
     public MovieDatabase getDatabase() {
         return database;
+    }
+
+    public UserDataStorage getAllUsers() {
+        return allUsers;
     }
 }
