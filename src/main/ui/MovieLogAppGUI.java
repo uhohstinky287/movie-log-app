@@ -202,6 +202,7 @@ public class MovieLogAppGUI {
                     user = new User(username);
                     user.setPassword(password);
                     JOptionPane.showMessageDialog(startingMenuFrame, "Account created successfully!");
+                    allUsers.addUserToDatabaseLOL(user);
                     homeScreen();
                 }
             }
