@@ -1,4 +1,27 @@
 {"users": {
+    "lucky": {
+        "password": "12345678",
+        "myMovies": [{
+            "reviews": {
+                "lucky": {
+                    "rating": 100,
+                    "writtenReview": "woof",
+                    "username": "lucky"
+                },
+                "jugaadlally": {
+                    "rating": 85,
+                    "writtenReview": "yoooooo this is sick",
+                    "username": "jugaadlally"
+                }
+            },
+            "year": 2023,
+            "director": "Greta Gerwig",
+            "name": "BARBIE",
+            "description": "Barbie and Ken enter the real world"
+        }],
+        "friends": ["saharah"],
+        "username": "lucky"
+    },
     "jugaadlally": {
         "password": "password",
         "myMovies": [
@@ -61,5 +84,27 @@
         }],
         "friends": ["jugaadlally"],
         "username": "saharah"
+    },
+    "deep jassian": {
+        "password": "gobhi",
+        "myMovies": [{
+            "reviews": {"deep jassian": {
+                "rating": 85,
+                "writtenReview": "",
+                "username": "deep jassian"
+            }},
+            "year": 2015,
+            "director": "Geja falls in love in Maarho",
+            "name": "ANGREJ",
+            "description": "Simerjeet Singh"
+        }],
+        "friends": ["jugaadlally"],
+        "username": "deep jassian"
+    },
+    "upper case": {
+        "password": "upper",
+        "myMovies": [],
+        "friends": [],
+        "username": "upper case"
     }
 }}

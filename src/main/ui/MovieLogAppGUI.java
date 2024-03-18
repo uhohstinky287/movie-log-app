@@ -52,7 +52,6 @@ public class MovieLogAppGUI {
     private JPanel myMoviesTab;
     private JPanel searchMoviesTab;
     private JPanel viewFriendsTab;
-    private JPanel myFriends;
 
 
     private JTabbedPane sidebar;
@@ -60,7 +59,6 @@ public class MovieLogAppGUI {
     private static int SCREEN_HEIGHT = 912;
     private static int FRAME_WIDTH = SCREEN_WIDTH - 10;
     private static int FRAME_HEIGHT = SCREEN_HEIGHT - 50;
-    private Font font = new Font("Robto", Font.PLAIN, 20);
 
     // runs the Movie Log App GUI
     public MovieLogAppGUI() throws FileNotFoundException {
@@ -98,49 +96,34 @@ public class MovieLogAppGUI {
     }
 
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void startingScreen() {
         startingMenuFrame = new JFrame("Start App");
         startingMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startingMenuFrame.setSize(450, 250);
         startingMenuFrame.setLocationRelativeTo(null);
-
         startingMenuPanel = new JPanel();
         startingMenuPanel.setLayout(new GridLayout(3, 2));
-
         JLabel usernameLabel = new JLabel("Username:", JLabel.CENTER);
         usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:", JLabel.CENTER);
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");
         createAccountButton = new JButton("Create Account");
-
         startingMenuPanel.add(usernameLabel);
         startingMenuPanel.add(usernameField);
         startingMenuPanel.add(passwordLabel);
         startingMenuPanel.add(passwordField);
         startingMenuPanel.add(loginButton);
         startingMenuPanel.add(createAccountButton);
-
         startingMenuFrame.add(startingMenuPanel);
         startingMenuFrame.setVisible(true);
-
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                username = usernameField.getText();
-                username = username.toLowerCase();
-                password = new String(passwordField.getPassword());
-                loginMenu(username, password);
-            }
-
-
-        });
-        createAccountButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createAccountPanel();
-            }
-        });
+        loginButton.addActionListener(e ->  {
+            username = usernameField.getText().toLowerCase();
+            password = new String(passwordField.getPassword());
+            loginMenu(username, password); });
+        createAccountButton.addActionListener(e ->  {
+            createAccountPanel(); });
     }
 
     private void loginMenu(String username, String password) {
@@ -191,7 +174,7 @@ public class MovieLogAppGUI {
 
     private void confirmCreateAccountButtonActions(JButton confirmCreateAccountButton) {
         confirmCreateAccountButton.addActionListener(e -> {
-            username =  usernameField.getText();
+            username =  usernameField.getText().toLowerCase();
             password = new String(passwordField.getPassword());
             String confirmPassword = new String(passwordConfirmationField.getPassword());
 

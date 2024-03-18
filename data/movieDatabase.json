@@ -18,11 +18,18 @@
         "description": "batman vs riddler"
     },
     {
-        "reviews": {"jugaadlally": {
-            "rating": 85,
-            "writtenReview": "yoooooo this is sick",
-            "username": "jugaadlally"
-        }},
+        "reviews": {
+            "lucky": {
+                "rating": 100,
+                "writtenReview": "woof",
+                "username": "lucky"
+            },
+            "jugaadlally": {
+                "rating": 85,
+                "writtenReview": "yoooooo this is sick",
+                "username": "jugaadlally"
+            }
+        },
         "year": 2023,
         "director": "Greta Gerwig",
         "name": "BARBIE",
@@ -38,5 +45,16 @@
         "director": "Denis Villnueve",
         "name": "DUNE: PART TWO",
         "description": "Paul Atreides joins the Fremen"
+    },
+    {
+        "reviews": {"Deep Jassian": {
+            "rating": 85,
+            "writtenReview": "",
+            "username": "Deep Jassian"
+        }},
+        "year": 2015,
+        "director": "Geja falls in love in Maarho",
+        "name": "ANGREJ",
+        "description": "Simerjeet Singh"
     }
 ]}
