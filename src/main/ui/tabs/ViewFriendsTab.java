@@ -19,11 +19,12 @@ public class ViewFriendsTab extends Tab {
 
     private JPanel friendsListPanel;
     private JPanel otherUsersMoviesPanel;
-    private JPanel addFriendButtonPanel;
+    private JPanel addOrRemoveFriendButtonPanel;
 
     private JButton refreshFriendsButton;
     private JButton searchUsersButton;
     private JButton addFriendButton;
+    private JButton removeFriendButton;
 
     private JTextField searchUsersField;
 
@@ -126,9 +127,7 @@ public class ViewFriendsTab extends Tab {
                 fillMovies();
                 otherUsersMovies.setText(otherUsersMoviesString);
                 otherUsersMoviesPanel.add(otherUsersMovies);
-                if (!controller.getUser().getFriends().contains(searchUsersField.getText())) {
-                    placeAddFriendButtonPanel();
-                }
+                placeAddOrRemoveFriendButtonPanel();
                 this.revalidate();
                 this.repaint();
             }
@@ -147,16 +146,24 @@ public class ViewFriendsTab extends Tab {
     }
 
     //EFFECTS: places the addFriend Button Panel and Button
-    private void placeAddFriendButtonPanel() {
-        addFriendButtonPanel = new JPanel();
-        addFriendButtonPanel.setLayout(new GridLayout(0, 1));
-        addFriendButtonPanel.setBounds(400, 470, 225, 25);
+    private void placeAddOrRemoveFriendButtonPanel() {
+        addOrRemoveFriendButtonPanel = new JPanel();
+        addOrRemoveFriendButtonPanel.setLayout(new GridLayout(0, 1));
+        addOrRemoveFriendButtonPanel.setBounds(400, 470, 225, 25);
 
         addFriendButton = new JButton("Add Friend");
-        addFriendButtonPanel.add(addFriendButton);
         initializeAddFriendButton(addFriendButton);
 
-        this.add(addFriendButtonPanel);
+        removeFriendButton = new JButton("Remove Friend");
+        initializeRemoveFriendButton(removeFriendButton);
+
+        if (controller.getUser().getFriends().contains(searchUsersField.getText())) {
+            addOrRemoveFriendButtonPanel.add(removeFriendButton);
+        } else {
+            addOrRemoveFriendButtonPanel.add(addFriendButton);
+        }
+
+        this.add(addOrRemoveFriendButtonPanel);
         this.validate();
         this.repaint();
     }
@@ -166,7 +173,16 @@ public class ViewFriendsTab extends Tab {
         addFriendButton.addActionListener(e -> {
             controller.getUser().addFriend(searchUsersField.getText());
             JOptionPane.showMessageDialog(this, searchUsersField.getText()
-                    + "has been friended");
+                    + " has been friended");
+            removeExtraPanels();
+        });
+    }
+
+    private void initializeRemoveFriendButton(JButton removeFriendButton) {
+        removeFriendButton.addActionListener(e -> {
+            controller.getUser().removeFriend(searchUsersField.getText());
+            JOptionPane.showMessageDialog(this, searchUsersField.getText()
+                    + " has been unfriended");
             removeExtraPanels();
         });
     }
@@ -177,9 +193,9 @@ public class ViewFriendsTab extends Tab {
             this.remove(otherUsersMoviesPanel);
             otherUsersMoviesPanel = null;
         }
-        if (addFriendButtonPanel != null) {
-            this.remove(addFriendButtonPanel);
-            addFriendButtonPanel = null;
+        if (addOrRemoveFriendButtonPanel != null) {
+            this.remove(addOrRemoveFriendButtonPanel);
+            addOrRemoveFriendButtonPanel = null;
         }
         this.revalidate();
         this.repaint();

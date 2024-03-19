@@ -42,5 +42,5 @@ movie again, and it will show you your rating and review
 - In the Friends tab you can see friends that you have on your friends list
 - You can search for a user as well, if the user exists, it will display their movie list as well as an option to add
 as a friend. You can search my user "moviewatcher" to see theirs and add as a friends. Once added, hit refresh 
-to see it
+to see it. You can also remove a friend. search moviewatcher again, and this time a different button will appear.
 - Then you can go back to home and click save, then exit and then restart the app, login, and you'll see my 2nd image

@@ -117,7 +117,14 @@ public class UserTest {
         myMovies.addFriend("butt");
         assertEquals("poop", myMovies.getFriends().get(0));
         assertEquals("butt", myMovies.getFriends().get(1));
+    }
 
+    @Test
+    public void testRemoveFriend() {
+        myMovies.addFriend("poop");
+        myMovies.addFriend("butt");
+        myMovies.removeFriend("poop");
+        assertEquals("butt", myMovies.getFriends().get(0));
     }
 
 

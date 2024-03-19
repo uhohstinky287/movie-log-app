@@ -96,6 +96,12 @@ public class User implements Writable {
         friends.add(friend);
     }
 
+    //REQUIRES: friends not empty
+    //EFFECTS: removes a friend from friend list
+    public void removeFriend(String friend) {
+        friends.remove(friend);
+    }
+
 
     //EFFECTS: checks if the movie is in my Movies, then returns the movie from my list
     public Movie isMovieInMyListReturnMovie(Movie movie) {
