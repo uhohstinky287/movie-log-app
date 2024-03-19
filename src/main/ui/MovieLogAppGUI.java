@@ -15,8 +15,6 @@ import ui.tabs.ViewFriendsTab;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -53,6 +51,9 @@ public class MovieLogAppGUI {
     private JPanel searchMoviesTab;
     private JPanel viewFriendsTab;
 
+    private ImageIcon welcomeBackImage;
+    private ImageIcon creatingYourAccountImage;
+
 
     private JTabbedPane sidebar;
     private static int SCREEN_WIDTH = 1368;
@@ -70,6 +71,7 @@ public class MovieLogAppGUI {
     private void initializeApp() {
         loadDatabase();
         loadUsers();
+        loadImages();
     }
 
     // MODIFIES: this
@@ -102,14 +104,17 @@ public class MovieLogAppGUI {
         startingMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startingMenuFrame.setSize(450, 250);
         startingMenuFrame.setLocationRelativeTo(null);
+
         startingMenuPanel = new JPanel();
         startingMenuPanel.setLayout(new GridLayout(3, 2));
+
         JLabel usernameLabel = new JLabel("Username:", JLabel.CENTER);
         usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:", JLabel.CENTER);
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");
         createAccountButton = new JButton("Create Account");
+
         startingMenuPanel.add(usernameLabel);
         startingMenuPanel.add(usernameField);
         startingMenuPanel.add(passwordLabel);
@@ -118,6 +123,7 @@ public class MovieLogAppGUI {
         startingMenuPanel.add(createAccountButton);
         startingMenuFrame.add(startingMenuPanel);
         startingMenuFrame.setVisible(true);
+
         loginButton.addActionListener(e ->  {
             username = usernameField.getText().toLowerCase();
             password = new String(passwordField.getPassword());
@@ -126,11 +132,55 @@ public class MovieLogAppGUI {
             createAccountPanel(); });
     }
 
+    private void welcomeBackScreen() {
+        startingMenuFrame.dispose();
+        startingMenuFrame.setVisible(false);
+        JFrame welcomeBackFrame = new JFrame("Welcome Back");
+        welcomeBackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        welcomeBackFrame.setSize(1000, 800);
+        welcomeBackFrame.setLocationRelativeTo(null);
+        JPanel welcomeBackPanel = new JPanel();
+        welcomeBackPanel.setLayout(new GridLayout(0,1));
+        JLabel welcomeBackLabel = new JLabel(welcomeBackImage);
+        welcomeBackPanel.add(welcomeBackLabel);
+        welcomeBackFrame.add(welcomeBackPanel);
+        welcomeBackFrame.setVisible(true);
+        Timer timer = new Timer(3000, e -> {
+            welcomeBackFrame.dispose();
+            homeScreen();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    private void creatingYourAccountScreen() {
+        startingMenuFrame.dispose();
+        startingMenuFrame.setVisible(false);
+        JFrame creatingYourAccountFrame = new JFrame("Welcome Back");
+        creatingYourAccountFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        creatingYourAccountFrame.setSize(1000, 800);
+        creatingYourAccountFrame.setLocationRelativeTo(null);
+        JPanel creatingYourAccountPanel = new JPanel();
+        creatingYourAccountPanel.setLayout(new GridLayout(0,1));
+        JLabel welcomeBackLabel = new JLabel(creatingYourAccountImage);
+        creatingYourAccountPanel.add(welcomeBackLabel);
+        creatingYourAccountFrame.add(creatingYourAccountPanel);
+        creatingYourAccountFrame.setVisible(true);
+        Timer timer = new Timer(3000, e -> {
+            creatingYourAccountFrame.dispose();
+            homeScreen();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
     private void loginMenu(String username, String password) {
         if (allUsers.isUserInDataBaseLOL(username)) {
             if (allUsers.returnUserFromDatabase(username).getPassword().equals(password)) {
                 user = allUsers.returnUserFromDatabase(username);
-                homeScreen();
+                startingMenuFrame.setVisible(false);
+                startingMenuFrame.dispose();
+                welcomeBackScreen();
             } else {
                 JOptionPane.showMessageDialog(startingMenuFrame, "Incorrect Password");
             }
@@ -188,7 +238,9 @@ public class MovieLogAppGUI {
                     user.setPassword(password);
                     JOptionPane.showMessageDialog(startingMenuFrame, "Account created successfully!");
                     allUsers.addUserToDatabaseLOL(user);
-                    homeScreen();
+                    startingMenuFrame.setVisible(false);
+                    startingMenuFrame.dispose();
+                    creatingYourAccountScreen();
                 }
             }
         });
@@ -204,8 +256,6 @@ public class MovieLogAppGUI {
 
 
     private void homeScreen() {
-        startingMenuFrame.setVisible(false);
-        startingMenuFrame.dispose();
 
         userHomeFrame = new JFrame("Movie Log App");
         userHomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -221,6 +271,7 @@ public class MovieLogAppGUI {
         userHomeFrame.setVisible(true);
 
     }
+
 
     private void loadTabs() {
         homeTab = new HomeTab(this);
@@ -265,6 +316,16 @@ public class MovieLogAppGUI {
             System.out.println("Unable to write to file: " + JSON_USERS);
         }
     }
+
+    private void loadImages() {
+        String sep = System.getProperty("file.separator");
+        welcomeBackImage = new ImageIcon(System.getProperty("user.dir") + sep
+                + "images" + sep + "welcomeBack.png");
+        creatingYourAccountImage = new ImageIcon(System.getProperty("user.dir") + sep
+                + "images" + sep + "creatingYourAccount.png");
+
+    }
+
 
     //EFFECTS: JUST FOR TESTING, exits app
     public void exitAPP() {
