@@ -160,6 +160,10 @@ public class MovieTest {
 
     @Test
     public void testGetUserWrittenReviewForMovieDetailsWatched() {
+        batman.addReview(r1.getUsername(), r1);
+        assertEquals("", batman.getUserWrittenReviewForMovieDetailsWatched(r1.getUsername()));
+        r1.setWrittenReview("yoo");
+        assertEquals("Your review:\nyoo", batman.getUserWrittenReviewForMovieDetailsWatched(r1.getUsername()) );
 
     }
 

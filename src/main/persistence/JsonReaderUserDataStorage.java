@@ -45,16 +45,6 @@ public class JsonReaderUserDataStorage {
         return uds;
     }
 
-    // MODIFIES: uds
-    // EFFECTS: parses users from JSON object and adds them to userDataStorage
-    private void addUsers(UserDataStorage uds, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("users");
-        for (Object json : jsonArray) {
-            JSONObject nextUser = (JSONObject) json;
-            addUser(uds, nextUser);
-        }
-    }
-
     //EFFECTS: converts reviews JSONObject to HashMap //todo
     private void usersToMap(UserDataStorage uds, JSONObject jsonObject) {
         JSONObject jsonUsers = jsonObject.getJSONObject("users");
