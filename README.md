@@ -35,7 +35,7 @@ program will exit without saving anything in this session, so for you right now,
 rate it /100 and ask if you want to add to your movie list without reviewing it, or review it.
 - If you click review, you will be prompted to write a review, and then it'll give you the text area to write.
 - Once you hit the add review button, the movie will be saved to your list. You can check this by either searching the
-movie again, and it will show you your rating and review
+movie again, and it will show you your rating and review and the option to change your review
 - Or you could go to My Movies Tab and hit refresh
 - In Search movies, you can also add a movie to the database if you search for a movie that isn't in the database now
 - You can try that, but be prepared with the movie's director and short objective description

@@ -25,6 +25,7 @@ public class SearchMoviesTab extends Tab {
     private JButton newWrittenReviewButton;
     private JButton addReviewButton;
     private JButton addMovieToDatabaseButton;
+    private JButton changeReviewButton;
 
     private JTextArea movieDetailsTextArea;
     private JTextArea reviewTextArea;
@@ -33,6 +34,7 @@ public class SearchMoviesTab extends Tab {
 
     private User user;
     private MovieDatabase database;
+    private Movie movieFromDatabase;
 
     private String movieName;
     private Integer movieYear;
@@ -110,9 +112,11 @@ public class SearchMoviesTab extends Tab {
             Movie movie = new Movie(movieName, movieYear); //(3)
             removeAllAdditionPanels(); //(4)
             if (controller.getUser().isMovieInMyMovieList(movie)) {
+                movieFromDatabase = controller.getDatabase().returnMovieFromDatabase(movie);
                 displayMovieWatched(movie); //(5)
             } else {
                 if (controller.getDatabase().isMovieInDatabase(movie)) {
+                    movieFromDatabase = controller.getDatabase().returnMovieFromDatabase(movie);
                     displayMovieUnWatched(movie); //(6)
                 } else {
                     askAddToDatabase(movie);
@@ -214,10 +218,30 @@ public class SearchMoviesTab extends Tab {
         watchButtonPanel = new JPanel();
         watchButtonPanel.setLayout(new GridLayout(0, 1));
         watchButtonPanel.setBounds(50, 500, 300, 50);
+
         watchButton = new JButton("Seen this movie?");
         watchButton.setBounds(70,520, 150, 20);
-        watchButtonPanel.add(watchButton);
+
+        changeReviewButton = new JButton("Change my review");
+        changeReviewButton.setBounds(70,520, 150, 20);
+
+        if (controller.getUser().isMovieInMyMovieList(movieFromDatabase)) {
+            watchButtonPanel.add(changeReviewButton);
+            initializeChangeReviewButton(changeReviewButton, movieFromDatabase);
+        } else {
+            watchButtonPanel.add(watchButton);
+        }
+
         this.add(watchButtonPanel);
+    }
+
+    //EFFECTS: implements the logic for changeReviewButton
+    private void initializeChangeReviewButton(JButton changeReviewButton, Movie movie) {
+        changeReviewButton.addActionListener(e -> {
+            initializeReviewPanel();
+            initializeNewWrittenReviewButtonPanel();
+            initializeNewWrittenReviewButton(newWrittenReviewButton, movie);
+        });
     }
 
     //EFFECTS: implements the logic for watchButton which adds a movie from Database
@@ -320,7 +344,11 @@ public class SearchMoviesTab extends Tab {
         newWrittenReviewButtonPanel = new JPanel();
         newWrittenReviewButtonPanel.setLayout(new GridLayout(0,1));
         newWrittenReviewButtonPanel.setBounds(380, 500, 200, 50);
-        newWrittenReviewButton = new JButton("Add movie with review");
+        if (controller.getUser().isMovieInMyMovieList(movieFromDatabase)) {
+            newWrittenReviewButton = new JButton("Change review");
+        } else {
+            newWrittenReviewButton = new JButton("Add movie with review");
+        }
         newWrittenReviewButton.setBounds(380,500, 200, 20);
         newWrittenReviewButtonPanel.add(newWrittenReviewButton);
         this.add(newWrittenReviewButtonPanel);
@@ -331,12 +359,20 @@ public class SearchMoviesTab extends Tab {
     private void initializeNewWrittenReviewButton(JButton newWrittenReviewButton, Movie movie) {
         newWrittenReviewButton.addActionListener(e -> {
             String writtenReview = reviewTextArea.getText();
-            Review movieReview = new Review(controller.getUsername(), userRating);
-            movieReview.setWrittenReview(writtenReview);
-            controller.getDatabase().addToAverageRating(movie, movieReview);
-            controller.getUser().addMovie(controller.getDatabase().returnMovieFromDatabase(movie));
-            JOptionPane.showMessageDialog(this, "movie + review added");
+            if (controller.getUser().isMovieInMyMovieList(movieFromDatabase)) {
+                movieFromDatabase.getUserReview(controller.getUsername()).setWrittenReview(writtenReview);
+                Movie movieFromMyList = controller.getUser().isMovieInMyListReturnMovie(movie);
+                movieFromMyList.getUserReview(controller.getUsername()).setWrittenReview(writtenReview);
+                JOptionPane.showMessageDialog(this, "review changed");
+            } else {
+                Review movieReview = new Review(controller.getUsername(), userRating);
+                movieReview.setWrittenReview(writtenReview);
+                controller.getDatabase().addToAverageRating(movie, movieReview);
+                controller.getUser().addMovie(controller.getDatabase().returnMovieFromDatabase(movie));
+                JOptionPane.showMessageDialog(this, "movie + review added");
+            }
             removeAllAdditionPanels();
+            this.revalidate();
         });
 
     }
@@ -345,6 +381,7 @@ public class SearchMoviesTab extends Tab {
     private void displayMovieWatched(Movie movie) {
         removeAllAdditionPanels();
         initializeMovieDetailsPanel();
+        initializeWatchButtonPanel();
         String detailsWatched =
                 controller.getUser().isMovieInMyListReturnMovie(movie).movieDetailsWatched(controller.getUsername());
         movieDetailsTextArea.setText(detailsWatched);
