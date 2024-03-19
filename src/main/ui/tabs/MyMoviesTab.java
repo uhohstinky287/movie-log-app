@@ -5,6 +5,7 @@ import ui.*;
 import javax.swing.*;
 import java.awt.*;
 
+// my movies tab
 public class MyMoviesTab extends Tab {
 
     private MovieLogAppGUI controller;
@@ -19,6 +20,7 @@ public class MyMoviesTab extends Tab {
 
     private JButton refreshButton;
 
+    // constructor
     public MyMoviesTab(MovieLogAppGUI controller) {
         super(controller);
         setLayout(new GridLayout(3, 1));
@@ -54,6 +56,7 @@ public class MyMoviesTab extends Tab {
         this.repaint();
     }
 
+    //EFFECTS: places the refresh Button
     private void placeRefreshButton() {
         refreshButton = new JButton("Refresh");
         refreshButton.setSize(WIDTH, 20);
@@ -63,6 +66,7 @@ public class MyMoviesTab extends Tab {
         this.repaint();
     }
 
+    //EFFECTS: implements the logic for the refresh button
     private void initializeRefreshButton(JButton refreshButton) {
         refreshButton.addActionListener(e -> {
             if (controller.getUser().getTotalMoviesSeen() == 0) {

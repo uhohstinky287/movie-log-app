@@ -97,6 +97,17 @@ public class MovieLogAppGUI {
         }
     }
 
+    //EFFECTS: loads the images from the image file
+    private void loadImages() {
+        String sep = System.getProperty("file.separator");
+        welcomeBackImage = new ImageIcon(System.getProperty("user.dir") + sep
+                + "images" + sep + "welcomeBack.png");
+        creatingYourAccountImage = new ImageIcon(System.getProperty("user.dir") + sep
+                + "images" + sep + "creatingYourAccount.png");
+
+    }
+
+    //EFFECTS: creates the starting screen
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void startingScreen() {
@@ -104,78 +115,32 @@ public class MovieLogAppGUI {
         startingMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startingMenuFrame.setSize(450, 250);
         startingMenuFrame.setLocationRelativeTo(null);
-
         startingMenuPanel = new JPanel();
         startingMenuPanel.setLayout(new GridLayout(3, 2));
-
         JLabel usernameLabel = new JLabel("Username:", JLabel.CENTER);
         usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:", JLabel.CENTER);
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");
-        createAccountButton = new JButton("Create Account");
-
+        createAccountButton = new JButton("Create Account\n (New User)");
         startingMenuPanel.add(usernameLabel);
         startingMenuPanel.add(usernameField);
         startingMenuPanel.add(passwordLabel);
         startingMenuPanel.add(passwordField);
-        startingMenuPanel.add(loginButton);
         startingMenuPanel.add(createAccountButton);
+        startingMenuPanel.add(loginButton);
         startingMenuFrame.add(startingMenuPanel);
         startingMenuFrame.setVisible(true);
-
         loginButton.addActionListener(e ->  {
             username = usernameField.getText().toLowerCase();
             password = new String(passwordField.getPassword());
             loginMenu(username, password); });
-        createAccountButton.addActionListener(e ->  {
-            createAccountPanel(); });
+        createAccountButton.addActionListener(e -> createAccountPanel());
     }
 
-    private void welcomeBackScreen() {
-        startingMenuFrame.dispose();
-        startingMenuFrame.setVisible(false);
-        JFrame welcomeBackFrame = new JFrame("Welcome Back");
-        welcomeBackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        welcomeBackFrame.setSize(1000, 800);
-        welcomeBackFrame.setLocationRelativeTo(null);
-        JPanel welcomeBackPanel = new JPanel();
-        welcomeBackPanel.setLayout(new GridLayout(0,1));
-        JLabel welcomeBackLabel = new JLabel(welcomeBackImage);
-        welcomeBackPanel.add(welcomeBackLabel);
-        welcomeBackFrame.add(welcomeBackPanel);
-        welcomeBackFrame.setVisible(true);
-        Timer timer = new Timer(3000, e -> {
-            welcomeBackFrame.dispose();
-            homeScreen();
-        });
-        timer.setRepeats(false);
-        timer.start();
-    }
-
-    private void creatingYourAccountScreen() {
-        startingMenuFrame.dispose();
-        startingMenuFrame.setVisible(false);
-        JFrame creatingYourAccountFrame = new JFrame("Welcome Back");
-        creatingYourAccountFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        creatingYourAccountFrame.setSize(1000, 800);
-        creatingYourAccountFrame.setLocationRelativeTo(null);
-        JPanel creatingYourAccountPanel = new JPanel();
-        creatingYourAccountPanel.setLayout(new GridLayout(0,1));
-        JLabel welcomeBackLabel = new JLabel(creatingYourAccountImage);
-        creatingYourAccountPanel.add(welcomeBackLabel);
-        creatingYourAccountFrame.add(creatingYourAccountPanel);
-        creatingYourAccountFrame.setVisible(true);
-        Timer timer = new Timer(3000, e -> {
-            creatingYourAccountFrame.dispose();
-            homeScreen();
-        });
-        timer.setRepeats(false);
-        timer.start();
-    }
-
+    //EFFECTS: checks if login is correct, if so goes to welcomeBack Screen
     private void loginMenu(String username, String password) {
-        if (allUsers.isUserInDataBaseLOL(username)) {
+        if (allUsers.isUserInDataBase(username)) {
             if (allUsers.returnUserFromDatabase(username).getPassword().equals(password)) {
                 user = allUsers.returnUserFromDatabase(username);
                 startingMenuFrame.setVisible(false);
@@ -189,6 +154,7 @@ public class MovieLogAppGUI {
         }
     }
 
+    //EFFECTS: removes the starter panel and creates the accountPanel
     private void createAccountPanel() {
         startingMenuFrame.remove(startingMenuPanel);
         createAccountPanel = new JPanel();
@@ -198,6 +164,7 @@ public class MovieLogAppGUI {
         returnToStartingScreenButtonActions(returnToStartingScreenButton);
     }
 
+    //EFFECTS: adds the fields for the create account panel
     private void addCreateAccountFields() {
         JLabel usernameLabel = new JLabel("Create a username:", JLabel.CENTER);
         usernameField = new JTextField();
@@ -222,13 +189,14 @@ public class MovieLogAppGUI {
         startingMenuFrame.revalidate();
     }
 
+    //EFFECTS: implements the logic for create account button
     private void confirmCreateAccountButtonActions(JButton confirmCreateAccountButton) {
         confirmCreateAccountButton.addActionListener(e -> {
             username =  usernameField.getText().toLowerCase();
             password = new String(passwordField.getPassword());
             String confirmPassword = new String(passwordConfirmationField.getPassword());
 
-            if (allUsers.isUserInDataBaseLOL(username)) {
+            if (allUsers.isUserInDataBase(username)) {
                 JOptionPane.showMessageDialog(startingMenuFrame, "Username is taken");
             } else {
                 if (!password.equals(confirmPassword)) {
@@ -237,7 +205,7 @@ public class MovieLogAppGUI {
                     user = new User(username);
                     user.setPassword(password);
                     JOptionPane.showMessageDialog(startingMenuFrame, "Account created successfully!");
-                    allUsers.addUserToDatabaseLOL(user);
+                    allUsers.addUserToDatabase(user);
                     startingMenuFrame.setVisible(false);
                     startingMenuFrame.dispose();
                     creatingYourAccountScreen();
@@ -246,6 +214,7 @@ public class MovieLogAppGUI {
         });
     }
 
+    //EFFECTS: implements the logic for the return to starting screen button
     private void returnToStartingScreenButtonActions(JButton returnToStartingScreenButton) {
         returnToStartingScreenButton.addActionListener(e -> {
             startingMenuFrame.dispose();
@@ -255,6 +224,53 @@ public class MovieLogAppGUI {
     }
 
 
+    //EFFECTS: removes the starting screen, creates the welcome back screen , then goes to home screen
+    private void welcomeBackScreen() {
+        startingMenuFrame.dispose();
+        startingMenuFrame.setVisible(false);
+        JFrame welcomeBackFrame = new JFrame("Welcome Back");
+        welcomeBackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        welcomeBackFrame.setSize(1000, 800);
+        welcomeBackFrame.setLocationRelativeTo(null);
+        JPanel welcomeBackPanel = new JPanel();
+        welcomeBackPanel.setLayout(new GridLayout(0,1));
+        JLabel welcomeBackLabel = new JLabel(welcomeBackImage);
+        welcomeBackPanel.add(welcomeBackLabel);
+        welcomeBackFrame.add(welcomeBackPanel);
+        welcomeBackFrame.setVisible(true);
+        Timer timer = new Timer(3000, e -> {
+            welcomeBackFrame.dispose();
+            homeScreen();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    //EFFECTS: removes starting screen, creates the creatingYourAccount screen, the goes to homescreen
+    private void creatingYourAccountScreen() {
+        startingMenuFrame.dispose();
+        startingMenuFrame.setVisible(false);
+        JFrame creatingYourAccountFrame = new JFrame("Welcome Back");
+        creatingYourAccountFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        creatingYourAccountFrame.setSize(1000, 800);
+        creatingYourAccountFrame.setLocationRelativeTo(null);
+        JPanel creatingYourAccountPanel = new JPanel();
+        creatingYourAccountPanel.setLayout(new GridLayout(0,1));
+        JLabel welcomeBackLabel = new JLabel(creatingYourAccountImage);
+        creatingYourAccountPanel.add(welcomeBackLabel);
+        creatingYourAccountFrame.add(creatingYourAccountPanel);
+        creatingYourAccountFrame.setVisible(true);
+        Timer timer = new Timer(3000, e -> {
+            creatingYourAccountFrame.dispose();
+            homeScreen();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+
+
+    // EFFECTS: creates the home screen
     private void homeScreen() {
 
         userHomeFrame = new JFrame("Movie Log App");
@@ -273,6 +289,7 @@ public class MovieLogAppGUI {
     }
 
 
+    //EFFECTS: loads all the tabs for the MovieLogAPP
     private void loadTabs() {
         homeTab = new HomeTab(this);
         myMoviesTab = new MyMoviesTab(this);
@@ -317,14 +334,6 @@ public class MovieLogAppGUI {
         }
     }
 
-    private void loadImages() {
-        String sep = System.getProperty("file.separator");
-        welcomeBackImage = new ImageIcon(System.getProperty("user.dir") + sep
-                + "images" + sep + "welcomeBack.png");
-        creatingYourAccountImage = new ImageIcon(System.getProperty("user.dir") + sep
-                + "images" + sep + "creatingYourAccount.png");
-
-    }
 
 
     //EFFECTS: JUST FOR TESTING, exits app

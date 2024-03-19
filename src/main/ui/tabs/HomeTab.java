@@ -4,9 +4,9 @@ import ui.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+
+// home tab (starting screen)
 public class HomeTab extends Tab {
     private static final String INIT_GREETING = "Welcome to your movie log";
     private JLabel greeting;
@@ -14,6 +14,7 @@ public class HomeTab extends Tab {
     private MovieLogAppGUI  controller;
 
 
+    //constructor for home tabb
     public HomeTab(MovieLogAppGUI controller) {
         super(controller);
         setLayout(new GridLayout(3, 1));
@@ -35,23 +36,19 @@ public class HomeTab extends Tab {
     //EFFECTS: creates a search for movie button
     private void placeHomeButtons() {
         JButton b1 = new JButton("Save All Changes");
-        JButton b2 = new JButton("Exit");
+        JButton b2 = new JButton("Exit without saving");
 
         JPanel buttonRow = formatButtonRow(b1);
         buttonRow.add(b2);
         buttonRow.setSize(WIDTH, HEIGHT / 6);
 
-        b1.addActionListener(e -> {
-            controller.save();
-        });
-
+        b1.addActionListener(e -> controller.save());
         b2.addActionListener(e -> {
             greeting.setText("Goodbye!");
             getController().exitAPP();
         });
 
         this.add(buttonRow);
-
 
     }
 

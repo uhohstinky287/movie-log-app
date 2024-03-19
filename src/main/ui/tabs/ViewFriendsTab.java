@@ -5,6 +5,7 @@ import ui.MovieLogAppGUI;
 import javax.swing.*;
 import java.awt.*;
 
+// handles the controls for the View Friends Tab
 public class ViewFriendsTab extends Tab {
 
     private MovieLogAppGUI controller;
@@ -26,6 +27,7 @@ public class ViewFriendsTab extends Tab {
 
     private JTextField searchUsersField;
 
+    // constructor
     public ViewFriendsTab(MovieLogAppGUI controller) {
         super(controller);
         setLayout(null);
@@ -36,6 +38,7 @@ public class ViewFriendsTab extends Tab {
         placeSearchUsers();
     }
 
+    //EFFECTS: places the Your FRIENDS header
     private void placeHeader() {
         String header = "Your Friends";
         headerLabel = new JLabel(header, JLabel.CENTER);
@@ -44,6 +47,7 @@ public class ViewFriendsTab extends Tab {
         this.add(headerLabel);
     }
 
+    //EFFECTS: places the panels and labels and text areas of friends
     private void placeFriendsList() {
         JLabel yourFriendsLabel = new JLabel("Your Friends:");
         yourFriendsLabel.setBounds(40, 100, 225, 20);
@@ -66,6 +70,7 @@ public class ViewFriendsTab extends Tab {
         this.repaint();
     }
 
+    //EFFECTS: fills the friendsList Text Area
     private void initializeFriendsList() {
         if (controller.getUser().getFriends().isEmpty()) {
             friendsListString = "\n You have no friends :(";
@@ -79,12 +84,14 @@ public class ViewFriendsTab extends Tab {
         this.repaint();
     }
 
+    //EFFECTS: implements the logic for the refresh button
     private void initializeRefreshFriendsButton(JButton refreshFriendsButton) {
         refreshFriendsButton.addActionListener(e -> {
             initializeFriendsList();
         });
     }
 
+    //EFFECTS: places the Search users label and fiels
     private void placeSearchUsers() {
         JLabel searchUsersLabel = new JLabel("Search User:");
         searchUsersLabel.setBounds(400, 100, 150, 20);
@@ -102,11 +109,12 @@ public class ViewFriendsTab extends Tab {
         this.revalidate();
     }
 
+    //EFFECTS: implements the logic for the searchUsersButton
     private void initializeSearchUsersButton(JButton searchUsersButton) {
         searchUsersButton.addActionListener(e -> {
             removeExtraPanels();
             String otherUsername = searchUsersField.getText();
-            if (!controller.getAllUsers().isUserInDataBaseLOL(otherUsername)) {
+            if (!controller.getAllUsers().isUserInDataBase(otherUsername)) {
                 JOptionPane.showMessageDialog(this, "User not in database");
             } else {
                 otherUsersMoviesPanel = new JPanel();
@@ -127,6 +135,7 @@ public class ViewFriendsTab extends Tab {
         });
     }
 
+    //EFFECTS: fills the otherUsersMovies Text Area
     private void fillMovies() {
         String otherUsername = searchUsersField.getText();
         if (controller.getAllUsers().returnUserFromDatabase(otherUsername).getTotalMoviesSeen() == 0) {
@@ -137,6 +146,7 @@ public class ViewFriendsTab extends Tab {
         }
     }
 
+    //EFFECTS: places the addFriend Button Panel and Button
     private void placeAddFriendButtonPanel() {
         addFriendButtonPanel = new JPanel();
         addFriendButtonPanel.setLayout(new GridLayout(0, 1));
@@ -151,6 +161,7 @@ public class ViewFriendsTab extends Tab {
         this.repaint();
     }
 
+    //EFFECTS: implements the logic for the add friends button
     private void initializeAddFriendButton(JButton addFriendButton) {
         addFriendButton.addActionListener(e -> {
             controller.getUser().addFriend(searchUsersField.getText());
@@ -160,6 +171,7 @@ public class ViewFriendsTab extends Tab {
         });
     }
 
+    //EFFECTS: removes all panels that aren't what the user started with
     private void removeExtraPanels() {
         if (otherUsersMoviesPanel != null) {
             this.remove(otherUsersMoviesPanel);

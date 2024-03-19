@@ -1,28 +1,35 @@
-{"users": [
-  {
+{"users": {
+  "jugaadlally": {
     "password": "password",
-    "myMovies": [{
-      "reviews": {"jugaadlally": {
-        "rating": 97,
-        "writtenReview": "",
-        "username": "jugaadlally"
-      }},
-      "year": 2022,
-      "director": "Matt Reeves",
-      "name": "THE BATMAN",
-      "description": "Emo Batman"
-    }],
+    "myMovies": [
+      {
+        "reviews": {
+          "jugaadlally": {
+            "rating": 97,
+            "writtenReview": "",
+            "username": "jugaadlally"
+          }
+        },
+        "year": 2022,
+        "director": "Matt Reeves",
+        "name": "THE BATMAN",
+        "description": "Emo Batman"
+      }
+    ],
+    "friends": ["saharah"],
     "username": "jugaadlally"
   },
-  {
+  "saharah": {
     "password": "bains",
     "myMovies": [
       {
-        "reviews": {"saharah": {
-          "rating": 100,
-          "writtenReview": "",
-          "username": "saharah"
-        }},
+        "reviews": {
+          "saharah": {
+            "rating": 100,
+            "writtenReview": "",
+            "username": "saharah"
+          }
+        },
         "year": 2023,
         "director": "Greta Gerwig",
         "name": "BARBIE",
@@ -47,33 +54,37 @@
         "description": "Emo Batman"
       }
     ],
+    "friends": ["jugaad"],
     "username": "saharah"
   },
-  {
+  "poopman": {
     "password": "poop",
-    "myMovies": [{
-      "reviews": {
-        "jugaadlally": {
-          "rating": 97,
-          "writtenReview": "",
-          "username": "jugaadlally"
+    "myMovies": [
+      {
+        "reviews": {
+          "jugaadlally": {
+            "rating": 97,
+            "writtenReview": "",
+            "username": "jugaadlally"
+          },
+          "saharah": {
+            "rating": 80,
+            "writtenReview": "",
+            "username": "saharah"
+          },
+          "poopman": {
+            "rating": 94,
+            "writtenReview": "",
+            "username": "poopman"
+          }
         },
-        "saharah": {
-          "rating": 80,
-          "writtenReview": "",
-          "username": "saharah"
-        },
-        "poopman": {
-          "rating": 94,
-          "writtenReview": "",
-          "username": "poopman"
-        }
-      },
-      "year": 2022,
-      "director": "Matt Reeves",
-      "name": "THE BATMAN",
-      "description": "Emo Batman"
-    }],
+        "year": 2022,
+        "director": "Matt Reeves",
+        "name": "THE BATMAN",
+        "description": "Emo Batman"
+      }
+    ],
+    "friends": ["jugaad"],
     "username": "poopman"
   }
-]}
+}}

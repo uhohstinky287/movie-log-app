@@ -17,3 +17,30 @@ then rate that movie and write a review where that movie then gets added to his 
 - A user can see the movies that he has rated so far
 - A user has the options to save any changes made onto to file
 - A user has the option to load their movie list from file
+
+
+# Instructions for Grader
+
+- first you wil come across a screen with the option to login (load data) or create an account
+- Since you don't have an account yet, you should create one (click the create account button)
+- type in your username and password, and click create, then ok on the popup, you will see my first visual 
+component (a splash screen of sorts that says creating your account that lasts for 3 seconds)
+- Once on the Home page you see 2 buttons (Save and Exist without Saving), you can click exit without saving and the
+program will exit without saving anything in this session, so for you right now, your account would not be saved 
+- The save button saves all changes you made at any point.
+- The Second tab on the left, (My Movies), shows you a list of movies you have seen and rated
+- Go to the Search Movies Tab where you can search a movie with its exact name and year of release
+- search The Batman , released in 2022. (I don't have many movies in my database)
+- Hit search and, it will give details and ask you if you've seen it. Click the button it will ask what you 
+rate it /100 and ask if you want to add to your movie list without reviewing it, or review it.
+- If you click review, you will be prompted to write a review, and then it'll give you the text area to write.
+- Once you hit the add review button, the movie will be saved to your list. You can check this by either searching the
+movie again, and it will show you your rating and review
+- Or you could go to My Movies Tab and hit refresh
+- In Search movies, you can also add a movie to the database if you search for a movie that isn't in the database now
+- You can try that, but be prepared with the movie's director and short objective description
+- In the Friends tab you can see friends that you have on your friends list
+- You can search for a user as well, if the user exists, it will display their movie list as well as an option to add
+as a friend. You can search my user "moviewatcher" to see theirs and add as a friends. Once added, hit refresh 
+to see it
+- Then you can go back to home and click save, then exit and then restart the app, login, and you'll see my 2nd image

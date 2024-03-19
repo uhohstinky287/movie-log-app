@@ -373,6 +373,7 @@ public class SearchMoviesTab extends Tab {
     }
 
     // EFFECTS: removes all the additional panels
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void removeAllAdditionPanels() {
         if (movieDetailsPanel != null) {
             this.remove(movieDetailsPanel);

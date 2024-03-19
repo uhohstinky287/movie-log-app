@@ -5,6 +5,9 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -51,7 +54,7 @@ public class MovieDatabaseTest {
     }
 
     @Test
-    public void testIsMovieInDatabaseReturnMovie() {
+    public void testReturnMovieFromDatabase() {
         assertNull(allMovies.returnMovieFromDatabase(batman));
         allMovies.addMovieToDatabase(theBatmanFromDatabase);
         assertEquals(theBatmanFromDatabase, allMovies.returnMovieFromDatabase(batman));
@@ -97,6 +100,15 @@ public class MovieDatabaseTest {
         assertEquals(1, allMovies.getTotalMovies());
         allMovies.addMovieToDatabase(barbie);
         assertEquals(2, allMovies.getTotalMovies());
+    }
+
+    @Test
+    public void getMovies() {
+        List<Movie> getMoviesTest = new ArrayList<>();
+        assertEquals(getMoviesTest, allMovies.getMovies());
+        getMoviesTest.add(barbie);
+        allMovies.addMovieToDatabase(barbie);
+        assertEquals(getMoviesTest, allMovies.getMovies());
     }
 
     @Test

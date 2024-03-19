@@ -45,11 +45,6 @@ public class User implements Writable {
     }
 
 
-    //setters:
-//    public void setMyMovieList(ArrayList myMovieList) {
-//        this.myMovieList = myMovieList;
-//    }
-
     public void setPassword(String password) {
         this.password = password;
     }

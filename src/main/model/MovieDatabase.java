@@ -15,7 +15,6 @@ public class MovieDatabase implements Writable {
 
     //EFFECTS: constructs an empty list of movies
     public MovieDatabase() {
-
         allMovies =  new ArrayList<>();
     }
 

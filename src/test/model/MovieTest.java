@@ -65,6 +65,12 @@ public class MovieTest {
         assertEquals("Matt Reeves", batman.getDirector());
     }
 
+    @Test
+    public void testSetReviews() {
+        //
+    }
+
+
 
     @Test
     public void testMovieDetailsUnWatched() {
@@ -95,6 +101,7 @@ public class MovieTest {
                 + "  ...  Average rating of all users: 1.5/100" + System.lineSeparator()
                 + "Movie Description: " + System.lineSeparator()
                 + "In his sophomore year, Batman faces the Riddler" + System.lineSeparator()
+                + batman.getUserWrittenReviewForMovieDetailsWatched(r1.getUsername())
                 , batman.movieDetailsWatched(r1.getUsername()));
     }
 
@@ -149,6 +156,11 @@ public class MovieTest {
         assertTrue(batman.getAllReviews().contains(r2));
         assertEquals(r1, batman.getAllReviews().get(0));
         assertEquals(r2, batman.getAllReviews().get(1));
+    }
+
+    @Test
+    public void testGetUserWrittenReviewForMovieDetailsWatched() {
+
     }
 
     @Test

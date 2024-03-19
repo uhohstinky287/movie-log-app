@@ -5,17 +5,13 @@ import persistence.JsonReaderMovieDatabase;
 import persistence.JsonReaderUserDataStorage;
 import persistence.JsonWriterMovieDatabase;
 import persistence.JsonWriterUserDataStorage;
-import ui.tabs.HomeTab;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class MovieLogApp extends JFrame implements ActionListener {
+public class MovieLogApp {
     private static final String JSON_MOVIES = "./data/movieDatabase.json";
     private static final String JSON_USERS = "./data/userDataStorage.json";
 
@@ -97,7 +93,7 @@ public class MovieLogApp extends JFrame implements ActionListener {
         input = new Scanner(System.in);
         this.username = input.nextLine();
         username = username.toLowerCase();
-        if (allUsers.isUserInDataBaseLOL(username)) {
+        if (allUsers.isUserInDataBase(username)) {
             returningUser();
         } else {
             System.out.println("Username not in database\n\n");
@@ -133,7 +129,7 @@ public class MovieLogApp extends JFrame implements ActionListener {
         System.out.println("\nPick a username:");
         input = new Scanner(System.in);
         String usernameChecker = input.nextLine();
-        if (!allUsers.isUserInDataBaseLOL(usernameChecker)) {
+        if (!allUsers.isUserInDataBase(usernameChecker)) {
             this.username = usernameChecker;
             System.out.println("Create a password:");
             input = new Scanner(System.in);
@@ -236,7 +232,7 @@ public class MovieLogApp extends JFrame implements ActionListener {
         input = new Scanner(System.in);
         this.otherUser = input.nextLine();
         System.out.println("\nsearching users...\n");
-        if (allUsers.isUserInDataBaseLOL(otherUser)) {
+        if (allUsers.isUserInDataBase(otherUser)) {
             if (allUsers.returnUserFromDatabase(otherUser).getTotalMoviesSeen() == 0) {
                 System.out.println(allUsers.returnUserFromDatabase(otherUser).getUsername()
                         + " has not rated any movies yet");
@@ -452,7 +448,7 @@ public class MovieLogApp extends JFrame implements ActionListener {
             selection = selection.toLowerCase();
         }
         if (selection.equals("y")) {
-            allUsers.overrideUserDataLOL(user);
+            allUsers.overrideUserData(user);
             save();
         }
     }
@@ -479,13 +475,7 @@ public class MovieLogApp extends JFrame implements ActionListener {
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
 
     //todo from my movie list, see full description
-    //todo add friends and view friends list
 }
 

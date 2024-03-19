@@ -80,7 +80,7 @@ public class Movie implements Writable {
     }
 
 
-    public void setReviews(Map reviews) { //TODO: NEW!
+    public void setReviews(Map reviews) {
         this.reviews = reviews;
     }
 
@@ -127,6 +127,7 @@ public class Movie implements Writable {
         return totalRatings;
     }
 
+    //EFFECTS: gets size of totalRatingsList
     public int getTotalRatingsSize() {
         return getTotalRatingsList().size();
     }
@@ -160,6 +161,7 @@ public class Movie implements Writable {
         return reviewsAsList;
     }
 
+    //EFFECTS: returns a user's written review if it is watched
     public String getUserWrittenReviewForMovieDetailsWatched(String username) {
         if (!getUserWrittenReview(username).equals("")) {
             return "Your review:\n" + getUserWrittenReview(username);
@@ -169,6 +171,7 @@ public class Movie implements Writable {
     }
 
 
+    //EFFECTS: writes a movie to JSON
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -189,20 +192,4 @@ public class Movie implements Writable {
         return jsonHashMap;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) {
-//            return true;
-//        }
-//        if (o == null || getClass() != o.getClass()) {
-//            return false;
-//        }
-//        Movie movie = (Movie) o;
-//        return movieYear == movie.movieYear && Objects.equals(movieName, movie.movieName);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(movieName, movieYear);
-//    }
 }
