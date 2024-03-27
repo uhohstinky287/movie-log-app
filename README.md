@@ -44,3 +44,5 @@ movie again, and it will show you your rating and review and the option to chang
 as a friend. You can search my user "moviewatcher" to see theirs and add as a friends. Once added, hit refresh 
 to see it. You can also remove a friend. search moviewatcher again, and this time a different button will appear.
 - Then you can go back to home and click save, then exit and then restart the app, login, and you'll see my 2nd image
+
+I used microsoft ai to create my images, and I used many tutorial from the youtube channel @alexlorenlee 
