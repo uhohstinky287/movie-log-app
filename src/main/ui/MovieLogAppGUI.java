@@ -111,7 +111,7 @@ public class MovieLogAppGUI {
                 + "images" + sep + "creatingYourAccount.png");
 
     }
-    //TODO: check if this is still here (this is where i started)
+
 
     //EFFECTS: creates the starting screen
     private void startingFrame() {

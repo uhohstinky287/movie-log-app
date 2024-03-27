@@ -44,6 +44,10 @@ public class User implements Writable {
         return friends;
     }
 
+    public ArrayList<Movie> getMyMovies() {
+        return myMovieList;
+    }
+
 
     public void setPassword(String password) {
         this.password = password;
