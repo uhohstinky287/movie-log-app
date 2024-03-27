@@ -5,9 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 // Represents a list of all the movies ever entered
 public class MovieDatabase implements Writable {

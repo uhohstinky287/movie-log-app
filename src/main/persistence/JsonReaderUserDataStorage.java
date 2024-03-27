@@ -45,7 +45,7 @@ public class JsonReaderUserDataStorage {
         return uds;
     }
 
-    //EFFECTS: converts reviews JSONObject to HashMap //todo
+    //EFFECTS: converts reviews JSONObject to HashMap
     private void usersToMap(UserDataStorage uds, JSONObject jsonObject) {
         JSONObject jsonUsers = jsonObject.getJSONObject("users");
         Map<String, User> userMap = new LinkedHashMap<>();
@@ -66,13 +66,13 @@ public class JsonReaderUserDataStorage {
         User u = new User(username);
         u.setPassword(password);
         addMovies(u, jsonObject);
-        addFriends(u, jsonObject); //todo
+        addFriends(u, jsonObject);
         return u;
     }
 
     // MODIFIES: user
     //EFFECTS: parses friends from JSON and adds them to user
-    private void addFriends(User u, JSONObject jsonObject) {  //todo
+    private void addFriends(User u, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("friends");
         for (Object json : jsonArray) {
             u.addFriend(json.toString());

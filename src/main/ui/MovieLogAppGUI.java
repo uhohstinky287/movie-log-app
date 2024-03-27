@@ -36,6 +36,10 @@ public class MovieLogAppGUI {
 
     private JPanel startingMenuPanel;
 
+    private JLabel usernameLabel;
+    private JLabel passwordLabel;
+    private JLabel newUserLabel;
+
 
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -43,6 +47,7 @@ public class MovieLogAppGUI {
     private JButton createAccountButton;
     private JButton confirmCreateAccountButton;
     private JButton returnToStartingScreenButton;
+    private JButton forgotPasswordButton;
     private JPasswordField passwordConfirmationField;
 
     private JPanel createAccountPanel;
@@ -64,7 +69,7 @@ public class MovieLogAppGUI {
     // runs the Movie Log App GUI
     public MovieLogAppGUI() throws FileNotFoundException {
         initializeApp();
-        startingScreen();
+        startingFrame();
     }
 
     //EFFECTS: initializes the application by loading the movie database/users and initili
@@ -106,36 +111,64 @@ public class MovieLogAppGUI {
                 + "images" + sep + "creatingYourAccount.png");
 
     }
+    //TODO: check if this is still here (this is where i started)
 
     //EFFECTS: creates the starting screen
-
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
-    private void startingScreen() {
+    private void startingFrame() {
         startingMenuFrame = new JFrame("Start App");
         startingMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startingMenuFrame.setSize(450, 250);
         startingMenuFrame.setLocationRelativeTo(null);
+        initializeStartingMenuPanel();
+        startingMenuFrame.add(startingMenuPanel);
+        startingMenuFrame.setVisible(true);
+    }
+
+    //EFFECTS: creates startingMenuPanel
+    private void initializeStartingMenuPanel() {
         startingMenuPanel = new JPanel();
-        startingMenuPanel.setLayout(new GridLayout(3, 2));
-        JLabel usernameLabel = new JLabel("Username:", JLabel.CENTER);
+        startingMenuPanel.setLayout(null);
+        usernameLabel = new JLabel("Username:", JLabel.CENTER);
+        usernameLabel.setBounds(50, 30, 100, 25);
         usernameField = new JTextField();
-        JLabel passwordLabel = new JLabel("Password:", JLabel.CENTER);
+        usernameField.setBounds(150, 30, 200, 25);
+        passwordLabel = new JLabel("Password:", JLabel.CENTER);
+        passwordLabel.setBounds(50, 70, 100, 25);
         passwordField = new JPasswordField();
+        passwordField.setBounds(150, 70, 200, 25);
         loginButton = new JButton("Login");
-        createAccountButton = new JButton("Create Account\n (New User)");
+        loginButton.setBounds(260,100, 89,25);
+        newUserLabel = new JLabel("New User?", JLabel.RIGHT);
+        newUserLabel.setBounds(80,180, 100, 25);
+        createAccountButton = new JButton("Create Account");
+        createAccountButton.setBounds(210, 180, 139, 25);
+        forgotPasswordButton = new JButton("Forgot Password?");
+        forgotPasswordButton.setBounds(75, 100, 140, 25);
+        addAllToStartingMenuPanel();
+        loginScreenButtonsActions();
+    }
+
+    //EFFECTS: adds all labels, fields, and buttons to starting Menu Panel
+    private void addAllToStartingMenuPanel() {
         startingMenuPanel.add(usernameLabel);
         startingMenuPanel.add(usernameField);
         startingMenuPanel.add(passwordLabel);
         startingMenuPanel.add(passwordField);
         startingMenuPanel.add(createAccountButton);
         startingMenuPanel.add(loginButton);
-        startingMenuFrame.add(startingMenuPanel);
-        startingMenuFrame.setVisible(true);
+        startingMenuPanel.add(newUserLabel);
+        startingMenuPanel.add(forgotPasswordButton);
+    }
+
+    //EFFECTS: implements the logic for the login buttons
+    private void loginScreenButtonsActions() {
         loginButton.addActionListener(e ->  {
             username = usernameField.getText().toLowerCase();
             password = new String(passwordField.getPassword());
             loginMenu(username, password); });
         createAccountButton.addActionListener(e -> createAccountPanel());
+        forgotPasswordButton.addActionListener(e ->
+                JOptionPane.showMessageDialog(startingMenuFrame, "Have you tried remembering it?"));
     }
 
     //EFFECTS: checks if login is correct, if so goes to welcomeBack Screen
@@ -218,7 +251,7 @@ public class MovieLogAppGUI {
     private void returnToStartingScreenButtonActions(JButton returnToStartingScreenButton) {
         returnToStartingScreenButton.addActionListener(e -> {
             startingMenuFrame.dispose();
-            startingScreen();
+            startingFrame();
 
         });
     }

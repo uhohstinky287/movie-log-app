@@ -130,6 +130,7 @@ public class MovieDatabaseTest {
         assertEquals(0.0, allMovies.getAverageRatingFromDatabase("The Buttman", 2022));
 
     }
+
     @Test
     public void testToJson() {
         JSONObject toJSonExpected = new JSONObject();

@@ -23,7 +23,8 @@ public class MyMoviesTab extends Tab {
     // constructor
     public MyMoviesTab(MovieLogAppGUI controller) {
         super(controller);
-        setLayout(new GridLayout(3, 1));
+//        setLayout(new GridLayout(3, 1));
+        setLayout(null);
         this.controller = controller;
 
         placeHeader();
@@ -37,14 +38,18 @@ public class MyMoviesTab extends Tab {
         headerLabel = new JLabel(header, JLabel.CENTER);
         headerLabel.setSize(WIDTH, HEIGHT / 3);
         headerLabel.setFont(headerFont);
+        headerLabel.setBounds(175, 30, 300, 30);
         this.add(headerLabel);
     }
 
     //EFFECTS: creates a MyMoviesListPanel
     private void placeMyMovies() {
+        myMoviesListPanel = new JPanel();
+        myMoviesListPanel.setLayout(new GridLayout(0,1));
+        myMoviesListPanel.setBounds(40, 100, 600, 400);
         myMoviesList = new JTextArea();
         myMoviesList.setEditable(false);
-        this.add(new JScrollPane(myMoviesList), BorderLayout.CENTER);
+        myMoviesListPanel.add(new JScrollPane(myMoviesList), BorderLayout.CENTER);
         if (controller.getUser().getTotalMoviesSeen() == 0) {
             myMoviesListString = "You have not rated any movies yet";
         } else {
@@ -52,6 +57,7 @@ public class MyMoviesTab extends Tab {
                     + controller.getUser().viewMoviesNotEmpty(controller.getUsername());
         }
         myMoviesList.setText(myMoviesListString);
+        this.add(myMoviesListPanel);
         this.revalidate();
         this.repaint();
     }
@@ -60,6 +66,7 @@ public class MyMoviesTab extends Tab {
     private void placeRefreshButton() {
         refreshButton = new JButton("Refresh");
         refreshButton.setSize(WIDTH, 20);
+        refreshButton.setBounds(500, 30, 100,  25);
         initializeRefreshButton(refreshButton);
         this.add(refreshButton);
         this.revalidate();

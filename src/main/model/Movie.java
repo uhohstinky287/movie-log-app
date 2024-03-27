@@ -12,7 +12,7 @@ public class Movie implements Writable {
     private int movieYear;
     private String movieDescription;
     private String director;
-    private Map<String,Review> reviews; //TODO: NEW! create tests
+    private Map<String,Review> reviews;
 
 
     //EFFECTS: creates a movie with a name, year of release, not watched, 0 rating and
@@ -64,7 +64,7 @@ public class Movie implements Writable {
         return average;
     }
 
-    public Map<String,Review> getReviewsMap() { //TODO:NEW!
+    public Map<String,Review> getReviewsMap() {
         return this.reviews;
     }
 

@@ -189,6 +189,7 @@ public class MovieTest {
         reviewsJson.put(r1.getUsername(), r1);
 
         assertEquals(reviewsJson.toMap(), batman.getReviewsMap());
+
     }
 
 

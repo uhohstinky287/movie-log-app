@@ -119,7 +119,7 @@ public class User implements Writable {
         json.put("username", username);
         json.put("password", password);
         json.put("myMovies", myMoviesToJson());
-        json.put("friends", friendsToJson()); //TODO add friends
+        json.put("friends", friendsToJson());
         return json;
     }
 
@@ -131,7 +131,7 @@ public class User implements Writable {
         return jsonArrayMyMovies;
     }
 
-    public JSONArray friendsToJson() { //TODO: add friends
+    public JSONArray friendsToJson() {
         JSONArray jsonArrayFriends = new JSONArray();
         for (String s : friends) {
             jsonArrayFriends.put(s);
