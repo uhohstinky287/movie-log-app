@@ -13,17 +13,19 @@ import java.awt.*;
 public class HomeTab extends Tab {
     private static final String INIT_GREETING = "Welcome to your movie log";
     private JLabel headerLabel;
+    private JLabel recentMoviesTitle;
     private Font headerFont = new Font("Roboto", Font.BOLD, 25);
     private Font subheaderFont = new Font("Roboto", Font.BOLD, 20);
     private MovieLogAppGUI  controller;
 
-    private JButton recentMovie1Button;
-    private JButton recentMovie2;
-    private JButton recentMovie3;
+    private JButton recentMovieButton1;
+    private JButton recentMovieButton2;
+    private JButton recentMovieButton3;
     private Border emptyBorder = BorderFactory.createEmptyBorder();
     private User user;
 
-    private Color colour;
+    private JPanel recentMoviesPanel;
+
 
 
     //constructor for home tabb
@@ -34,6 +36,7 @@ public class HomeTab extends Tab {
         this.user = controller.getUser();
         placeGreeting();
         placeHomeButtons();
+        addRefreshButton();
         if (controller.getUser().getTotalMoviesSeen() >= 3) {
             placeRecentMovies();
         }
@@ -68,52 +71,78 @@ public class HomeTab extends Tab {
 
     //EFFECTS: add recent movies
     private void placeRecentMovies() {
-        JLabel recentMoviesTitle = new JLabel("RECENT MOVIES");
+        recentMoviesTitle = new JLabel("RECENT MOVIES");
         recentMoviesTitle.setFont(subheaderFont);
-        recentMoviesTitle.setBounds(50, 250, 200, 35);
+        recentMoviesTitle.setBounds(230, 250, 200, 35);
 
-        Movie recentMovie1Movie = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 1));
-        recentMovie1Button = new JButton(getRecentMovieButtonLabel(recentMovie1Movie));
-        recentMovie1Button.setBounds(50, 300, 200, 25);
-        removeButtonBackground(recentMovie1Button);
-        initializeRecentMovieButton(recentMovie1Button, recentMovie1Movie);
+        recentMoviesPanel = new JPanel();
+        recentMoviesPanel.setBounds(50, 300, 500, 200);
+        recentMoviesPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 175, 30));
 
-        Movie recentMovie2Movie = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 2));
-        recentMovie2 = new JButton(getRecentMovieButtonLabel(recentMovie2Movie));
-        recentMovie2.setBounds(255, 300, 200,25);
-        removeButtonBackground(recentMovie2);
-        initializeRecentMovieButton(recentMovie2, recentMovie2Movie);
+        Movie recentMovie1 = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 1));
+        recentMovieButton1 = new JButton(getRecentMovieButtonLabel(recentMovie1));
+        removeButtonBackground(recentMovieButton1);
+        initializeRecentMovieButton(recentMovieButton1, recentMovie1);
 
-        Movie recentMovie3Movie = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 3));
-        recentMovie3 = new JButton(getRecentMovieButtonLabel(recentMovie3Movie));
-        recentMovie3.setBounds(460, 300, 200, 25);
-        removeButtonBackground(recentMovie3);
-        initializeRecentMovieButton(recentMovie3, recentMovie3Movie);
+        Movie recentMovie2 = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 2));
+        recentMovieButton2 = new JButton(getRecentMovieButtonLabel(recentMovie2));
+        removeButtonBackground(recentMovieButton2);
+        initializeRecentMovieButton(recentMovieButton2, recentMovie2);
+
+        Movie recentMovie3 = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 3));
+        recentMovieButton3 = new JButton(getRecentMovieButtonLabel(recentMovie3));
+        removeButtonBackground(recentMovieButton3);
+        initializeRecentMovieButton(recentMovieButton3, recentMovie3);
 
         this.add(recentMoviesTitle);
-        this.add(recentMovie1Button);
-        this.add(recentMovie2);
-        this.add(recentMovie3);
+        recentMoviesPanel.add(recentMovieButton1);
+        recentMoviesPanel.add(recentMovieButton2);
+        recentMoviesPanel.add(recentMovieButton3);
+        this.add(recentMoviesPanel);
     }
 
+    //EFFECTS: implements the logic for each recent Movie Button
     private void initializeRecentMovieButton(JButton recentMovie, Movie movie) {
         recentMovie.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, movie.movieDetailsWatched(controller.getUsername()));
         });
     }
 
+    //EFFECTS: returns the label for the movie from the given movie
     private String getRecentMovieButtonLabel(Movie movie) {
         return movie.getMovieName() + " (" + movie.getMovieYear() + ")";
     }
 
+    //EFFECTS: makes the button have no background
     private void removeButtonBackground(JButton button) {
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
     }
 
+    //EFFECT returns the movie from database from the given movie
     private Movie recMovie(Movie movie) {
         return controller.getDatabase().returnMovieFromDatabase(movie);
+    }
+
+
+    //EFFECTS: adds the refresh tab with its functionality
+    private void addRefreshButton() {
+        JButton refreshButton = new JButton("Refresh");
+        refreshButton.setBounds(230, 215, 140, 25);
+        this.add(refreshButton);
+        refreshButton.addActionListener(e -> {
+            if (controller.getUser().getTotalMoviesSeen() >= 3) {
+                if (recentMoviesPanel != null) {
+                    this.remove(recentMoviesPanel);
+                    this.remove(recentMoviesTitle);
+                    this.revalidate();
+                    this.repaint();
+                }
+                placeRecentMovies();
+            }
+        });
+
     }
 
 

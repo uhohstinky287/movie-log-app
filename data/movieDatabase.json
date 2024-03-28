@@ -73,5 +73,16 @@
         "director": "Geja falls in love in Maarho",
         "name": "ANGREJ",
         "description": "Simerjeet Singh"
+    },
+    {
+        "reviews": {"jugaadlally": {
+            "rating": 98,
+            "writtenReview": "Which one is which?",
+            "username": "jugaadlally"
+        }},
+        "year": 1966,
+        "director": "Three people try to find $200,000",
+        "name": "THE GOOD, THE BAD AND THE UGLY",
+        "description": "Sergio Leone"
     }
 ]}

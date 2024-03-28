@@ -1,5 +1,6 @@
 package ui.tabs;
 
+import model.Movie;
 import ui.*;
 
 import javax.swing.*;
@@ -41,24 +42,33 @@ public class MyMoviesTab extends Tab {
         this.add(headerLabel);
     }
 
-    //EFFECTS: creates a MyMoviesListPanel
+    //EFFECTS: places my movies with a flowlayout
     private void placeMyMovies() {
         myMoviesListPanel = new JPanel();
-        myMoviesListPanel.setLayout(new GridLayout(0,1));
         myMoviesListPanel.setBounds(40, 100, 600, 400);
-        myMoviesList = new JTextArea();
-        myMoviesList.setEditable(false);
-        myMoviesListPanel.add(new JScrollPane(myMoviesList), BorderLayout.CENTER);
+        myMoviesListPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
         if (controller.getUser().getTotalMoviesSeen() == 0) {
-            myMoviesListString = "You have not rated any movies yet";
+            placeEmptyMovies();
         } else {
-            myMoviesListString = controller.getUsername() + "'s Movies\t"
-                    + controller.getUser().viewMoviesNotEmpty(controller.getUsername());
+            for (Movie m : controller.getUser().getMyMovies()) {
+                JButton movieButton = new JButton(m.getMovieName() + " (" + m.getMovieYear() + ")");
+                movieButton.setOpaque(false);
+                movieButton.setContentAreaFilled(false);
+                movieButton.setBorderPainted(false);
+                movieButton.addActionListener(e -> {
+                    JOptionPane.showMessageDialog(this, m.movieDetailsWatched(controller.getUsername()));
+                });
+                myMoviesListPanel.add(movieButton);
+            }
         }
-        myMoviesList.setText(myMoviesListString);
         this.add(myMoviesListPanel);
         this.revalidate();
         this.repaint();
+    }
+
+    private void placeEmptyMovies() {
+        JLabel noMoviesLabel = new JLabel("You have not rated any movies yet");
+        myMoviesListPanel.add(noMoviesLabel);
     }
 
     //EFFECTS: places the refresh Button
@@ -75,13 +85,10 @@ public class MyMoviesTab extends Tab {
     //EFFECTS: implements the logic for the refresh button
     private void initializeRefreshButton(JButton refreshButton) {
         refreshButton.addActionListener(e -> {
-            if (controller.getUser().getTotalMoviesSeen() == 0) {
-                myMoviesListString = "You have not rated any movies yet";
-            } else {
-                myMoviesListString = controller.getUsername() + "'s Movies\t"
-                        + controller.getUser().viewMoviesNotEmpty(controller.getUsername());
-            }
-            myMoviesList.setText(myMoviesListString);
+            this.remove(myMoviesListPanel);
+            this.revalidate();
+            this.repaint();
+            placeMyMovies();
         });
     }
 
