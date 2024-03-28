@@ -113,7 +113,7 @@ public class SearchMoviesTab extends Tab {
             removeAllAdditionPanels(); //(4)
             if (controller.getUser().isMovieInMyMovieList(movie)) {
                 movieFromDatabase = controller.getDatabase().returnMovieFromDatabase(movie);
-                displayMovieWatched(movie); //(5)
+                displayMovieWatched(); //(5)
             } else {
                 if (controller.getDatabase().isMovieInDatabase(movie)) {
                     movieFromDatabase = controller.getDatabase().returnMovieFromDatabase(movie);
@@ -378,12 +378,12 @@ public class SearchMoviesTab extends Tab {
     }
 
     //EFFECTS: displays the details of a watched movie in the movieDetailsTextArea
-    private void displayMovieWatched(Movie movie) {
+    private void displayMovieWatched() {
         removeAllAdditionPanels();
         initializeMovieDetailsPanel();
         initializeWatchButtonPanel();
         String detailsWatched =
-                controller.getUser().isMovieInMyListReturnMovie(movie).movieDetailsWatched(controller.getUsername());
+                movieFromDatabase.movieDetailsWatched(controller.getUsername());
         movieDetailsTextArea.setText(detailsWatched);
         movieDetailsPanel.revalidate();
         movieDetailsPanel.repaint();

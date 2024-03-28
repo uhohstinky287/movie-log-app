@@ -66,6 +66,8 @@ public class MovieLogAppGUI {
     private static int FRAME_WIDTH = SCREEN_WIDTH - 10;
     private static int FRAME_HEIGHT = SCREEN_HEIGHT - 50;
 
+    private Color defaultColour;
+
     // runs the Movie Log App GUI
     public MovieLogAppGUI() throws FileNotFoundException {
         initializeApp();
@@ -144,6 +146,8 @@ public class MovieLogAppGUI {
         createAccountButton.setBounds(210, 180, 139, 25);
         forgotPasswordButton = new JButton("Forgot Password?");
         forgotPasswordButton.setBounds(75, 100, 140, 25);
+
+        defaultColour = startingMenuPanel.getBackground();
         addAllToStartingMenuPanel();
         loginScreenButtonsActions();
     }
@@ -388,5 +392,9 @@ public class MovieLogAppGUI {
 
     public UserDataStorage getAllUsers() {
         return allUsers;
+    }
+
+    public Color getDefaultColour() {
+        return defaultColour;
     }
 }

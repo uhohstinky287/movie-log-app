@@ -23,7 +23,6 @@ public class MyMoviesTab extends Tab {
     // constructor
     public MyMoviesTab(MovieLogAppGUI controller) {
         super(controller);
-//        setLayout(new GridLayout(3, 1));
         setLayout(null);
         this.controller = controller;
 

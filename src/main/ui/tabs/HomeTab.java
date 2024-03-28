@@ -1,9 +1,11 @@
 package ui.tabs;
 
 import model.Movie;
+import model.User;
 import ui.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 
@@ -15,9 +17,13 @@ public class HomeTab extends Tab {
     private Font subheaderFont = new Font("Roboto", Font.BOLD, 20);
     private MovieLogAppGUI  controller;
 
-    private JButton recentMovie1;
+    private JButton recentMovie1Button;
     private JButton recentMovie2;
     private JButton recentMovie3;
+    private Border emptyBorder = BorderFactory.createEmptyBorder();
+    private User user;
+
+    private Color colour;
 
 
     //constructor for home tabb
@@ -25,7 +31,7 @@ public class HomeTab extends Tab {
         super(controller);
         setLayout(null);
         this.controller = controller;
-
+        this.user = controller.getUser();
         placeGreeting();
         placeHomeButtons();
         if (controller.getUser().getTotalMoviesSeen() >= 3) {
@@ -66,23 +72,26 @@ public class HomeTab extends Tab {
         recentMoviesTitle.setFont(subheaderFont);
         recentMoviesTitle.setBounds(50, 250, 200, 35);
 
-        Movie recentMovie1Movie = controller.getUser().getMyMovies().get(controller.getUser().getTotalMoviesSeen() - 1);
-        recentMovie1 = new JButton(recentMovie1Movie.getMovieName() + " " + recentMovie1Movie.getMovieYear());
-        recentMovie1.setBounds(50, 300, 200, 25);
-        initializeRecentMovieButton(recentMovie1, recentMovie1Movie);
+        Movie recentMovie1Movie = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 1));
+        recentMovie1Button = new JButton(getRecentMovieButtonLabel(recentMovie1Movie));
+        recentMovie1Button.setBounds(50, 300, 200, 25);
+        removeButtonBackground(recentMovie1Button);
+        initializeRecentMovieButton(recentMovie1Button, recentMovie1Movie);
 
-        Movie recentMovie2Movie = controller.getUser().getMyMovies().get(controller.getUser().getTotalMoviesSeen() - 2);
-        recentMovie2 = new JButton(recentMovie2Movie.getMovieName() + " " + recentMovie2Movie.getMovieYear());
+        Movie recentMovie2Movie = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 2));
+        recentMovie2 = new JButton(getRecentMovieButtonLabel(recentMovie2Movie));
         recentMovie2.setBounds(255, 300, 200,25);
+        removeButtonBackground(recentMovie2);
         initializeRecentMovieButton(recentMovie2, recentMovie2Movie);
 
-        Movie recentMovie3Movie = controller.getUser().getMyMovies().get(controller.getUser().getTotalMoviesSeen() - 3);
-        recentMovie3 = new JButton(recentMovie3Movie.getMovieName() + " " + recentMovie3Movie.getMovieYear());
+        Movie recentMovie3Movie = recMovie(user.getMyMovies().get(user.getTotalMoviesSeen() - 3));
+        recentMovie3 = new JButton(getRecentMovieButtonLabel(recentMovie3Movie));
         recentMovie3.setBounds(460, 300, 200, 25);
+        removeButtonBackground(recentMovie3);
         initializeRecentMovieButton(recentMovie3, recentMovie3Movie);
 
         this.add(recentMoviesTitle);
-        this.add(recentMovie1);
+        this.add(recentMovie1Button);
         this.add(recentMovie2);
         this.add(recentMovie3);
     }
@@ -91,6 +100,20 @@ public class HomeTab extends Tab {
         recentMovie.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, movie.movieDetailsWatched(controller.getUsername()));
         });
+    }
+
+    private String getRecentMovieButtonLabel(Movie movie) {
+        return movie.getMovieName() + " (" + movie.getMovieYear() + ")";
+    }
+
+    private void removeButtonBackground(JButton button) {
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+    }
+
+    private Movie recMovie(Movie movie) {
+        return controller.getDatabase().returnMovieFromDatabase(movie);
     }
 
 
