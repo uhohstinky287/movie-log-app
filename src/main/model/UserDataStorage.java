@@ -55,6 +55,7 @@ public class UserDataStorage implements Writable {
     //EFFECTS: adds user to user database
     public void addUserToDatabase(User u) {
         allUsersMap.put(u.getUsername(), u);
+        EventLog.getInstance().logEvent(new Event(u.getUsername() + " added to database!"));
     }
 
 
@@ -66,6 +67,7 @@ public class UserDataStorage implements Writable {
         } else {
             addUserToDatabase(u);
         }
+        EventLog.getInstance().logEvent(new Event("User data overridden"));
     }
 
 

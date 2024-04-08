@@ -6,6 +6,7 @@ import ui.*;
 import javax.swing.*;
 import java.awt.*;
 
+//abstract class for all the Tabs
 public abstract class Tab extends JPanel {
 
     private final MovieLogAppGUI movieLogAppGui;

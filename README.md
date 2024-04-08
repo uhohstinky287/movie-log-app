@@ -45,4 +45,336 @@ as a friend. You can search my user "moviewatcher" to see theirs and add as a fr
 to see it. You can also remove a friend. search moviewatcher again, and this time a different button will appear.
 - Then you can go back to home and click save, then exit and then restart the app, login, and you'll see my 2nd image
 
-I used microsoft ai to create my images, and I used many tutorial from the youtube channel @alexlorenlee 
+I used microsoft ai to create my images, and I used many tutorials from the youtube channel @alexlorenlee 
+
+
+# Phase 4: Part 2
+
+the following is the log for when my database is loaded.
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+THE BATMAN added to database!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+BARBIE added to database!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for DUNE: PART TWO
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for DUNE: PART TWO
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+DUNE: PART TWO added to database!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for ANGREJ
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for ANGREJ
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+ANGREJ added to database!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for THE GOOD, THE BAD AND THE UGLY
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for THE GOOD, THE BAD AND THE UGLY
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+THE GOOD, THE BAD AND THE UGLY added to database!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Password set
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+BARBIE added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+saharah added as friend
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Password set
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+THE BATMAN added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+BARBIE added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for DUNE: PART TWO
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for DUNE: PART TWO
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+DUNE: PART TWO added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Password set
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+THE BATMAN added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for BARBIE
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+BARBIE added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for DUNE: PART TWO
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for DUNE: PART TWO
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+DUNE: PART TWO added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for THE GOOD, THE BAD AND THE UGLY
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for THE GOOD, THE BAD AND THE UGLY
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+THE GOOD, THE BAD AND THE UGLY added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Password set
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Password set
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for THE BATMAN
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+THE BATMAN added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+jugaadlally added as friend
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Password set
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added description for ANGREJ
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added director for ANGREJ
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Added written review!
+
+
+Sun Apr 07 18:27:25 PDT 2024
+ANGREJ added to personal list.
+
+
+Sun Apr 07 18:27:25 PDT 2024
+jugaadlally added as friend
+
+
+Sun Apr 07 18:27:25 PDT 2024
+Password set

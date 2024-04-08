@@ -72,11 +72,13 @@ public class Movie implements Writable {
 
     public void setMovieDescription(String movieDescription) {
         this.movieDescription = movieDescription;
+        EventLog.getInstance().logEvent(new Event("Added description for " + getMovieName()));
     }
 
 
     public void setDirector(String director) {
         this.director = director;
+        EventLog.getInstance().logEvent(new Event("Added director for " + getMovieName()));
     }
 
 

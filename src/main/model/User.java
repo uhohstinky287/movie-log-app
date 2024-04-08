@@ -51,6 +51,7 @@ public class User implements Writable {
 
     public void setPassword(String password) {
         this.password = password;
+        EventLog.getInstance().logEvent(new Event("Password set"));
     }
 
 
@@ -92,18 +93,21 @@ public class User implements Writable {
     //EFFECTS: adds a movie on the personal movie list
     public void addMovie(Movie movie) {
         myMovieList.add(movie);
+        EventLog.getInstance().logEvent(new Event(movie.getMovieName() + " added to personal list."));
     }
 
 
     //EFFECTS: adds a user to friend list
     public void addFriend(String friend) {
         friends.add(friend);
+        EventLog.getInstance().logEvent(new Event(friend + " added as friend"));
     }
 
     //REQUIRES: friends not empty
     //EFFECTS: removes a friend from friend list
     public void removeFriend(String friend) {
         friends.remove(friend);
+        EventLog.getInstance().logEvent(new Event(friend + " removed as friend"));
     }
 
 

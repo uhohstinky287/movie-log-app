@@ -6,6 +6,7 @@ import ui.MovieLogAppGUI;
 import javax.swing.*;
 import java.awt.*;
 
+//search movies screen
 public class SearchMoviesTab extends Tab {
 
     private Font headerFont = new Font("Roboto", Font.BOLD, 25);

@@ -49,6 +49,7 @@ public class MovieDatabase implements Writable {
     //EFFECTS: if the movie hasn't already been added, add to allMovies
     public void addMovieToDatabase(Movie m) {
         allMovies.add(m);
+        EventLog.getInstance().logEvent(new Event(m.getMovieName() + " added to database!"));
     }
 
 
@@ -70,6 +71,7 @@ public class MovieDatabase implements Writable {
     //EFFECTS: adds rating to movies totalRatings list
     public void addToAverageRating(Movie movie, Review r) {
         returnMovieFromDatabase(movie).addReview(r.getUsername(), r);
+        EventLog.getInstance().logEvent(new Event("Added review to " + movie.getMovieName()));
     }
 
     //EFFECTS: gets a movie from its title and year, then returns its average rating

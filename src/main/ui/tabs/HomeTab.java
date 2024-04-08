@@ -1,5 +1,6 @@
 package ui.tabs;
 
+import model.EventLog;
 import model.Movie;
 import model.User;
 import ui.*;
@@ -63,7 +64,7 @@ public class HomeTab extends Tab {
         b1.addActionListener(e -> controller.save());
         b2.addActionListener(e -> {
             headerLabel.setText("Goodbye!");
-            getController().exitAPP();
+            getController().exitAPP(EventLog.getInstance());
         });
         this.add(b1);
         this.add(b2);

@@ -36,10 +36,12 @@ public class Review implements Writable {
     //setters
     public void setRating(Integer r) {
         this.rating = r;
+        EventLog.getInstance().logEvent(new Event("added rating of " + r + "!"));
     }
 
     public void setWrittenReview(String wr) {
         this.writtenReview = wr;
+        EventLog.getInstance().logEvent(new Event("Added written review!"));
     }
 
 

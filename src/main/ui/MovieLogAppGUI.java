@@ -1,6 +1,7 @@
 package ui;
 
-
+import model.Event;
+import model.EventLog;
 import model.MovieDatabase;
 import model.User;
 import model.UserDataStorage;
@@ -15,6 +16,8 @@ import ui.tabs.ViewFriendsTab;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -118,13 +121,19 @@ public class MovieLogAppGUI {
     //EFFECTS: creates the starting screen
     private void startingFrame() {
         startingMenuFrame = new JFrame("Start App");
-        startingMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        startingMenuFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitAPP(EventLog.getInstance());
+            }
+        });
         startingMenuFrame.setSize(450, 250);
         startingMenuFrame.setLocationRelativeTo(null);
         initializeStartingMenuPanel();
         startingMenuFrame.add(startingMenuPanel);
         startingMenuFrame.setVisible(true);
     }
+
 
     //EFFECTS: creates startingMenuPanel
     private void initializeStartingMenuPanel() {
@@ -261,12 +270,17 @@ public class MovieLogAppGUI {
     }
 
 
-    //EFFECTS: removes the starting screen, creates the welcome back screen , then goes to home screen
+    //EFFECTS: removes the starting screen, creates the welcome back screen , then goes to the home screen
     private void welcomeBackScreen() {
         startingMenuFrame.dispose();
         startingMenuFrame.setVisible(false);
         JFrame welcomeBackFrame = new JFrame("Welcome Back");
-        welcomeBackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        welcomeBackFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitAPP(EventLog.getInstance());
+            }
+        });
         welcomeBackFrame.setSize(1000, 800);
         welcomeBackFrame.setLocationRelativeTo(null);
         JPanel welcomeBackPanel = new JPanel();
@@ -287,8 +301,13 @@ public class MovieLogAppGUI {
     private void creatingYourAccountScreen() {
         startingMenuFrame.dispose();
         startingMenuFrame.setVisible(false);
-        JFrame creatingYourAccountFrame = new JFrame("Welcome Back");
-        creatingYourAccountFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame creatingYourAccountFrame = new JFrame("Creating your account");
+        creatingYourAccountFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitAPP(EventLog.getInstance());
+            }
+        });
         creatingYourAccountFrame.setSize(1000, 800);
         creatingYourAccountFrame.setLocationRelativeTo(null);
         JPanel creatingYourAccountPanel = new JPanel();
@@ -311,7 +330,12 @@ public class MovieLogAppGUI {
     private void homeScreen() {
 
         userHomeFrame = new JFrame("Movie Log App");
-        userHomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        userHomeFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitAPP(EventLog.getInstance());
+            }
+        });
         userHomeFrame.setSize(800, 600);
         userHomeFrame.setLocationRelativeTo(null);
 
@@ -373,8 +397,11 @@ public class MovieLogAppGUI {
 
 
 
-    //EFFECTS: JUST FOR TESTING, exits app
-    public void exitAPP() {
+    //EFFECTS: prints event log and exits app
+    public void exitAPP(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString() + "\n\n");
+        }
         System.exit(0);
     }
 
@@ -392,9 +419,5 @@ public class MovieLogAppGUI {
 
     public UserDataStorage getAllUsers() {
         return allUsers;
-    }
-
-    public Color getDefaultColour() {
-        return defaultColour;
     }
 }
