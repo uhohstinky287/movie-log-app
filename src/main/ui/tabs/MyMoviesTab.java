@@ -15,9 +15,6 @@ public class MyMoviesTab extends Tab {
     private Font headerFont = new Font("Roboto", Font.BOLD, 25);
 
     private JPanel myMoviesListPanel;
-    private JTextArea myMoviesList;
-
-    private String myMoviesListString;
 
     private JButton refreshButton;
 

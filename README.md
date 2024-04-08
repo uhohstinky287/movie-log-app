@@ -378,3 +378,10 @@ jugaadlally added as friend
 
 Sun Apr 07 18:27:25 PDT 2024
 Password set
+
+# Phase 4: Task 3
+
+I potentially could have made the 2 Json Readers and Json Writers as one class. However, I kind of still don't
+know how I would do that. This would've greatly simplified my code, and just made it so much easier to
+understand. Also,  I could've made User and MovieDatabase call to an abstract class, since many of their methods, 
+especially dealing with adding movies are similar. This would've potentially reduced my code count to half.

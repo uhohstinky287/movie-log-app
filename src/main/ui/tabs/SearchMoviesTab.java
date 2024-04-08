@@ -33,15 +33,11 @@ public class SearchMoviesTab extends Tab {
 
     private MovieLogAppGUI controller;
 
-    private User user;
-    private MovieDatabase database;
     private Movie movieFromDatabase;
 
-    private String movieName;
     private Integer movieYear;
     private Integer userRating;
 
-    private Movie movieForSearch;
 
     private JPanel movieDetailsPanel; // Panel to display movie details
     private JPanel watchButtonPanel;

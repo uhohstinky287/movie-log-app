@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+//console based app
+
 public class MovieLogApp {
     private static final String JSON_MOVIES = "./data/movieDatabase.json";
     private static final String JSON_USERS = "./data/userDataStorage.json";

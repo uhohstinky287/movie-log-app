@@ -22,7 +22,7 @@ public class HomeTab extends Tab {
     private JButton recentMovieButton1;
     private JButton recentMovieButton2;
     private JButton recentMovieButton3;
-    private Border emptyBorder = BorderFactory.createEmptyBorder();
+
     private User user;
 
     private JPanel recentMoviesPanel;

@@ -5,10 +5,7 @@ import model.EventLog;
 import model.MovieDatabase;
 import model.User;
 import model.UserDataStorage;
-import persistence.JsonReaderMovieDatabase;
-import persistence.JsonReaderUserDataStorage;
-import persistence.JsonWriterMovieDatabase;
-import persistence.JsonWriterUserDataStorage;
+import persistence.*;
 import ui.tabs.HomeTab;
 import ui.tabs.MyMoviesTab;
 import ui.tabs.SearchMoviesTab;
@@ -21,6 +18,7 @@ import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+//swing based gui
 public class MovieLogAppGUI {
 
     private User user;
@@ -265,7 +263,6 @@ public class MovieLogAppGUI {
         returnToStartingScreenButton.addActionListener(e -> {
             startingMenuFrame.dispose();
             startingFrame();
-
         });
     }
 
