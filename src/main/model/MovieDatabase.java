@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.*;
-
+//
 // Represents a list of all the movies ever entered
 public class MovieDatabase implements Writable {
     private ArrayList<Movie> allMovies;
